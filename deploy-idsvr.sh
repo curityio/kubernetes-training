@@ -55,14 +55,14 @@ then
 fi
 
 #
-# The simple option is to then just run the Helm Chart
-# We will instead show how to extract yaml and apply it manually
+# The simple option is to then just run the Helm Chart as follows:
+# - helm uninstall curity  2>/dev/null
 # - helm install curity curity/idsvr --values=idsvr/helm-values.yaml
 #
 
 #
-# We will show how to get the complete Kubernetes YAML used when deploying the Identity Server
-# This produces an idsvr-helm.yaml file that could then be customized further
+# We will instead show how to get the complete Kubernetes YAML for the Identity Server
+# This produces an idsvr-helm.yaml file that could be customized further
 #
 HELM_FOLDER=~/tmp/idsvr-helm
 rm -rf $HELM_FOLDER
@@ -76,9 +76,7 @@ then
 fi
 
 #
-# Apply the YAML to deploy the system, though you may prefer to just run the Helm chart directly
-# - helm uninstall curity  2>/dev/null
-# - helm install curity curity/idsvr --values=idsvr/helm-values.yaml
+# Apply the YAML to deploy the system
 #
 kubectl delete -f idsvr/idsvr-helm.yaml 2>/dev/null
 kubectl apply -f idsvr/idsvr-helm.yaml
