@@ -23,9 +23,9 @@ Once complete you will have a fully working system including:
 - A SCIM 2.0 endpoint for managing user data
 - A working [End to End Code Sample](https://login.curitylocal.io/demo-client.html)
 
-## Further Details
+## Technical Walkthrough
 
-See the [Kubernetes Quick Start HOWTO Article](https://curity.io/resources/learn/kubernetes-quick-start) for a technical walkthrough.
+See the [Kubernetes Quick Start HOWTO Article](https://curity.io/resources/learn/kubernetes-quick-start) for a walkthrough and how to use the system. 
 
 ## More Information
 
