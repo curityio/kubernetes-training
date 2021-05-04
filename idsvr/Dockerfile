@@ -19,7 +19,7 @@ COPY idsvr/log4j2.xml /opt/idsvr/etc/
 COPY haapi-web-example/* /opt/idsvr/usr/share/webroot/
 
 # Extra tools - for development troubleshooting only
-USER root
-RUN apt-get update
-RUN apt-get install curl -y
-USER idsvr
+#USER root
+#RUN apt-get update
+#RUN apt-get install curl -y
+#USER idsvr

@@ -1,6 +1,34 @@
 ## Overview
 
-Training on Kubernetes deployment, to accompany articles on the Curity Web Site.
+A reference Kubernetes deployment of the Curity Identity Server, for demo purposes.\
+For full details see the [Kubernetes Quick Start HOWTO Document](https://curity.io/resources/learn/kubernetes-quick-start).
 
-## Quick Start Demo
-See the [Kubernetes Articles](https://bitbucket.org/curity/curity-website/pull-requests/1672/wip-kubernetes-article-do-not-merge) for further details.
+## Install the System
+
+First install prerequisites including minikube, then run these scripts in sequence:
+
+```bash
+./createCluster.sh
+./deploy-mysql.sh
+./deploy-idsvr.sh
+```
+
+## Use the System
+
+Once complete you will have a fully working system including:
+
+- [OAuth and OpenID Connect Endpoints](https://login.curitylocal.io/oauth/v2/oauth-anonymous/.well-known/openid-configuration) used by applications
+- A rich [Admin UI](https://admin.curitylocal.io/admin) for configuring system behavior
+- A SQL database with which to query users, tokens and audit data
+- A SCIM 2.0 endpoint for managing user data
+- A working [End to End Code Sample](https://login.curitylocal.io/demo-client.html)
+
+## Further Details
+
+See the [Kubernetes Quick Start HOWTO Article](https://curity.io/resources/learn/kubernetes-quick-start) for a technical walkthrough
+
+## More Information
+
+Please visit [curity.io](https://curity.io/) for more information about the Curity Identity Server.
+
+

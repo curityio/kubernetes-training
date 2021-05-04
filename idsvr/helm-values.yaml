@@ -89,8 +89,7 @@ curity:
     configurationSecret:
     configurationSecretItemName:
 
-# We will expose the Curity Identity Server using HTTP and port 80
-# In production setups, HTTPS and port 443 can be used if a Kubernetes secret is supplied
+# We will expose the Curity Identity Server using HTTPS and port 443
 ingress:
   enabled: true
   annotations:
