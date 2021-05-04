@@ -9,8 +9,8 @@
 #
 # Point to our minikube profile
 #
-eval $(minikube docker-env --profile example)
-minikube profile example
+eval $(minikube docker-env --profile curity)
+minikube profile curity
 if [ $? -ne 0 ];
 then
   echo "Minikube problem encountered - please ensure that the service is started"
@@ -44,7 +44,7 @@ fi
 
 #
 # Once the pod comes up we can connect to it as follows from the MacBook, if MySql is installed:
-# - mysql -h $(minikube ip --profile example) -P 30306 -D idsvr -u root -pPassword1
+# - mysql -h $(minikube ip --profile curity) -P 30306 -D idsvr -u root -pPassword1
 #
 # From Curity containers inside the cluster we can use the following command:
 # - mysql -h mysql-svc -P 3306 -D idsvr -u root -pPassword1

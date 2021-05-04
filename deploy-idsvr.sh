@@ -7,8 +7,8 @@
 #
 # Point to the minikube profile
 #
-eval $(minikube docker-env --profile example)
-minikube profile example
+eval $(minikube docker-env --profile curity)
+minikube profile curity
 if [ $? -ne 0 ];
 then
   echo "Minikube problem encountered - please ensure that the service is started"
@@ -91,11 +91,11 @@ fi
 #
 # Once the pods come up we can call them over these URLs externally:
 #
-# - curl -u 'admin:Password1' 'https://admin.example.com/admin/api/restconf/data?depth=unbounded&content=config'
-# - curl 'https://login.example.com/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
+# - curl -u 'admin:Password1' 'https://admin.curitylocal.io/admin/api/restconf/data?depth=unbounded&content=config'
+# - curl 'https://login.curitylocal.io/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
 #
 # Inside the cluster we can use these URLs: 
 #
-# curl -u 'admin:Password1' 'http://curity-idsvr-admin-svc:6749/admin/api/restconf/data?depth=unbounded&content=config'
+# curl -u 'admin:Password1' 'https://curity-idsvr-admin-svc:6749/admin/api/restconf/data?depth=unbounded&content=config'
 # curl -k 'https://curity-idsvr-runtime-svc:8443/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
 #

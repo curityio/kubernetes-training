@@ -1,6 +1,6 @@
 #
 # A basic Kubernetes deployment file for MySql that avoids persistent storage for simplicity
-# If required, expose the service via port 30306
+# For demo purposes we also expose the service via port 30306
 #
 
 kind: Service

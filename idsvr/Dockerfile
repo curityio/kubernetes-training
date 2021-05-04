@@ -2,7 +2,7 @@
 # A development custom docker image for getting started
 #
 # After building, files in the image can be viewed via the below commands:
-# - eval $(minikube docker-env --profile example)
+# - eval $(minikube docker-env --profile curity)
 # - docker run -it custom_idsvr:6.1.0 bash
 #
 

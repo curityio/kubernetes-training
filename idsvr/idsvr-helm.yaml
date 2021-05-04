@@ -413,20 +413,20 @@ metadata:
 spec:
   tls:
     - hosts:
-        - admin.example.com
-      secretName: example-com-tls
+        - admin.curitylocal.io
+      secretName: curitylocal-io-tls
     - hosts:
-        - login.example.com
-      secretName: example-com-tls
+        - login.curitylocal.io
+      secretName: curitylocal-io-tls
   rules:
-    - host: login.example.com
+    - host: login.curitylocal.io
       http:
         paths:
           - path: /
             backend:
               serviceName: curity-idsvr-runtime-svc
               servicePort: http-port
-    - host: admin.example.com
+    - host: admin.curitylocal.io
       http:
         paths:
           - path: /

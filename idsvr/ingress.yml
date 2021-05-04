@@ -1,0 +1,45 @@
+#
+# I had to implement this hack to deploy this ingress
+# https://stackoverflow.com/questions/61365202/nginx-ingress-service-ingress-nginx-controller-admission-not-found
+# kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+#
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: curity-admin-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/secure-backends: 'true'
+    nginx.ingress.kubernetes.io/backend-protocol: 'HTTPS'
+spec:
+  rules:
+    - host: admin.curitylocal.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: curity-idsvr-admin-svc
+                port:
+                  number: 6749
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: curity-runtime-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/secure-backends: 'true'
+    nginx.ingress.kubernetes.io/backend-protocol: 'HTTPS'
+spec:
+  rules:
+    - host: login.curitylocal.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: curity-idsvr-runtime-svc
+                port:
+                  number: 8443

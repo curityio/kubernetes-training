@@ -7,7 +7,7 @@
 #
 # Create or start the cluster
 #
-minikube start --cpus=2 --memory=8192 --disk-size=50g --profile example
+minikube start --cpus=2 --memory=8192 --disk-size=50g --profile curity
 if [ $? -ne 0 ];
 then
   echo "Minikube start problem encountered"
@@ -17,7 +17,7 @@ fi
 #
 # Ensure that components can be exposed from the cluster over port 443 to the developer machine
 #
-minikube addons enable ingress --profile example
+minikube addons enable ingress --profile curity
 if [ $? -ne 0 ]
 then
   echo "*** Problem encountered enabling the ingress addon for the cluster ***"
@@ -25,10 +25,10 @@ then
 fi
 
 #
-# Create a secret for the SSL wildcard certificate for *.example.com
+# Create a secret for the SSL wildcard certificate for *.curitylocal.io
 #
-kubectl delete secret example-com-tls 2>/dev/null
-kubectl create secret tls example-com-tls --cert=./certs/example.com.ssl.pem --key=./certs/example.com.ssl.key
+kubectl delete secret curitylocal-io-tls 2>/dev/null
+kubectl create secret tls curitylocal-io-tls --cert=./certs/curitylocal.io.ssl.pem --key=./certs/curitylocal.io.ssl.key
 if [ $? -ne 0 ]
 then
   echo "*** Problem encountered creating the secret for the ingress SSL certificate ***"
@@ -37,6 +37,6 @@ fi
 
 #
 # Free memory by stopping the profile or delete the profile permanently if you prefer
-# - minikube stop --profile example
-# - minikube delete --profile example
+# - minikube stop --profile curity
+# - minikube delete --profile curity
 #

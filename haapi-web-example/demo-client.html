@@ -88,7 +88,7 @@
                             URL</label>
                         <input type="text" id="oauth-authorize-url" class="siimple-input siimple-input--fluid"
                                placeholder="https://oauth/authorize"
-                               value="https://login.example.com/oauth/v2/oauth-authorize?client_id=haapi-web-client&response_type=code&scope=read&state=foo&redirect_uri=https://localhost:7777/callback">
+                               value="https://login.curitylocal.io/oauth/v2/oauth-authorize?client_id=haapi-web-client&response_type=code&scope=read&state=foo&redirect_uri=https://localhost:7777/callback">
                     </div>
                     <div class="siimple-form-field">
                         <div class="siimple-btn siimple-btn--primary" id="start-submit-button"
@@ -210,9 +210,9 @@ the @curity/identityserver-haapi-web-driver NPM package, either by bundling or d
         })
 
         return {
-            authorizationRequest: `https://login.example.com/oauth/v2/oauth-authorize?${params}`,
+            authorizationRequest: `https://login.curitylocal.io/oauth/v2/oauth-authorize?${params}`,
             haapiClientId,
-            tokenEndpoint: 'https://login.example.com/oauth/v2/oauth-token'
+            tokenEndpoint: 'https://login.curitylocal.io/oauth/v2/oauth-token'
         }
     }
 

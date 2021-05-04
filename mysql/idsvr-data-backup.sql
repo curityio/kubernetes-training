@@ -45,7 +45,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES ('2b4e9b2c-a866-11eb-99a9-0242ac110006','john.doe','$5$rounds=20000$AMi1cfojLjXOvMry$HtK6nfy7tfSmI.OmnXs9tBrliSTF4MZYsEfO/WnXAx0','john.doe@company.com',NULL,'{\"name\": {\"givenName\": \"John\", \"familyName\": \"Doe\"}, \"emails\": [{\"value\": \"john.doe@company.com\", \"primary\": true}], \"agreeToTerms\": \"on\", \"urn:se:curity:scim:2.0:Devices\": []}',1,1619644233,1619644233);
+INSERT INTO `accounts` VALUES ('2b4e9b2c-a866-11eb-99a9-0242ac110006','john.doe','$5$rounds=20000$AMi1cfojLjXOvMry$HtK6nfy7tfSmI.OmnXs9tBrliSTF4MZYsEfO/WnXAx0','john.doe@curitylocal.com',NULL,'{\"name\": {\"givenName\": \"John\", \"familyName\": \"Doe\"}, \"emails\": [{\"value\": \"john.doe@curitylocal.com\", \"primary\": true}], \"agreeToTerms\": \"on\", \"urn:se:curity:scim:2.0:Devices\": []}',1,1619644233,1619644233);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
