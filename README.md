@@ -5,7 +5,7 @@ For full details see the [Kubernetes Quick Start HOWTO Document](https://curity.
 
 ## Install the System
 
-First install prerequisites including minikube, then run these scripts in sequence:
+First install prerequisites including [minikube](https://minikube.sigs.k8s.io/docs/start/), then run these scripts in sequence:
 
 ```bash
 ./createCluster.sh
@@ -25,7 +25,7 @@ Once complete you will have a fully working system including:
 
 ## Further Details
 
-See the [Kubernetes Quick Start HOWTO Article](https://curity.io/resources/learn/kubernetes-quick-start) for a technical walkthrough
+See the [Kubernetes Quick Start HOWTO Article](https://curity.io/resources/learn/kubernetes-quick-start) for a technical walkthrough.
 
 ## More Information
 
