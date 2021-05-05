@@ -1,11 +1,16 @@
 ## Overview
 
-A reference Kubernetes deployment of the Curity Identity Server, for demo purposes.\
-For full details see the [Kubernetes Quick Start HOWTO Document](https://curity.io/resources/learn/kubernetes-quick-start).
+An end to end Kubernetes deployment of the Curity Identity Server, for demo purposes.\
+For a walkthrough see the [Kubernetes Quick Start HOWTO Document](https://curity.io/resources/learn/kubernetes-quick-start).
+
+## Prepare the Installation
+
+First install prerequisites including [minikube](https://minikube.sigs.k8s.io/docs/start/).
+Then add a license file to the backed up configuration.
 
 ## Install the System
 
-First install prerequisites including [minikube](https://minikube.sigs.k8s.io/docs/start/), then run these scripts in sequence:
+Then run these scripts in sequence:
 
 ```bash
 ./create-certs.sh
@@ -23,10 +28,6 @@ Once complete you will have a fully working system including:
 - A SQL database with which to query users, tokens and audit information
 - A SCIM 2.0 endpoint for managing user data
 - A working [End to End Code Sample](https://login.curity.local/demo-client.html)
-
-## Technical Walkthrough
-
-See the [Kubernetes Quick Start HOWTO Article](https://curity.io/resources/learn/kubernetes-quick-start) for a walkthrough and how to use the system. 
 
 ## More Information
 
