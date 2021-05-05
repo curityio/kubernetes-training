@@ -26,7 +26,7 @@ Once complete you will have a fully working system including:
 - [OAuth and OpenID Connect Endpoints](https://login.curity.local/oauth/v2/oauth-anonymous/.well-known/openid-configuration) used by applications
 - A rich [Admin UI](https://admin.curity.local/admin) for configuring applications and their security behavior
 - A SQL database with which to query users, tokens and audit information
-- A SCIM 2.0 endpoint for managing user data
+- A [SCIM 2.0 API](https://login.curity.local/user-management/admin) for managing user data
 - A working [End to End Code Sample](https://login.curity.local/demo-client.html)
 
 ## More Information
