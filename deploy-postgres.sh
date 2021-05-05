@@ -49,15 +49,3 @@ fi
 # From Curity containers inside the cluster we can connect via the following command:
 # - export PGPASSWORD=Password1 && psql -p 5432 -d idsvr -U postgres
 #
-
-#
-# Install psql on the host
-# - brew install psql
-#
-# Then add this to the PATH environment variable:
-# - /usr/local/Cellar/libpq/13.2/bin
-#
-# Then backup the database in a basic way like this:
-# - POSTGRES_POD=$(kubectl get pods -o=name | grep postgres)
-# - kubectl exec -it $POSTGRES_POD -- bash -c "export PGPASSWORD=Password1 && pg_dump -U postgres -d idsvr" > ./postgres/idsvr-data-backup.sql
-# 
