@@ -8,6 +8,7 @@
 # Fail on first error
 #
 set -e
+cd certs
 
 #
 # Point to the OpenSsl configuration file for the platform

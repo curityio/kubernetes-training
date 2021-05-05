@@ -8,6 +8,7 @@ For full details see the [Kubernetes Quick Start HOWTO Document](https://curity.
 First install prerequisites including [minikube](https://minikube.sigs.k8s.io/docs/start/), then run these scripts in sequence:
 
 ```bash
+./make-certs.sh
 ./create-cluster.sh
 ./deploy-mysql.sh
 ./deploy-idsvr.sh
