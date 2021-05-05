@@ -13,7 +13,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: 'HTTPS'
 spec:
   rules:
-    - host: admin.curitylocal.io
+    - host: admin.curity.local
       http:
         paths:
           - path: /
@@ -33,7 +33,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: 'HTTPS'
 spec:
   rules:
-    - host: login.curitylocal.io
+    - host: login.curity.local
       http:
         paths:
           - path: /

@@ -89,8 +89,8 @@ fi
 #
 # Once the pods come up we can call them over these URLs externally:
 #
-# - curl -u 'admin:Password1' 'https://admin.curitylocal.io/admin/api/restconf/data?depth=unbounded&content=config'
-# - curl 'https://login.curitylocal.io/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
+# - curl -u 'admin:Password1' 'https://admin.curity.local/admin/api/restconf/data?depth=unbounded&content=config'
+# - curl 'https://login.curity.local/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
 #
 # Inside the cluster we can use these URLs: 
 #

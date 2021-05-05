@@ -25,10 +25,10 @@ then
 fi
 
 #
-# Create a secret for the SSL wildcard certificate for *.curitylocal.io
+# Create a secret for the SSL wildcard certificate for *.curity.local
 #
-kubectl delete secret curitylocal-io-tls 2>/dev/null
-kubectl create secret tls curitylocal-io-tls --cert=./certs/curitylocal.io.ssl.pem --key=./certs/curitylocal.io.ssl.key
+kubectl delete secret curity-local-tls 2>/dev/null
+kubectl create secret tls curity-local-tls --cert=./certs/curity.local.ssl.pem --key=./certs/curity.local.ssl.key
 if [ $? -ne 0 ]
 then
   echo "*** Problem encountered creating the secret for the ingress SSL certificate ***"

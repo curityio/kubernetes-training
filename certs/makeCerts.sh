@@ -29,15 +29,15 @@ esac
 #
 # Root certificate parameters
 #
-ROOT_CERT_FILE_PREFIX='curitylocal.io.ca'
-ROOT_CERT_DESCRIPTION='Self Signed CA for curitylocal.io'
+ROOT_CERT_FILE_PREFIX='curity.local.ca'
+ROOT_CERT_DESCRIPTION='Self Signed CA for curity.local'
 
 #
 # SSL certificate parameters
 #
-SSL_CERT_FILE_PREFIX='curitylocal.io.ssl'
+SSL_CERT_FILE_PREFIX='curity.local.ssl'
 SSL_CERT_PASSWORD='Password1'
-WILDCARD_DOMAIN_NAME='*.curitylocal.io'
+WILDCARD_DOMAIN_NAME='*.curity.local'
 
 #
 # Create the root certificate public + private key protected by a passphrase
