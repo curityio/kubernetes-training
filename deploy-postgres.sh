@@ -3,7 +3,7 @@
 #####################################################################################
 # Deploy a basic Postgres instance without any persistent volumes
 # The Curity Identity Server will connect to it via this JDBC URL inside the cluster:
-# - jdbc:postgres://postgres-svc/idsvr?serverTimezone=Europe/Stockholm
+# - jdbc:postgresql://postgres-svc/idsvr?serverTimezone=Europe/Stockholm
 #####################################################################################
 
 #
@@ -43,9 +43,21 @@ then
 fi
 
 #
-# Once the pod comes up we can connect to it as follows from the MacBook, if a PostgreSql client is installed:
-# - psql -h $(minikube ip --profile curity) -p 30432 -d idsvr -U root -pPassword1
+# Once the pod comes up we can connect to it as follows from the MacBook, if a PostgreSQL client is installed:
+# - export PGPASSWORD=Password1 && psql -h $(minikube ip --profile curity) -p 30432 -d idsvr -U postgres
 #
-# From Curity containers inside the cluster we can use the following command:
-# - psql -h postgres-svc -p 5432 -d idsvr -U root -pPassword1
+# From Curity containers inside the cluster we can connect via the following command:
+# - export PGPASSWORD=Password1 && psql -p 5432 -d idsvr -U postgres
 #
+
+#
+# Install psql on the host
+# - brew install psql
+#
+# Then add this to the PATH environment variable:
+# - /usr/local/Cellar/libpq/13.2/bin
+#
+# Then backup the database in a basic way like this:
+# - POSTGRES_POD=$(kubectl get pods -o=name | grep postgres)
+# - kubectl exec -it $POSTGRES_POD -- bash -c "export PGPASSWORD=Password1 && pg_dump -U postgres -d idsvr" > ./postgres/idsvr-data-backup.sql
+# 

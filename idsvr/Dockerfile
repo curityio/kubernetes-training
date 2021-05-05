@@ -9,9 +9,6 @@
 # Get the base image
 FROM curity.azurecr.io/curity/idsvr:6.1.0
 
-# The MYSQL driver, extracted from the platform independent tar file: https://dev.mysql.com/downloads/connector/j
-COPY idsvr/mysql-connector-java-8.0.22.jar /opt/idsvr/lib/plugins/data.access.jdbc
-
 # Copy in a log file with a root logger of INFO level - or increase to DEBUG when required
 COPY idsvr/log4j2.xml /opt/idsvr/etc/
 

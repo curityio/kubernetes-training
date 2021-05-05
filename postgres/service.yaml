@@ -1,6 +1,6 @@
 #
 # A basic Kubernetes deployment file for PostgreSQL that avoids persistent storage for simplicity
-# For demo purposes we also expose the service via port 30306
+# For demo purposes we also expose the service via port 30432
 #
 
 kind: Service
@@ -37,9 +37,11 @@ spec:
         - name: postgres
           image: custom_postgres:13.2
           env:
+            - name: POSTGRES_USER
+              value: postgres
             - name: POSTGRES_PASSWORD
               value: Password1
-            - name: POSTGRES_DATABASE
+            - name: POSTGRES_DB
               value: idsvr
           ports:
             - containerPort: 5432
