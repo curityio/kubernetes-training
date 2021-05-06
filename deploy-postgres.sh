@@ -23,17 +23,13 @@ fi
 kubectl delete -f postgres/service.yaml 2>/dev/null
 
 #
-# Build a custom docker image containing backed up data
+# Copy in the init script to restore data, which includes our test user account
 #
-docker build -f postgres/Dockerfile -t custom_postgres:13.2 .
-if [ $? -ne 0 ];
-then
-  echo "Problem encountered building the custom PostgreSQL docker image"
-  exit 1
-fi
+kubectl delete configmap init-script-configmap 2>/dev/null
+kubectl create configmap init-script-configmap --from-file='./postgres/idsvr-data-backup.sql'
 
 #
-# Deploy the postgres instance
+# Deploy a postgres instance
 #
 kubectl apply -f postgres/service.yaml
 if [ $? -ne 0 ];
