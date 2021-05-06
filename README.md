@@ -13,7 +13,6 @@ Then add a license file to the backed up configuration.
 Then run these scripts in sequence:
 
 ```bash
-./create-certs.sh
 ./create-cluster.sh
 ./deploy-postgres.sh
 ./deploy-idsvr.sh
