@@ -2,6 +2,9 @@
 
 ###############################################################
 # A script to create a Minikube cluster on a standalone machine
+# First install minikube and run one of the following commands:
+# - minikube config set driver hyperkit
+# - minikube config set driver hyperv
 ###############################################################
 
 #
@@ -21,17 +24,6 @@ minikube addons enable ingress --profile curity
 if [ $? -ne 0 ]
 then
   echo "*** Problem encountered enabling the ingress addon for the cluster ***"
-  exit 1
-fi
-
-#
-# Create a secret for the SSL wildcard certificate for *.curity.local
-#
-kubectl delete secret curity-local-tls 2>/dev/null
-kubectl create secret tls curity-local-tls --cert=./certs/curity.local.ssl.pem --key=./certs/curity.local.ssl.key
-if [ $? -ne 0 ]
-then
-  echo "*** Problem encountered creating the secret for the ingress SSL certificate ***"
   exit 1
 fi
 

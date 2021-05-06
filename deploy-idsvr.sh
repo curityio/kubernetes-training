@@ -59,8 +59,6 @@ fi
 # - helm uninstall curity  2>/dev/null
 # - helm install curity curity/idsvr --values=idsvr/helm-values.yaml
 #
-
-#
 # We will instead show how to get the complete Kubernetes YAML for the Identity Server
 # This produces an idsvr-helm.yaml file that could be customized further
 #
@@ -89,11 +87,11 @@ fi
 #
 # Once the pods come up we can call them over these URLs externally:
 #
-# - curl -u 'admin:Password1' 'https://admin.curity.local/admin/api/restconf/data?depth=unbounded&content=config'
-# - curl 'https://login.curity.local/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
+# - curl -u 'admin:Password1' 'http://admin.curity.local/admin/api/restconf/data?depth=unbounded&content=config'
+# - curl 'http://login.curity.local/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
 #
 # Inside the cluster we can use these URLs: 
 #
-# curl -u 'admin:Password1' 'https://curity-idsvr-admin-svc:6749/admin/api/restconf/data?depth=unbounded&content=config'
-# curl -k 'https://curity-idsvr-runtime-svc:8443/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
+# curl -u 'admin:Password1' 'http://curity-idsvr-admin-svc:6749/admin/api/restconf/data?depth=unbounded&content=config'
+# curl -k 'http://curity-idsvr-runtime-svc:8443/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
 #

@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: custom_postgres:13.2
+          image: postgres:13.2
           env:
             - name: POSTGRES_USER
               value: postgres
