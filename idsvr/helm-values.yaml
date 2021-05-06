@@ -81,7 +81,7 @@ curity:
   config:
     uiEnabled: true
     backup: false
-    password:
+    password: Password1
     encryptionKey:
     environmentVariableSecret:
     configurationConfigMap: idsvr-configmap
