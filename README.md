@@ -4,9 +4,16 @@ An end to end Kubernetes deployment of the Curity Identity Server, for demo purp
 For a walkthrough see the [Kubernetes Quick Start HOWTO Document](https://curity.io/resources/learn/kubernetes-quick-start).
 
 ## Prepare the Installation
+The system can be deployed on a MacOS or Windows workstation via bash scripts, and has the following prerequisites.
 
-First install prerequisites including [minikube](https://minikube.sigs.k8s.io/docs/start/).
-Then add a license file to the backed up configuration.
+* [Docker Desktop](https://www.docker.com/products/docker-desktop)
+* [Minikube](https://minikube.sigs.k8s.io/docs/start)
+* [Helm](https://helm.sh/docs/intro/install/)
+
+Make sure you have the prerequisites installed.
+
+Then copy a license file to `idsvr/license.json`. **Note**, there is a known issue when loading the license during startup. To solve the issue rename the attribute `License` in `license.json` to "Licence".
+You can retrieve the license from [Curity Developer Portal](https://developer.curity.io)
 
 ## Install the System
 

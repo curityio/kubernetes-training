@@ -72,6 +72,7 @@ then
   echo "Problem encountered creating Kubernetes YAML from the Identity Server Helm Chart"
   exit 1
 fi
+rm -rf $HELM_FOLDER
 
 #
 # Apply the YAML to deploy the system
@@ -90,7 +91,7 @@ fi
 # - curl -u 'admin:Password1' 'http://admin.curity.local/admin/api/restconf/data?depth=unbounded&content=config'
 # - curl 'http://login.curity.local/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
 #
-# Inside the cluster we can use these URLs: 
+# Inside the cluster we can use these URLs:
 #
 # curl -u 'admin:Password1' 'http://curity-idsvr-admin-svc:6749/admin/api/restconf/data?depth=unbounded&content=config'
 # curl -k 'http://curity-idsvr-runtime-svc:8443/oauth/v2/oauth-anonymous/.well-known/openid-configuration'

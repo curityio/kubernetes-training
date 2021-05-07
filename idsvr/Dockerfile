@@ -15,6 +15,9 @@ COPY idsvr/log4j2.xml /opt/idsvr/etc/
 # Copy the HAAPI web sample to the root web folder of runtime nodes
 COPY haapi-web-example/* /opt/idsvr/usr/share/webroot/
 
+# Copy the license to load at startup
+COPY idsvr/license.json /opt/idsvr/etc/init/license/
+
 # Extra tools - for development troubleshooting only
 USER root
 RUN apt-get update
