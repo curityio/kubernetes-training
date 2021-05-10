@@ -25,6 +25,24 @@ Then run these scripts in sequence:
 ./deploy-idsvr.sh
 ```
 
+### Configure Local Domain Names
+
+The demo system uses "external URLs" that you have to add to the hosts file.
+
+1. Get the IP address of the minikube virtual machine
+1. Update the system hosts file
+
+```bash
+minikube ip --profile curity
+```
+
+Use the IP address from the output to resolve the following domain names in the system hosts file:
+
+```
+192.168.64.3  login.curity.local
+192.168.64.3  admin.curity.local
+```
+
 ## Use the System
 
 Once complete you will have a fully working system including:
