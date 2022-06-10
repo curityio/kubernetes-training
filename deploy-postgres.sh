@@ -11,8 +11,7 @@
 #
 eval $(minikube docker-env --profile curity)
 minikube profile curity
-if [ $? -ne 0 ];
-then
+if [ $? -ne 0 ]; then
   echo "Minikube problem encountered - please ensure that the service is started"
   exit 1
 fi
@@ -32,8 +31,7 @@ kubectl create configmap init-script-configmap --from-file='./postgres/idsvr-dat
 # Deploy a postgres instance
 #
 kubectl apply -f postgres/service.yaml
-if [ $? -ne 0 ];
-then
+if [ $? -ne 0 ]; then
   echo "Problem encountered deploying the PostgreSQL service"
   exit 1
 fi

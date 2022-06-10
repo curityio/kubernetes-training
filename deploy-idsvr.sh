@@ -17,8 +17,7 @@ fi
 #
 eval $(minikube docker-env --profile curity)
 minikube profile curity
-if [ $? -ne 0 ];
-then
+if [ $? -ne 0 ]; then
   echo "Minikube problem encountered - please ensure that the service is started"
   exit 1
 fi
@@ -33,9 +32,8 @@ cp ./hooks/pre-commit ./.git/hooks
 #
 # Build a custom docker image with some extra resources
 #
-docker build -f idsvr/Dockerfile -t custom_idsvr:6.5.0 .
-if [ $? -ne 0 ];
-then
+docker build -f idsvr/Dockerfile -t custom_idsvr:7.1.0 .
+if [ $? -ne 0 ]; then
   echo "Problem encountered building the Identity Server custom docker image"
   exit 1
 fi
@@ -50,8 +48,7 @@ kubectl delete -f idsvr/idsvr.yaml 2>/dev/null
 #
 kubectl delete secret curity-local-tls 2>/dev/null
 kubectl create secret tls curity-local-tls --cert=./certs/curity.local.ssl.pem --key=./certs/curity.local.ssl.key
-if [ $? -ne 0 ];
-then
+if [ $? -ne 0 ]; then
   echo "Problem encountered creating the Kubernetes TLS secret for the Curity Identity Server"
   exit 1
 fi
@@ -69,8 +66,7 @@ RUNTIME_SSL_CERT=$(cat certs/curity.local.ssl.pem)
 #
 kubectl delete configmap idsvr-configmap 2>/dev/null
 kubectl create configmap idsvr-configmap --from-file='./idsvr/idsvr-config-backup.xml'
-if [ $? -ne 0 ];
-then
+if [ $? -ne 0 ]; then
   echo "Problem encountered creating the config map for the Identity Server"
   exit 1
 fi
@@ -80,8 +76,7 @@ fi
 #
 helm repo add curity https://curityio.github.io/idsvr-helm
 helm repo update
-if [ $? -ne 0 ];
-then
+if [ $? -ne 0 ]; then
   echo "Problem encountered downloading the Helm Chart for the Curity Identity Server"
   exit 1
 fi
@@ -99,8 +94,7 @@ rm -rf $HELM_FOLDER
 git clone https://github.com/curityio/idsvr-helm $HELM_FOLDER
 cp idsvr/helm-values.yaml $HELM_FOLDER/idsvr
 helm template curity $HELM_FOLDER/idsvr --values $HELM_FOLDER/idsvr/helm-values.yaml > idsvr/idsvr-helm.yaml
-if [ $? -ne 0 ];
-then
+if [ $? -ne 0 ]; then
   echo "Problem encountered creating Kubernetes YAML from the Identity Server Helm Chart"
   exit 1
 fi
@@ -111,8 +105,7 @@ rm -rf ./tmp
 #
 kubectl delete -f idsvr/idsvr-helm.yaml 2>/dev/null
 kubectl apply -f idsvr/idsvr-helm.yaml
-if [ $? -ne 0 ];
-then
+if [ $? -ne 0 ]; then
   echo "Problem encountered applying Kubernetes YAML"
   exit 1
 fi

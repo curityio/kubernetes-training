@@ -337,7 +337,6 @@
                 <allowed-origins>https://login.curity.local</allowed-origins>
                 <capabilities>
                   <code/>
-                  <client-credentials/>
                   <haapi/>
                 </capabilities>
                 <use-pairwise-subject-identifiers>
