@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:13.2
+          image: postgres:14.3
           volumeMounts:
           - mountPath: /docker-entrypoint-initdb.d
             name: init-script

@@ -19,95 +19,6 @@ spec:
         - protocol: TCP
           port: 6789
 ---
-# Source: idsvr/templates/rbac.yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: curity-idsvr-service-account
-  labels:
-    app.kubernetes.io/name: idsvr
-    helm.sh/chart: idsvr-0.9.26
-    app.kubernetes.io/instance: curity
-    app.kubernetes.io/managed-by: Helm
----
-# Source: idsvr/templates/cluster-conf.yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: curity-idsvr-cluster-config-xml
-type: Opaque
-data:
-  placeholder: Y3VyaXR5
----
-# Source: idsvr/templates/cluster-conf.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: curity-idsvr-cluster-conf-map
-  labels:
-    app.kubernetes.io/name: idsvr
-    helm.sh/chart: idsvr-0.9.26
-    app.kubernetes.io/instance: curity
-    app.kubernetes.io/managed-by: Helm
-data:
-  createConfigSecret.sh: |
-    #!/bin/bash
-
-    CA_CERT=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-    TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
-    NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
-
-    CLUSTER_XML=$(/opt/idsvr/bin/genclust -c ${CONFIG_SERVICE_HOST} -p ${CONFIG_SERVICE_PORT} | base64 -w 0)
-
-    REQUEST_CONTENT="[{\"op\": \"add\", \"path\": \"/data/cluster-$REVISION.xml\", \"value\": \"$CLUSTER_XML\"}]"
-    openssl 2>&1 s_client -CAfile $CA_CERT -quiet -connect kubernetes.default:443 <<EOF
-    PATCH /api/v1/namespaces/$NAMESPACE/secrets/$SECRET_NAME HTTP/1.1
-    Host: kubernetes.default
-    Authorization: Bearer $TOKEN
-    Connection: close
-    Content-Type: application/json-patch+json
-    Content-length: ${#REQUEST_CONTENT}
-    Accept: application/json
-
-    $REQUEST_CONTENT
-    EOF
----
-# Source: idsvr/templates/rbac.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: curity-idsvr-create-secret
-  labels:
-    app.kubernetes.io/name: idsvr
-    helm.sh/chart: idsvr-0.9.26
-    app.kubernetes.io/instance: curity
-    app.kubernetes.io/managed-by: Helm
-rules:
-  - apiGroups:
-      - ""
-    resources:
-      - secrets
-    verbs:
-      - patch
----
-# Source: idsvr/templates/rbac.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: curity-idsvr-role-binding
-  labels:
-    app.kubernetes.io/name: idsvr
-    helm.sh/chart: idsvr-0.9.26
-    app.kubernetes.io/instance: curity
-    app.kubernetes.io/managed-by: Helm
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: curity-idsvr-create-secret
-subjects:
-  - kind: ServiceAccount
-    name: curity-idsvr-service-account
----
 # Source: idsvr/templates/service-admin.yaml
 apiVersion: v1
 kind: Service
@@ -115,9 +26,10 @@ metadata:
   name: curity-idsvr-admin-svc
   labels:
     app.kubernetes.io/name: idsvr
-    helm.sh/chart: idsvr-0.9.26
+    helm.sh/chart: idsvr-0.10.2
     app.kubernetes.io/instance: curity
     app.kubernetes.io/managed-by: Helm
+    role: curity-idsvr-admin
 spec:
   type: ClusterIP
   ports:
@@ -140,6 +52,7 @@ spec:
   selector:
     app.kubernetes.io/name: idsvr
     app.kubernetes.io/instance: curity
+    role: curity-idsvr-admin
 ---
 # Source: idsvr/templates/service-runtime.yaml
 apiVersion: v1
@@ -148,9 +61,10 @@ metadata:
   name: curity-idsvr-runtime-svc
   labels:
     app.kubernetes.io/name: idsvr
-    helm.sh/chart: idsvr-0.9.26
+    helm.sh/chart: idsvr-0.10.2
     app.kubernetes.io/instance: curity
     app.kubernetes.io/managed-by: Helm
+    role: curity-idsvr-runtime
 spec:
   type: ClusterIP
   ports:
@@ -178,7 +92,7 @@ metadata:
   name: curity-idsvr-admin
   labels:
     app.kubernetes.io/name: idsvr
-    helm.sh/chart: idsvr-0.9.26
+    helm.sh/chart: idsvr-0.10.2
     app.kubernetes.io/instance: curity
     app.kubernetes.io/managed-by: Helm
     role: curity-idsvr-admin
@@ -188,11 +102,12 @@ spec:
     matchLabels:
       app.kubernetes.io/name: idsvr
       app.kubernetes.io/instance: curity
+      role: curity-idsvr-admin
   template:
     metadata:
       labels:
         app.kubernetes.io/name: idsvr
-        helm.sh/chart: idsvr-0.9.26
+        helm.sh/chart: idsvr-0.10.2
         app.kubernetes.io/instance: curity
         app.kubernetes.io/managed-by: Helm
         role: curity-idsvr-admin
@@ -203,10 +118,10 @@ spec:
     spec:
       containers:
         - name: idsvr-admin
-          image: "custom_idsvr:6.5.0"
+          image: "custom_idsvr:7.1.0"
           imagePullPolicy: Never
-          command: ["/opt/idsvr/bin/idsvr"]
-          args: ["-s", "admin",
+          args: ["/opt/idsvr/bin/idsvr",
+                 "-s", "admin",
                  "-N", "idsvr-admin","--admin"]
           env:
             - name: STATUS_CMD_PORT
@@ -276,7 +191,7 @@ metadata:
   name: curity-idsvr-runtime
   labels:
     app.kubernetes.io/name: idsvr
-    helm.sh/chart: idsvr-0.9.26
+    helm.sh/chart: idsvr-0.10.2
     app.kubernetes.io/instance: curity
     app.kubernetes.io/managed-by: Helm
     role: curity-idsvr-runtime
@@ -291,7 +206,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: idsvr
-        helm.sh/chart: idsvr-0.9.26
+        helm.sh/chart: idsvr-0.10.2
         app.kubernetes.io/instance: curity
         app.kubernetes.io/managed-by: Helm
         role: curity-idsvr-runtime
@@ -302,10 +217,10 @@ spec:
     spec:
       containers:
         - name: idsvr-runtime
-          image: "custom_idsvr:6.5.0"
+          image: "custom_idsvr:7.1.0"
           imagePullPolicy: Never
-          command: ["/opt/idsvr/bin/idsvr"]
-          args: ["-s", "default","--no-admin"]
+          args: ["/opt/idsvr/bin/idsvr",
+                 "-s", "default","--no-admin"]
           env:
             - name: STATUS_CMD_PORT
               value: "4465"
@@ -360,6 +275,154 @@ spec:
           configMap:
             name: idsvr-configmap
 ---
+# Source: idsvr/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: curity-idsvr-ingress
+  labels:
+    app.kubernetes.io/name: idsvr
+    helm.sh/chart: idsvr-0.10.2
+    app.kubernetes.io/instance: curity
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+spec:
+  tls:
+    - hosts:
+        - admin.curity.local
+      secretName: curity-local-tls
+    - hosts:
+        - login.curity.local
+      secretName: curity-local-tls
+  rules:
+    - host: login.curity.local
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: curity-idsvr-runtime-svc
+                port:
+                  name: http-port
+    - host: admin.curity.local
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: curity-idsvr-admin-svc
+                port:
+                  name: admin-ui
+---
+# Source: idsvr/templates/rbac.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: curity-idsvr-service-account
+  labels:
+    app.kubernetes.io/name: idsvr
+    helm.sh/chart: idsvr-0.10.2
+    app.kubernetes.io/instance: curity
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+---
+# Source: idsvr/templates/cluster-conf.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: curity-idsvr-cluster-config-xml
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+type: Opaque
+data:
+  placeholder: Y3VyaXR5
+---
+# Source: idsvr/templates/cluster-conf.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: curity-idsvr-cluster-conf-map
+  labels:
+    app.kubernetes.io/name: idsvr
+    helm.sh/chart: idsvr-0.10.2
+    app.kubernetes.io/instance: curity
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+
+data:
+  createConfigSecret.sh: |
+    #!/bin/bash
+
+    CA_CERT=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+    NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+
+    CLUSTER_XML=$(/opt/idsvr/bin/genclust -c ${CONFIG_SERVICE_HOST} -p ${CONFIG_SERVICE_PORT} | base64 -w 0)
+
+    REQUEST_CONTENT="[{\"op\": \"add\", \"path\": \"/data/cluster-$REVISION.xml\", \"value\": \"$CLUSTER_XML\"}]"
+    openssl 2>&1 s_client -CAfile $CA_CERT -quiet -connect kubernetes.default:443 <<EOF
+    PATCH /api/v1/namespaces/$NAMESPACE/secrets/$SECRET_NAME HTTP/1.1
+    Host: kubernetes.default
+    Authorization: Bearer $TOKEN
+    Connection: close
+    Content-Type: application/json-patch+json
+    Content-length: ${#REQUEST_CONTENT}
+    Accept: application/json
+
+    $REQUEST_CONTENT
+    EOF
+---
+# Source: idsvr/templates/rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: curity-idsvr-create-secret
+  labels:
+    app.kubernetes.io/name: idsvr
+    helm.sh/chart: idsvr-0.10.2
+    app.kubernetes.io/instance: curity
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - patch
+---
+# Source: idsvr/templates/rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: curity-idsvr-role-binding
+  labels:
+    app.kubernetes.io/name: idsvr
+    helm.sh/chart: idsvr-0.10.2
+    app.kubernetes.io/instance: curity
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: curity-idsvr-create-secret
+subjects:
+  - kind: ServiceAccount
+    name: curity-idsvr-service-account
+---
 # Source: idsvr/templates/cluster-conf.yaml
 apiVersion: batch/v1
 kind: Job
@@ -367,16 +430,19 @@ metadata:
   name: curity-idsvr-1-cluster-conf-job
   labels:
     app.kubernetes.io/name: idsvr
-    helm.sh/chart: idsvr-0.9.26
+    helm.sh/chart: idsvr-0.10.2
     app.kubernetes.io/instance: curity
     app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 spec:
   ttlSecondsAfterFinished: 60
   template:
     spec:
       containers:
         - name: curity-idsvr-cluster-conf-job
-          image: "custom_idsvr:6.5.0"
+          image: "custom_idsvr:7.1.0"
           command: ["sh",  "/opt/idsvr/bin/createConfigSecret.sh"]
           env:
             - name: CONFIG_SERVICE_HOST
@@ -398,40 +464,3 @@ spec:
             name: curity-idsvr-cluster-conf-map
       serviceAccountName: curity-idsvr-service-account
       restartPolicy: Never
----
-# Source: idsvr/templates/ingress.yaml
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: curity-idsvr-ingress
-  labels:
-    app.kubernetes.io/name: idsvr
-    helm.sh/chart: idsvr-0.9.26
-    app.kubernetes.io/instance: curity
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-spec:
-  tls:
-    - hosts:
-        - admin.curity.local
-      secretName: curity-local-tls
-    - hosts:
-        - login.curity.local
-      secretName: curity-local-tls
-  rules:
-    - host: login.curity.local
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: curity-idsvr-runtime-svc
-              servicePort: http-port
-    - host: admin.curity.local
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: curity-idsvr-admin-svc
-              servicePort: admin-ui
