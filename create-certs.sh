@@ -4,6 +4,10 @@
 # A script to create some self signed certificates for the demo system
 ######################################################################
 
+#
+# Ensure that we are in the folder containing this script
+#
+cd "$(dirname "${BASH_SOURCE[0]}")"
 mkdir -p certs
 cd certs
 set -e
