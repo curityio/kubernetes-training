@@ -1,13 +1,9 @@
 #
 # A development custom docker image for getting started
 #
-# After building, files in the image can be viewed via the below commands:
-# - eval $(minikube docker-env --profile curity)
-# - docker run -it custom_idsvr:7.1.0 bash
-#
 
 # Get the base image
-FROM curity.azurecr.io/curity/idsvr:7.1.0
+FROM curity.azurecr.io/curity/idsvr:7.3.1
 
 # Copy the license to load at startup
 COPY idsvr/license.json /opt/idsvr/etc/init/license/
