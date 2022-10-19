@@ -1,4 +1,4 @@
-<!--
+loglog<!--
   ~ Copyright (C) 2015 Curity AB. All rights reserved.
   ~
   ~ The contents of this file are the property of Curity AB.
@@ -9,7 +9,7 @@
   ~ For further information, please contact Curity AB.
   -->
 
-<Configuration monitorInterval="30" packages="io.prometheus.client.log4j2">
+<Configuration monitorInterval="30">
     <Properties>
         <!-- Set IDSVR_HOME property in case the environment variable has not been set -->
         <Property name="IDSVR_HOME">$${env:HOME}/idsvr-log</Property>
@@ -49,8 +49,8 @@
 
         <RollingFile name="request-log" fileName="${env:IDSVR_HOME}/var/log/request.log"
                      filePattern="${env:IDSVR_HOME}/var/log/request.log.%i.gz">
-            <PatternLayout header="#date|request-id|client|method|uri|params|protocol|lang|accept|status|size|content-type|secure|request-headers|response-headers|duration|location%n">
-                <Pattern>%d{yyyy-MM-dd'T'HH:mm:ss:SSSZ}|%X{RequestId}|%K{client}|%K{method}|%K{uri}|%K{params}|%K{protocol}|%K{lang}|%K{accept}|%K{status}|%K{size}|%K{content-type}|%K{secure}|%K{request-headers}|%K{response-headers}|%K{duration}|%K{location}%n</Pattern>
+            <PatternLayout header="#date|request-id|client|method|uri|params|protocol|lang|accept|status|size|content-type|secure|request-headers|response-headers|duration|location|session-id%n">
+                <Pattern>%d{yyyy-MM-dd'T'HH:mm:ss:SSSZ}|%X{RequestId}|%K{client}|%K{method}|%K{uri}|%K{params}|%K{protocol}|%K{lang}|%K{accept}|%K{status}|%K{size}|%K{content-type}|%K{secure}|%K{request-headers}|%K{response-headers}|%K{duration}|%K{location}|%X{SessionId}%n</Pattern>
             </PatternLayout>
             <Policies>
                 <SizeBasedTriggeringPolicy size="10MB"/>
@@ -128,6 +128,12 @@
             set to 'INFO' in production deployments (i.e., *any* environment where sensitive data may be used).
         -->
         <AsyncLogger name="io.curity" level="${env:LOGGING_LEVEL:-INFO}"/>
+
+        <!-- These three loggers are helpful for low-level debugging and request logging, but be aware that they may
+        log PII, keys, etc. at DEBUG and TRACE levels. -->
+        <AsyncLogger name="se.curity.identityserver.crypto.CryptUtils" level="OFF"/>
+        <AsyncLogger name="se.curity.identityserver.plugins.authenticators.windows.ByteLogger" level="OFF"/>
+        <AsyncLogger name="se.curity.identityserver.app.RequestReceiver" level="INFO"/>
 
         <AsyncLogger name="se.curity.identityserver.config" level="${env:LOGGING_LEVEL:-INFO}" additivity="false">
             <AppenderRef ref="stdout" level="WARN"/>
