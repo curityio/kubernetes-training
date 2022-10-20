@@ -25,10 +25,7 @@
         </RollingFile>
 
         <Console name="stdout" target="SYSTEM_OUT">
-            <JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
-                <KeyValuePair key="hostname" value="${env:HOSTNAME}" />
-                <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd'T'HH:mm:ss.SSSZ}" />
-            </JSONLayout>
+            <PatternLayout noConsoleNoAnsi="true" pattern="%date{yyyy-MM-dd'T'HH:mm:ss:SSSZ} %highlight{%-5level}{FATAL=blink bright red, ERROR=bright red, WARN=yellow, INFO=green, DEBUG=cyan, TRACE=white} %X{RequestId} %X{SessionId} %highlight{{%thread}}{FATAL=white, ERROR=white, WARN=white, INFO=white, DEBUG=white, TRACE=white} %highlight{%logger - %msg%n}{FATAL=blink bright red, ERROR=bright red, WARN=yellow, INFO=green, DEBUG=cyan, TRACE=white}"/>
             <filters>
                 <MarkerFilter marker="REQUEST" onMatch="DENY" onMismatch="NEUTRAL"/>
                 <MarkerFilter marker="EXTENDED_REQUEST" onMatch="DENY" onMismatch="NEUTRAL"/>
@@ -52,10 +49,9 @@
 
         <RollingFile name="request-log" fileName="${env:IDSVR_HOME}/var/log/request.log"
                      filePattern="${env:IDSVR_HOME}/var/log/request.log.%i.gz">
-            <JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
-                <KeyValuePair key="hostname" value="${env:HOSTNAME}" />
-                <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd'T'HH:mm:ss.SSSZ}" />
-            </JSONLayout>
+            <PatternLayout header="#date|request-id|client|method|uri|params|protocol|lang|accept|status|size|content-type|secure|request-headers|response-headers|duration|location%n">
+                <Pattern>%d{yyyy-MM-dd'T'HH:mm:ss:SSSZ}|%X{RequestId}|%K{client}|%K{method}|%K{uri}|%K{params}|%K{protocol}|%K{lang}|%K{accept}|%K{status}|%K{size}|%K{content-type}|%K{secure}|%K{request-headers}|%K{response-headers}|%K{duration}|%K{location}%n</Pattern>
+            </PatternLayout>
             <Policies>
                 <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>

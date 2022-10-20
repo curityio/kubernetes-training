@@ -96,10 +96,10 @@ curity:
     logging:
       level: INFO
       image: "busybox:latest"
-      stdout: true
-      logs:
-      - request
+      stdout: false
+      logs: []
 #        - audit
+#        - request
 #        - cluster
 #        - confsvc
 #        - confsvc-internal
