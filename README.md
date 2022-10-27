@@ -7,7 +7,7 @@ An end to end Kubernetes deployment of the Curity Identity Server, for demo purp
 
 ## Prepare the Installation
 
-The system can be deployed on a MacOS or Windows workstation via bash scripts, and has the following prerequisites:
+The system can be deployed on a workstation via bash scripts, and has the following prerequisites:
 
 * [Docker Desktop](https://www.docker.com/products/docker-desktop)
 * [Minikube](https://minikube.sigs.k8s.io/docs/start)
@@ -15,17 +15,17 @@ The system can be deployed on a MacOS or Windows workstation via bash scripts, a
 * [OpenSSL](https://www.openssl.org/)
 
 Make sure you have these prerequisites installed, then copy a license file to the `idsvr/license.json` location.\
-If required you can get a free community edition license from the [Curity Developer Portal](https://developer.curity.io).\
+You can get a free community edition license from the [Curity Developer Portal](https://developer.curity.io).
  
 ## Install the System
 
 Follow the steps in the [Kubernetes Demo Installation](https://curity.io/resources/learn/kubernetes-demo-installation) article:
 
 ```bash
-./create-cluster.sh
-./create-certs.sh
-./deploy-postgres.sh
-./deploy-idsvr.sh
+./1-create-cluster.sh
+./2-create-certs.sh
+./3-deploy-postgres.sh
+./4-deploy-idsvr.sh
 ```
 
 ## Use the System

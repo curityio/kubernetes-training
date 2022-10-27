@@ -13,7 +13,7 @@ cd certs
 set -e
 
 #
-# Point to the OpenSSL configuration file for macOS or Windows
+# Point to the OpenSSL configuration file
 #
 case "$(uname -s)" in
 
@@ -25,6 +25,9 @@ case "$(uname -s)" in
     export OPENSSL_CONF='C:/Program Files/Git/usr/ssl/openssl.cnf';
     export MSYS_NO_PATHCONV=1;
 	;;
+
+  Linux*)
+    export OPENSSL_CONF='/usr/lib/ssl/openssl.cnf';
 esac
 
 #

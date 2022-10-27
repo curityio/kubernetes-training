@@ -35,7 +35,7 @@ cp ./hooks/pre-commit ./.git/hooks
 #
 # Build a custom docker image with some extra resources
 #
-docker build -f idsvr/Dockerfile -t custom_idsvr:7.3.1 .
+docker build -f idsvr/Dockerfile -t custom_idsvr:latest .
 if [ $? -ne 0 ]; then
   echo "Problem encountered building the Identity Server custom docker image"
   exit 1
@@ -62,7 +62,7 @@ fi
 # - kubectl get configmap idsvr-configmap -o yaml
 #
 kubectl delete configmap idsvr-configmap 2>/dev/null
-kubectl create configmap idsvr-configmap --from-file='./idsvr/idsvr-config-backup.xml'
+kubectl create configmap idsvr-configmap --from-file='main-config=./idsvr/idsvr-config-backup.xml'
 if [ $? -ne 0 ]; then
   echo "Problem encountered creating the config map for the Identity Server"
   exit 1
@@ -74,7 +74,7 @@ fi
 helm repo add curity https://curityio.github.io/idsvr-helm 1>/dev/null
 helm repo update 1>/dev/null
 helm uninstall curity 2>/dev/null
-helm install curity curity/idsvr --values=idsvr/helm-values.yaml
+helm install curity ../idsvr-helm/idsvr --values=idsvr/helm-values.yaml
 if [ $? -ne 0 ]; then
   echo 'Problem encountered running the Helm Chart for the Curity Identity Server'
   exit 1

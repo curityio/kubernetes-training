@@ -1,18 +1,18 @@
-#
-# A customised values file for the Curity Identity Server
-#
+# Default values for the Curity Identity Server.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
 replicaCount: 2
 
-# Point to the custom image produced by our docker file
 image:
   repository: custom_idsvr
-  tag: 7.3.1
+  tag: latest
   pullPolicy: Never
   pullSecret:
 
 nameOverride: ""
 fullnameOverride: ""
+labels: {}
 networkpolicy:
   enabled: true
 
@@ -23,9 +23,11 @@ curity:
 
   admin:
     role: admin
+    annotations: {}
     service:
       type: ClusterIP
       port: 6789
+      annotations: {}
     livenessProbe:
       timeoutSeconds: 1
       failureThreshold: 3
@@ -37,11 +39,21 @@ curity:
       successThreshold: 3
       periodSeconds: 10
       initialDelaySeconds: 120
+# extraEnv provides additional environment variables
+#    extraEnv:
+#      - name: SOME_EXTRA_VARIABLE
+#        value: "extra-variable-value"
+#      - name: SOME_OTHER_EXTRA_VARIABLE_USING_VALUE_FROM
+#        valueFrom:
+#          fieldRef:
+#            fieldPath: status.hostIP
+    extraEnv: []
+
     logging:
-      image: "busybox:latest"
       level: INFO
+      image: "busybox:latest"
       stdout: false
-      logs:
+      logs: []
 #        - audit
 #        - request
 #        - cluster
@@ -49,10 +61,17 @@ curity:
 #        - confsvc-internal
 #        - post-commit-scripts
 
+
   runtime:
     role: default
+    annotations: {}
     service:
       type: ClusterIP
+      port: 8443
+      annotations: {}
+    serviceAccount:
+      name:
+    deployment:
       port: 8443
     livenessProbe:
       timeoutSeconds: 1
@@ -65,11 +84,20 @@ curity:
       successThreshold: 3
       periodSeconds: 10
       initialDelaySeconds: 120
+# extraEnv provides additional environment variables
+#    extraEnv:
+#      - name: SOME_EXTRA_VARIABLE
+#        value: "extra-variable-value"
+#      - name: SOME_OTHER_EXTRA_VARIABLE_USING_VALUE_FROM
+#        valueFrom:
+#          fieldRef:
+#            fieldPath: status.hostIP
+    extraEnv: []
     logging:
-      image: "busybox:latest"
       level: INFO
+      image: "busybox:latest"
       stdout: false
-      logs:
+      logs: []
 #        - audit
 #        - request
 #        - cluster
@@ -77,19 +105,43 @@ curity:
 #        - confsvc-internal
 #        - post-commit-scripts
 
-  # Deploy new pods with the latest backed up configuration
   config:
     uiEnabled: true
     backup: false
     password: Password1
+    skipInstall: false
     encryptionKey:
-    environmentVariableSecret:
-    configurationConfigMap: idsvr-configmap
-    configurationConfigMapItemName: idsvr-config-backup.xml
-    configurationSecret:
-    configurationSecretItemName:
+    environmentVariableSecrets: []
+    environmentVariableConfigMaps: []
+    configuration:
+     - configMapRef:
+         name: idsvr-configmap
+         items:
+           - key: main-config
+             path: idsvr-config-backup.xml
+#      - secretRef:
+#          name: cfg-secret
+#          items:
+#            - key: scrt-1
+#              path: scrt-1.xml
+#            - key: scrt-2
+#              path: scrt-2.xml
+#      - secretRef:
+#          name: cfg-secret-2
+#          items:
+#            - key: cfg
+#              path: configuration.xml
+    convertKeystore: []
+#      - sourceTls:
+#          keyName: SSL_SERVER_KEY
+#          fromSecretRef: curity-local-tls
+#          cert: SSL_SERVER_CERT # optional
+#          inAlias: curity
+#          keystorePasswordSecretRef:
+#            name: curity-idsvr-secret
+#            key: KEYSTORE_PASSWORD
 
-# We will expose the Curity Identity Server using HTTPS and port 443
+# Expose the Curity Identity Server using HTTPS and port 443
 ingress:
   enabled: true
   annotations:
@@ -103,19 +155,34 @@ ingress:
     secretName: curity-local-tls
 
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+# We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+#   limits:
+#     cpu: 100m
+#     memory: 128Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+  customMetrics: []
+#    - type: External
+#      external:
+#        metric:
+#          name: idsvr_http_server_request_rate
+#        target:
+#          type: Value
+#          value: 100m
 
 nodeSelector: {}
 
 tolerations: []
 
-affinity: {}
+affinity: { }
