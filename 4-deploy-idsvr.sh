@@ -35,16 +35,11 @@ cp ./hooks/pre-commit ./.git/hooks
 #
 # Build a custom docker image with some extra resources
 #
-docker build -f idsvr/Dockerfile -t custom_idsvr:latest .
+docker build -f idsvr/Dockerfile -t custom_idsvr:7.4.2 .
 if [ $? -ne 0 ]; then
   echo "Problem encountered building the Identity Server custom docker image"
   exit 1
 fi
-
-#
-# Uninstall the existing system if applicable
-#
-kubectl delete -f idsvr/idsvr.yaml 2>/dev/null
 
 #
 # Create a Kubernetes secret, referenced in the helm-values.yaml file, for our test SSL certificates

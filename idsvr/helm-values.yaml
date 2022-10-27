@@ -6,7 +6,7 @@ replicaCount: 2
 
 image:
   repository: custom_idsvr
-  tag: latest
+  tag: 7.4.2
   pullPolicy: Never
   pullSecret:
 
@@ -48,7 +48,6 @@ curity:
 #          fieldRef:
 #            fieldPath: status.hostIP
     extraEnv: []
-
     logging:
       level: INFO
       image: "busybox:latest"
@@ -60,7 +59,6 @@ curity:
 #        - confsvc
 #        - confsvc-internal
 #        - post-commit-scripts
-
 
   runtime:
     role: default
