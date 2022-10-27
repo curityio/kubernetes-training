@@ -74,7 +74,6 @@ fi
 helm repo add curity https://curityio.github.io/idsvr-helm 1>/dev/null
 helm repo update 1>/dev/null
 helm uninstall curity 2>/dev/null
-helm template curity ../idsvr-helm/idsvr --values=idsvr/helm-values.yaml > ~/Desktop/output.yaml 
 helm install curity ../idsvr-helm/idsvr --values=idsvr/helm-values.yaml
 if [ $? -ne 0 ]; then
   echo 'Problem encountered running the Helm Chart for the Curity Identity Server'

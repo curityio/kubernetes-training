@@ -1,4 +1,4 @@
-# Default values for curity.
+# Default values for the Curity Identity Server.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -154,32 +154,32 @@ ingress:
     host: admin.curity.local
     secretName: curity-local-tls
 
-resources:
+resources: {}
 # We usually recommend not to specify default resources and to leave this as a conscious
 # choice for the user. This also increases chances charts run on environments with little
 # resources, such as Minikube. If you do want to specify resources, uncomment the following
 # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  limits:
-    cpu: 500m
-    #memory: 128Mi
-  requests:
-    cpu: 500m
-    #memory: 128Mi
+#   limits:
+#     cpu: 100m
+#     memory: 128Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
 
 autoscaling:
-  enabled: true
-  minReplicas: 2
-  maxReplicas: 4
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
   targetCPUUtilizationPercentage: 80
-  targetMemoryUtilizationPercentage: 0
+  # targetMemoryUtilizationPercentage: 80
   customMetrics: []
-  #- type: External
-  #  external:
-  #    metric:
-  #      name: idsvr_http_server_request_rate
-  #    target:
-  #      type: Value
-  #      value: 100m
+#    - type: External
+#      external:
+#        metric:
+#          name: idsvr_http_server_request_rate
+#        target:
+#          type: Value
+#          value: 100m
 
 nodeSelector: {}
 
