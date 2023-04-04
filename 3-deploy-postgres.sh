@@ -3,7 +3,7 @@
 #####################################################################################
 # Deploy a basic Postgres instance without any persistent volumes
 # The Curity Identity Server will connect to it via this JDBC URL inside the cluster:
-# - jdbc:postgresql://postgres-svc/idsvr?serverTimezone=Europe/Stockholm
+# - jdbc:postgresql://postgres-svc/idsvr
 #####################################################################################
 
 #
