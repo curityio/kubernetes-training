@@ -35,7 +35,7 @@ cp ./hooks/pre-commit ./.git/hooks
 #
 # Build a custom docker image with some extra resources
 #
-docker build -f idsvr/Dockerfile -t custom_idsvr:7.4.2 .
+docker build -f idsvr/Dockerfile -t custom_idsvr:latest .
 if [ $? -ne 0 ]; then
   echo "Problem encountered building the Identity Server custom docker image"
   exit 1
