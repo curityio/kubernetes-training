@@ -35,7 +35,7 @@ cp ./hooks/pre-commit ./.git/hooks
 #
 # Build a custom docker image with some extra resources
 #
-docker build -f idsvr/Dockerfile -t custom_idsvr:7.4.2 .
+docker build -f idsvr/Dockerfile -t custom_idsvr:latest .
 if [ $? -ne 0 ]; then
   echo "Problem encountered building the Identity Server custom docker image"
   exit 1
@@ -83,6 +83,6 @@ fi
 #
 # Inside the cluster we can use these HTTP URLs:
 #
-# curl -u 'admin:Password1' 'http://curity-idsvr-admin-svc:6749/admin/api/restconf/data?depth=unbounded&content=config'
-# curl -k 'http://curity-idsvr-runtime-svc:8443/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
+# curl -u 'admin:Password1' 'https://curity-idsvr-admin-svc:6749/admin/api/restconf/data?depth=unbounded&content=config'
+# curl -k 'https://curity-idsvr-runtime-svc:8443/oauth/v2/oauth-anonymous/.well-known/openid-configuration'
 #

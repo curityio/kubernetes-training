@@ -3,7 +3,7 @@
 #####################################################################################
 # Deploy a basic Postgres instance without any persistent volumes
 # The Curity Identity Server will connect to it via this JDBC URL inside the cluster:
-# - jdbc:postgresql://postgres-svc/idsvr?serverTimezone=Europe/Stockholm
+# - jdbc:postgresql://postgres-svc/idsvr
 #####################################################################################
 
 #
@@ -42,9 +42,6 @@ if [ $? -ne 0 ]; then
 fi
 
 #
-# Once the pod comes up we can connect to it as follows from the MacBook, if a PostgreSQL client is installed:
-# - export PGPASSWORD=Password1 && psql -h $(minikube ip --profile curity) -p 30432 -d idsvr -U postgres
-#
-# From Curity containers inside the cluster we can connect via the following command:
+# From Postgres containers inside the cluster we can connect via the following command:
 # - export PGPASSWORD=Password1 && psql -p 5432 -d idsvr -U postgres
 #
