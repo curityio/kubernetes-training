@@ -9,6 +9,8 @@ image:
   tag: latest
   pullPolicy: Never
   pullSecret:
+  networkpolicy:
+    enabled: false
 
 curity:
   admin:
