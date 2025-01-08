@@ -1,0 +1,25 @@
+replicaCount: 2
+
+image:
+  repository: curity.azurecr.io/curity/idsvr
+  tag: latest
+
+curity:
+  adminUiHttp: true
+  admin:
+    serviceAccount:
+      name: curity-idsvr-admin
+    logging:
+      level: INFO
+
+  runtime:
+    serviceAccount:
+      name: curity-idsvr-runtime
+    logging:
+      level: INFO
+
+configuration:
+  uiEnabled: true
+
+networkpolicy:
+  enabled: false
