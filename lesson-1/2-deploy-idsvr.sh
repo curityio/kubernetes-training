@@ -32,15 +32,8 @@ CONFIG_ENCRYPTION_KEY=$(cat ../resources/encryption.key)
 #
 helm upgrade --install curity curity/idsvr -f values-initial.yaml --namespace curity \
   --set curity.config.password='Password1' \
-  --set curity.config.encryptionKey="$CONFIG_ENCRYPTION_KEY"
+  --set curity.config.encryptionKey="$CONFIG_ENCRYPTION_KEY" \
+  --wait
 if [ $? -ne 0 ]; then
   exit 1
 fi
-
-#
-# Wait for pods to come up
-#
-kubectl wait --namespace curity \
-  --for=condition=ready pod \
-  --selector=app.kubernetes.io/name=idsvr \
-  --timeout=90s

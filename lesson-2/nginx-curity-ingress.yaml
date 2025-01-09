@@ -4,8 +4,8 @@ metadata:
   name: idsvr-admin-route
 spec:
   parentRefs:
-  - name: kong-gateway
-    namespace: kong
+  - name: nginx-gateway
+    namespace: nginx
   hostnames:
   - admin.testcluster.example
   rules:
@@ -23,8 +23,8 @@ metadata:
   name: idsvr-runtime-route
 spec:
   parentRefs:
-  - name: kong-gateway
-    namespace: kong
+  - name: nginx-gateway
+    namespace: nginx
   hostnames:
   - login.testcluster.example
   rules:
