@@ -46,14 +46,14 @@ The API gateway external IP address is 172.20.0.8
 If you inspect Kubernetes services, notice that the load balancer IP address is assigned to the API gateway's service:
 
 ```bash
-kong          kong-kong-proxy                LoadBalancer   10.96.200.210   172.20.0.8    80:32742/TCP,443:32181/TCP
+kong       kong-kong-proxy      LoadBalancer   10.96.200.210   172.20.0.8    80:32742/TCP,443:32181/TCP
 ```
 
 ## Access External OAuth Endpoints
 
 The API gateway service routes requests to one of the API gateway pods and from there to the Curity Identity Server.\
 The API gateway uses hostname based routing and identifies the HTTP route to use from the incoming host header.\
-To use the domain based URLs correctly on a development computer, add entries like this to your `/etc/hosts` file:
+To use the domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
 
 ```text
 172.20.0.8 admin.testcluster.example login.testcluster.example
