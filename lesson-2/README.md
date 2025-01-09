@@ -46,7 +46,7 @@ The API gateway external IP address is 172.20.0.8
 If you inspect Kubernetes services, notice that the load balancer IP address is assigned to the API gateway's service:
 
 ```bash
-kong          kong-kong-proxy                LoadBalancer   10.96.200.210   172.20.0.8    80:32742/TCP,443:32181/TCP
+kong          kong-kong-proxy                LoadBalancer   10.96.200.210   172.20.0.6    80:32742/TCP,443:32181/TCP
 ```
 
 ## Call External OAuth Endpoints
@@ -56,13 +56,13 @@ The API gateway uses hostname based routing and identifies the HTTP route to use
 Call the external admin endpoint with the following command:
 
 ```bash
-curl -i http://172.20.0.8/admin -H "Host: http://admin.testcluster.example"
+curl -i http://172.20.0.6/admin -H "Host: http://admin.testcluster.example"
 ```
 
 Similarly, you can reach external OAuth endpoints with commands of this form:
 
 ```bash
-curl -i http://172.20.0.8/oauth/v2/oauth-anonymous/.well-known/openid-configuration -H "Host: http://login.testcluster.example"
+curl -i http://172.20.0.6/oauth/v2/oauth-anonymous/.well-known/openid-configuration -H "Host: http://login.testcluster.example"
 ```
 
 To use the domain based URLs correctly on a development computer, add entries like this to your `/etc/hosts` file:
@@ -71,7 +71,7 @@ To use the domain based URLs correctly on a development computer, add entries li
 172.20.0.8 admin.testcluster.example login.testcluster.example
 ```
 
-You can then access these URLs in a browser:
+You can then access URLs in a browser:
 
-- `http://admin.testcluster.example`
+- `http://admin.testcluster.example/admin`
 - `http://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration`

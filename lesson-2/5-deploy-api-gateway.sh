@@ -110,14 +110,6 @@ else
   fi
 
   #
-  # Expose HTTP routes for the admin and runtime workloads
-  #
-  kubectl -n curity apply -f kong-curity-ingress.yaml
-  if [ $? -ne 0 ]; then
-    exit 1
-  fi
-
-  #
   # Enable HTTP routes for the admin and runtime workloads
   #
   kubectl -n curity apply -f kong-curity-ingress.yaml

@@ -15,14 +15,16 @@ helm repo update
 # 
 # Create the namespace and service accounts if required
 #
-kubectl create namespace curity                              2>/dev/null
-kubectl -n curity create serviceaccount curity-idsvr-admin   2>/dev/null
-kubectl -n curity create serviceaccount curity-idsvr-runtime 2>/dev/null
+kubectl create namespace curity
+kubectl -n curity create serviceaccount curity-idsvr-admin
+kubectl -n curity create serviceaccount curity-idsvr-runtime
 
 #
 # Create a new config encryption key
 #
-openssl rand 32 | xxd -p -c 64 > ../resources/encryption.key
+if [ ! -f ../resources/encryption.key ]; then
+  openssl rand 32 | xxd -p -c 64 > ../resources/encryption.key
+fi
 CONFIG_ENCRYPTION_KEY=$(cat ../resources/encryption.key)
 
 #

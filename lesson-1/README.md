@@ -5,7 +5,8 @@ Initial Kubernetes deployments of the admin workload, runtime workload and confi
 ## Prerequisites
 
 Ensure that a Docker engine and [Kubernetes in Docker (KIND)](https://kind.sigs.k8s.io/docs/user/quick-start/) are installed.\
-Also get a license file for the Curity Identity Server from the Curity developer portal.
+Also ensure that the Docker engine is installed sufficient resources, including 8GB of RAM.\
+Also download a license file for the Curity Identity Server from the [Curity developer portal](https://developer.curity.io/).
 
 ## First Deployment
 

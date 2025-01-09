@@ -6,6 +6,13 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
+# 
+# Create the namespace and service accounts if required
+#
+kubectl create namespace curity                              2>/dev/null
+kubectl -n curity create serviceaccount curity-idsvr-admin   2>/dev/null
+kubectl -n curity create serviceaccount curity-idsvr-runtime 2>/dev/null
+
 #
 # Use the existing config encryption key
 #

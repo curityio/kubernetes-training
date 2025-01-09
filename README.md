@@ -26,19 +26,18 @@ Follow the [README instructions](./lesson-2/README.md) to learn how to:
 
 Follow the [README instructions](./lesson-3/README.md) to learn how to:
 
-- Update the deployment to protect secure values
-- Deploy parameterized configuration in a custom Docker container
-- Update the domain based URLs to use HTTPS
-- Automate external certificate issuance using cert-manager
-- Automate certificate renewal and auto-reloading of the external certificate in the API gateway
+- Update the deployment to protect secure values and to use parameterized configuration.
+- Update the domain based URLs to use HTTPS.
+- Automate external certificate issuance using cert-manager.
+- Automate certificate renewal and reloading of the external certificate by the API gateway.
 
 ## Lesson 4 - SQL Database Storage
 
 Follow the [README instructions](./lesson-4/README.md) to learn how to:
 
-- Redeploy the Curity Idemtity Server using SQL database storage
-- Query the database to view stored resources such as user accounts
-- Use external storage to avoid data loss if you recreate Kubernetes pods, nodes or the entire cluster
+- Redeploy the Curity Idemtity Server using SQL database storage.
+- Query the database to view stored resources such as user accounts.
+- Use external storage to avoid data loss if you recreate Kubernetes pods, nodes or the entire cluster.
 
 ## Free Resources
 

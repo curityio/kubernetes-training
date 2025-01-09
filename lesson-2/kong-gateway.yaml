@@ -14,7 +14,7 @@ metadata:
 spec:
   gatewayClassName: kong
   listeners:
-  - name: testcluster.example
+  - name: http
     port: 80
     protocol: HTTP
     hostname: "*.testcluster.example"
