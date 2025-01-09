@@ -1,3 +1,6 @@
+#########################################################################################################################
+# Overrides the default KIND file with LimitNOFILE=infinity in case it causes high memory on certain Linux host computers
+#########################################################################################################################
 [Unit]
 Description=containerd container runtime
 Documentation=https://containerd.io

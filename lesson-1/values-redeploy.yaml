@@ -18,8 +18,17 @@ curity:
     logging:
       level: INFO
 
-configuration:
-  uiEnabled: true
+  config:
+    uiEnabled: true
+    skipInstall: true
+    configuration:
+    - configMapRef:
+        name: idsvr-config
+        items:
+        - key: idsvr-config
+          path: curity-config.xml
+    environmentVariableSecrets:
+    - idsvr-secrets
 
 networkpolicy:
   enabled: false

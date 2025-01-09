@@ -1,4 +1,5 @@
 .DS_Store
-tmp
-certs/curity.*
-idsvr/license.json
+license.json
+curity-config.xml
+encryption.key
+download
