@@ -59,7 +59,9 @@ To use the domain based URLs correctly on a development computer, add entries li
 172.20.0.8 admin.testcluster.example login.testcluster.example
 ```
 
-You can then access URLs in a browser:
+You can then access URLs in a browser or in direct HTTP requests:
 
-- `http://admin.testcluster.example/admin`
-- `http://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration`
+```bash
+curl -i http://admin.testcluster.example/admin
+curl -i http://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration
+```

@@ -1,0 +1,14 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: nginx-gateway
+spec:
+  gatewayClassName: nginx
+  listeners:
+  - name: testcluster.example
+    port: 80
+    protocol: HTTP
+    hostname: '*.testcluster.example'
+    allowedRoutes:
+      namespaces:
+        from: 'All'

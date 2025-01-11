@@ -60,9 +60,25 @@ curl http://localhost:8443/oauth/v2/oauth-anonymous/.well-known/openid-configura
 ## Run Upgrades with the Latest Configuration
 
 Run a zero downtime upgrade of the Curity Identity Server with the backed up configuration.\
-During this time, OAuth endpoints remain available as the platform creates new pods in a phased manner.\
 Study the script to understand how it supplies existing configuration values with a configmap and secret.
 
 ```bash
 ./3-upgrade-idsvr.sh
+```
+
+During the upgrade, watch how the platform replaces pods in a phased manner:
+
+```bash
+kubectl -n curity get pod -A --watch
+```
+
+Old pods are not removed until new pods are ready, so that OAuth endpoints remain available.
+
+```text
+NAMESPACE            NAME                                         READY   STATUS    RESTARTS   AGE
+curity               curity-idsvr-admin-5bbb5fb5f7-d8d95          0/1     Running   0          11s
+curity               curity-idsvr-admin-79d794588b-jqr8q          1/1     Running   0          18m
+curity               curity-idsvr-runtime-675cbbc4c-qm76z         1/1     Running   0          18m
+curity               curity-idsvr-runtime-675cbbc4c-zsks5         1/1     Running   0          18m
+curity               curity-idsvr-runtime-77b5dbd5c7-c57xs        0/1     Running   0          11s
 ```

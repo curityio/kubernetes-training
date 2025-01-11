@@ -3,3 +3,5 @@ license.json
 curity-config.xml
 encryption.key
 download
+*.key
+*.crt

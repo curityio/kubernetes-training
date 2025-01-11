@@ -5,13 +5,19 @@ nodes:
   extraMounts:
   - hostPath: containerd.service
     containerPath: /etc/systemd/system/containerd.service
+  - hostPath: externalstorage
+    containerPath: /var/local-path-provisioner/host
 
 - role: worker
   extraMounts:
   - hostPath: containerd.service
     containerPath: /etc/systemd/system/containerd.service
+  - hostPath: externalstorage
+    containerPath: /var/local-path-provisioner/host
 
 - role: worker
   extraMounts:
   - hostPath: containerd.service
     containerPath: /etc/systemd/system/containerd.service
+  - hostPath: externalstorage
+    containerPath: /var/local-path-provisioner/host

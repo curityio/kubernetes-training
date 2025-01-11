@@ -22,10 +22,10 @@ kubectl -n curity create serviceaccount curity-idsvr-runtime
 #
 # Create a new config encryption key
 #
-if [ ! -f ../resources/encryption.key ]; then
-  openssl rand 32 | xxd -p -c 64 > ../resources/encryption.key
+if [ ! -f ../resources/idsvr/encryption.key ]; then
+  openssl rand 32 | xxd -p -c 64 > ../resources/idsvr/encryption.key
 fi
-CONFIG_ENCRYPTION_KEY=$(cat ../resources/encryption.key)
+CONFIG_ENCRYPTION_KEY=$(cat ../resources/idsvr/encryption.key)
 
 #
 # Run the Helm chart and generate a new configuration

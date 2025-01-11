@@ -16,14 +16,14 @@ kubectl -n curity create serviceaccount curity-idsvr-runtime 2>/dev/null
 #
 # Use the existing config encryption key
 #
-CONFIG_ENCRYPTION_KEY=$(cat ../resources/encryption.key)
+CONFIG_ENCRYPTION_KEY=$(cat ../resources/idsvr/encryption.key)
 
 #
 # Create a Kubernetes configmap with the configuration
 #
 kubectl -n curity delete configmap idsvr-config 2>/dev/null
 kubectl -n curity create configmap idsvr-config \
-  --from-file='idsvr-config=../resources/curity-config.xml'
+  --from-file='idsvr-config=../resources/idsvr/curity-config.xml'
 if [ $? -ne 0 ]; then
   exit 1
 fi

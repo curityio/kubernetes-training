@@ -14,10 +14,14 @@ metadata:
 spec:
   gatewayClassName: kong
   listeners:
-  - name: http
-    port: 80
-    protocol: HTTP
-    hostname: "*.testcluster.example"
+  - name: https
+    port: 443
+    protocol: HTTPS
+    hostname: '*.testcluster.example'
     allowedRoutes:
       namespaces:
         from: 'All'
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - name: testcluster-com-tls

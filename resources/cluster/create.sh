@@ -5,4 +5,8 @@
 ###############################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
-../resources/cluster/create.sh
+
+kind create cluster --name=demo --config=cluster.yaml
+if [ $? -ne 0 ]; then
+  exit 1
+fi
