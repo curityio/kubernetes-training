@@ -3,9 +3,15 @@
 [![Quality](https://img.shields.io/badge/quality-demo-red)](https://curity.io/resources/code-examples/status/)
 [![Availability](https://img.shields.io/badge/availability-source-blue)](https://curity.io/resources/code-examples/status/)
 
-Starter resources for developers to run the Curity Identity Server in Kubernetes:
-- Use similar concepts to deployed environments on a local computer.
+Starter resources for developers to run the Curity product in Kubernetes:
+
+- Deployments use similar concepts to real environments on a local computer.
 - Enables local execution of OAuth flows and planning of deployments.
+
+The resources work the same for both of these scenarios unless otherwise stated:
+
+- The full Curity Identity Server that provides a complete OAuth authorization server.
+- The Curity Token Handler, which processes cookies sent by Single Page Applications.
 
 ## Lesson 1 - Deployment, Configuration and Upgrades
 
@@ -15,13 +21,13 @@ Follow the [README instructions](./lesson-1/README.md) to learn how to:
 - Access the admin UI and download the initial generated configuration.
 - Run zero downtime upgrades and include the latest configuration.
 
-## Lesson 2 - Ingress and External URLs
+## Lesson 2 - API Gateway Integration and External URLs
 
 Follow the [README instructions](./lesson-2/README.md) to learn how to:
 
 - Run a load balancer and get an external IP address.
 - Run the Curity Identity Server behind an API gateway.
-- Expose the admin UI and OAuth endpoints using domain based URLs.
+- Expose the admin UI and runtime endpoints using domain based URLs.
 
 ## Lesson 3 - HTTPS External URLs with Certificate Auto Renewal
 
@@ -31,21 +37,28 @@ Follow the [README instructions](./lesson-3/README.md) to learn how to:
 - Automate external certificate issuance using cert-manager.
 - Automate certificate renewal and reloading of the external certificate by the API gateway.
 
-## Lesson 4 - SQL Database Storage
+## Lesson 4 - API Gateway Plugin Integration (for Curity Token Handler)
 
 Follow the [README instructions](./lesson-4/README.md) to learn how to:
 
-- Redeploy the Curity Idemtity Server using SQL database storage for identity data.
-- Query the database to view stored resources such as user accounts.
-- Use external storage to avoid data loss if you recreate Kubernetes pods, nodes or the entire cluster.
+- Deploy plugins with the API gateway to perform token translation tasks.
+- Use the Phantom Token plugin to handle introspection of opaque access tokens.
+- Use the OAuth Proxy plugin to process cookies from Single Page Applications.
 
-## Lesson 5 - Deployment Pipeline
+## Lesson 5 - SQL Database Storage (for Curity Identity Server)
 
 Follow the [README instructions](./lesson-5/README.md) to learn how to:
 
-- Parameterize Curity Identity Server configuration to support multiple stages of a deployment pipeline.
-- Split the configuration into multiple files.
-- Deploy the configuration in a custom Docker image.
+- Redeploy the Curity Idemtity Server using SQL database storage for identity data.
+- Query the database to view stored identity data including user accounts.
+- Use external storage to avoid data loss if you recreate Kubernetes pods, nodes or the entire cluster.
+
+## Lesson 6 - Deployment Pipeline
+
+Follow the [README instructions](./lesson-5/README.md) to learn how to:
+
+- Parameterize Curity Identity Server configuration to reduce duplication for a deployment pipeline.
+- Split the configuration into multiple files and ship them in a custom Docker image.
 - Protect secure values in the configuration.
 
 ## Free Resources

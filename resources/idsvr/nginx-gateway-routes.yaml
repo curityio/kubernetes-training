@@ -1,3 +1,6 @@
+###################################################################
+# Adjust routes depending on how you use the Curity Identity Server
+###################################################################
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -20,7 +23,7 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: idsvr-runtime-route
+  name: idsvr-oauth-route
 spec:
   parentRefs:
   - name: nginx-gateway
@@ -31,6 +34,25 @@ spec:
   - matches:
     - path:
         value: /
+    backendRefs:
+    - name: curity-idsvr-runtime-svc
+      kind: Service
+      port: 8443
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: idsvr-oauthagent-route
+spec:
+  parentRefs:
+  - name: nginx-gateway
+    namespace: nginx
+  hostnames:
+  - api.demoapp.example
+  rules:
+  - matches:
+    - path:
+        value: /apps/example
     backendRefs:
     - name: curity-idsvr-runtime-svc
       kind: Service

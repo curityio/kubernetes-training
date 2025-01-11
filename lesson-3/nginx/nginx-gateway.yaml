@@ -5,10 +5,21 @@ metadata:
 spec:
   gatewayClassName: nginx
   listeners:
-  - name: https
+  - name: testcluster.example
     port: 443
     protocol: HTTPS
     hostname: '*.testcluster.example'
+    allowedRoutes:
+      namespaces:
+        from: 'All'
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - name: testcluster-com-tls
+  - name: demoapp.example
+    port: 443
+    protocol: HTTPS
+    hostname: '*.demoapp.example'
     allowedRoutes:
       namespaces:
         from: 'All'

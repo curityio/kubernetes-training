@@ -9,7 +9,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 #
 # As a basic way to enable retries of failed deployments, delete existing resources
 #
-kubectl delete namespace kong 2>/dev/null
+kubectl delete namespace nginx 2>/dev/null
 
 #
 # Deploy the API gateway

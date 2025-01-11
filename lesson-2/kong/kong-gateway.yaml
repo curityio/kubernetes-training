@@ -14,10 +14,17 @@ metadata:
 spec:
   gatewayClassName: kong
   listeners:
-  - name: http
+  - name: testcluster.example
     port: 80
     protocol: HTTP
     hostname: '*.testcluster.example'
+    allowedRoutes:
+      namespaces:
+        from: 'All'
+  - name: demoapp.example
+    port: 80
+    protocol: HTTP
+    hostname: '*.demoapp.example'
     allowedRoutes:
       namespaces:
         from: 'All'

@@ -1,9 +1,19 @@
 # Enable External OAuth Endpoints
 
-Provides external base URLs for the admin and runtime workloads at these URLs:
+Provides external base URLs for the admin and runtime workloads.
+
+## Design External URLs
+
+If you are running the full Curity Identity Server you might design these base URLs for a test system:
 
 - Admin UI Base URL: `http://admin.testcluster.example`
 - OAuth Base URL: `http://login.testcluster.example`
+
+If you are running just the Curity Token Handler, you might instead use these base URLs for a test system.\
+The token handler base URL matches the domain of a web app such as `http://www.demoapp.example`.
+
+- Admin UI Base URL: `http://admin.testcluster.example`
+- Token Handler Base URL: `http://api.demoapp.example`
 
 ## Install the Cloud Provider KIND
 
@@ -17,7 +27,8 @@ This requires sudo access on macOS - if you use Windows Git bash you should run 
 
 ## Install the API Gateway
 
-In another terminal window install either the NGINX API gateway:
+In another terminal window install either the NGINX API gateway.\
+If required, study the YAML resources and update them to match your deployment.
 
 ```bash
 export PROVIDER_NAME='nginx'
@@ -51,17 +62,34 @@ kong       kong-kong-proxy      LoadBalancer   10.96.200.210   172.20.0.8    80:
 
 ## Access External OAuth Endpoints
 
-The API gateway service routes requests to one of the API gateway pods and from there to the Curity Identity Server.\
-The API gateway uses hostname based routing and identifies the HTTP route to use from the incoming host header.\
-To use the domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
+If you selected `All options` in the first configuration you can call external OAuth endpoints.\
+To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
 
 ```text
 172.20.0.8 admin.testcluster.example login.testcluster.example
 ```
 
-You can then access URLs in a browser or in direct HTTP requests:
+Reach external URLs at addresses such as these:
 
 ```bash
 curl -i http://admin.testcluster.example/admin
 curl -i http://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration
+```
+
+## Access External Token Handler Endpoints
+
+If you selected `Token Handler only` in the first configuration you can call different external endpoints.\
+To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
+
+```text
+172.20.0.8 admin.testcluster.example api.demoapp.example
+```
+
+Reach external URLs at addresses such as these:
+
+```bash
+curl -i http://admin.testcluster.example/admin
+curl -i -X POST http://api.demoapp.example/apps/example/login/start \
+    -H 'origin: https://www.demoapp.example' \
+    -H 'token-handler-version: 1'
 ```

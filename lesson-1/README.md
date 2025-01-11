@@ -38,10 +38,14 @@ Then log in to the Admin UI with these details:
 - Username: admin
 - Password: Password1
 
-Complete the [First Configuration](https://curity.io/resources/learn/first-config/) select `All options` and all defaults, to make OAuth endpoints are available.\
+Complete the first configuration to make HTTP endpoints available:
+
+- [First Configuration for the full Curity Identity Server](https://curity.io/resources/learn/first-config/)
+- [First Configuration for the Curity Token Handler](https://curity.io/resources/learn/token-handler-first-configuration/)
+
 In the Admin UI, use **Changes / Download** to save the configuration to the current folder in a file named `curity-config.xml`.
 
-## Call OAuth Endpoints
+## Call HTTP Endpoints
 
 Expose the runtime pod's HTTP endpoint using port forwarding:
 
@@ -50,11 +54,18 @@ RUNTIME_POD="$(kubectl -n curity get pod -l 'role=curity-idsvr-runtime' -o jsonp
 kubectl -n curity port-forward "$RUNTIME_POD" 8443
 ```
 
-Call the OpenID Connect metadata endpoint that external clients often call.\
-Once the JSON download succeds you have working OAuth endpoints.
+If you selected `All options` in the first configuration you can call OAuth endpoints:
 
 ```bash
-curl http://localhost:8443/oauth/v2/oauth-anonymous/.well-known/openid-configuration
+curl -i http://localhost:8443/oauth/v2/oauth-anonymous/.well-known/openid-configuration
+```
+
+If you selected `Token Handler only` in the first configuration you can call an OAuth Agent endpoint at your configured path:
+
+```bash
+curl -i -X POST http://localhost:8443/apps/example/login/start \
+    -H 'origin: https://www.demoapp.example' \
+    -H 'token-handler-version: 1'
 ```
 
 ## Run Upgrades with the Latest Configuration
