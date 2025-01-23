@@ -36,7 +36,7 @@ Follow the [README instructions](./4-final-tutorial/README.md) to learn how to:
 
 - Use persistent volumes for data storage.
 - Parameterize and protect configuration data for a deployment pipeline.
-- Customize the API gateway to include plugins for the phantom token and token handler.
+- Customize the API gateway to include plugins for the phantom token and OAuth proxy.
 
 ### Free Resources
 
