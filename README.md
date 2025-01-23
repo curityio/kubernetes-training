@@ -13,7 +13,17 @@ The resources work the same for both of these scenarios unless otherwise stated:
 - The full Curity Identity Server that provides a complete OAuth authorization server.
 - The Curity Token Handler, which processes cookies sent by Single Page Applications.
 
-## Lesson 1 - Deployment, Configuration and Upgrades
+## Fast Deployment
+
+If you just want to spin up a working local Kubernetes deployment you can:
+
+- Follow the [README instructions](./final/README.md) to run a series of scripts.
+
+To learn more about the details, follow the instructional lessons in sequence.
+
+## Lessons
+
+### 1 - Deployment, Configuration and Upgrades
 
 Follow the [README instructions](./lesson-1/README.md) to learn how to:
 
@@ -21,7 +31,7 @@ Follow the [README instructions](./lesson-1/README.md) to learn how to:
 - Access the admin UI and download the initial generated configuration.
 - Run zero downtime upgrades and include the latest configuration.
 
-## Lesson 2 - API Gateway Integration and External URLs
+### 2 - API Gateway Integration and External URLs
 
 Follow the [README instructions](./lesson-2/README.md) to learn how to:
 
@@ -29,7 +39,7 @@ Follow the [README instructions](./lesson-2/README.md) to learn how to:
 - Run the Curity Identity Server behind an API gateway.
 - Expose the admin UI and runtime endpoints using domain based URLs.
 
-## Lesson 3 - HTTPS External URLs with Certificate Auto Renewal
+### 3 - HTTPS External URLs with Certificate Auto Renewal
 
 Follow the [README instructions](./lesson-3/README.md) to learn how to:
 
@@ -37,7 +47,7 @@ Follow the [README instructions](./lesson-3/README.md) to learn how to:
 - Automate external certificate issuance using cert-manager.
 - Automate certificate renewal and reloading of the external certificate by the API gateway.
 
-## Lesson 4 - API Gateway Plugin Integration (for Curity Token Handler)
+### 4 - API Gateway Plugin Integration (for Curity Token Handler)
 
 Follow the [README instructions](./lesson-4/README.md) to learn how to:
 
@@ -45,7 +55,7 @@ Follow the [README instructions](./lesson-4/README.md) to learn how to:
 - Use the Phantom Token plugin to handle introspection of opaque access tokens.
 - Use the OAuth Proxy plugin to process cookies from Single Page Applications.
 
-## Lesson 5 - SQL Database Storage (for Curity Identity Server)
+### 5 - SQL Database Storage (for Curity Identity Server)
 
 Follow the [README instructions](./lesson-5/README.md) to learn how to:
 
@@ -53,7 +63,7 @@ Follow the [README instructions](./lesson-5/README.md) to learn how to:
 - Query the database to view stored identity data including user accounts.
 - Use external storage to avoid data loss if you recreate Kubernetes pods, nodes or the entire cluster.
 
-## Lesson 6 - Deployment Pipeline
+### 6 - Deployment Pipeline
 
 Follow the [README instructions](./lesson-5/README.md) to learn how to:
 
