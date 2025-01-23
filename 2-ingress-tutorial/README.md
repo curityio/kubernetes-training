@@ -1,7 +1,10 @@
-# Enable External OAuth Endpoints
+# API Gateways, Ingress and External URLs
 
-Provides external base URLs for the admin and runtime workloads.\
-This deployment requires you to complete the [basic tutorial](../1-basic-tutorial/README.md) first.
+Provides external OAuth HTTPS URLs for the admin and runtime workloads.
+
+## Prerequisites
+
+First ensure that you have completed the [basic tutorial](../1-basic-tutorial/README.md) so that expected resources are available.
 
 ## Design External URLs
 
@@ -18,7 +21,7 @@ The token handler base URL matches the domain of a web app such as `http://www.d
 
 ## 1. Create a Cluster
 
-Delete any existing cluster and create a new cluster:
+Delete the existing cluster if it exists and then create a new cluster:
 
 ```bash
 ./1-create-cluster.sh
@@ -89,7 +92,7 @@ Reach external URLs at addresses such as these:
 
 ```bash
 curl -i -k https://admin.testcluster.example/admin
-curl -i -k https://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration | jq
+curl -k https://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration | jq
 ```
 
 If you selected `Token Handler only` in the first configuration you can call different external endpoints.\

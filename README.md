@@ -11,7 +11,7 @@ Starter resources for developers to run the Curity product in Kubernetes:
 ## Deployments
 
 The resources work for both the Curity Identity Server and the Curity Token Handler.\
-You can run a particular tutorial or just jump to the final tutorial for a complete deployment.
+You can run tutorials in sequence or just jump to the final tutorial for a complete deployment.
 
 ### 1 - Basic Tutorial
 
@@ -28,7 +28,7 @@ Follow the [README instructions](./2-ingress-tutorial/README.md) to learn how to
 - Use a development load balancer and get an external IP address.
 - Run the Curity Identity Server behind an API gateway.
 - Expose the admin UI and runtime endpoints using domain based URLs.
-- Use cert-manager to update URLs to use HTTPS.
+- Use cert-manager to issue TLS certificates to enable HTTPS URLs.
 
 ### 3 - Use Data Sources and Persistent Volumes
 
@@ -39,11 +39,10 @@ Follow the [README instructions](./3-persistent-volumes/README.md) to learn how 
 
 ### 4 - Final Tutorial
 
-Follow the [README instructions](./4-/README.md) to learn how to:
+Follow the [README instructions](./4-final-tutorial/README.md) to learn how to:
 
 - Parameterize and protect configuration data for a deployment pipeline.
 - Customize the API gateway to include plugins for the phantom token and token handler.
-- Deploy both the Curity Identity Server and Curity Token Handler as distinct Kubernetes services.
 
 ### Free Resources
 
