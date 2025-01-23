@@ -30,17 +30,11 @@ Follow the [README instructions](./2-ingress-tutorial/README.md) to learn how to
 - Expose the admin UI and runtime endpoints using domain based URLs.
 - Use cert-manager to issue TLS certificates to enable HTTPS URLs.
 
-### 3 - Use Data Sources and Persistent Volumes
-
-Follow the [README instructions](./3-persistent-volumes/README.md) to learn how to:
-
-- Use persistent volumes to store configuration or data.
-- Query the database to view stored identity data including user accounts.
-
-### 4 - Final Tutorial
+### 3 - Final Tutorial
 
 Follow the [README instructions](./4-final-tutorial/README.md) to learn how to:
 
+- Use persistent volumes for data storage.
 - Parameterize and protect configuration data for a deployment pipeline.
 - Customize the API gateway to include plugins for the phantom token and token handler.
 
