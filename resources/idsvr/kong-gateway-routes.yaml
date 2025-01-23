@@ -52,7 +52,7 @@ spec:
   rules:
   - matches:
     - path:
-        value: /apps/example
+        value: /oauthagent/example
     backendRefs:
     - name: curity-idsvr-runtime-svc
       kind: Service

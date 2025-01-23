@@ -39,7 +39,7 @@ export PROVIDER_NAME='kong'
 When the script completes you see output similar to this:
 
 ```text
-The API gateway external IP address is 172.20.0.8
+The API gateway external IP address is 172.20.0.5
 ```
 
 ## Access External OAuth Endpoints
@@ -48,7 +48,7 @@ If you selected `All options` in the first configuration you can call external O
 To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
 
 ```text
-172.20.0.8 admin.testcluster.example login.testcluster.example
+172.20.0.5 admin.testcluster.example login.testcluster.example
 ```
 
 Reach external URLs at these addresses:
@@ -64,14 +64,14 @@ If you selected `Token Handler only` in the first configuration you can call dif
 To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
 
 ```text
-172.20.0.8 admin.testcluster.example api.demoapp.example
+172.20.0.5 admin.testcluster.example api.demoapp.example
 ```
 
 Reach external URLs at these addresses:
 
 ```bash
 curl -i -k https://admin.testcluster.example/admin
-curl -i -k -X POST https://api.demoapp.example/apps/example/login/start \
+curl -i -k -X POST https://api.demoapp.example/oauthagent/example/login/start \
     -H 'origin: https://www.demoapp.example' \
     -H 'token-handler-version: 1'
 ```

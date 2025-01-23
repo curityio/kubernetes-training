@@ -51,13 +51,13 @@ Study the scripts and YAML resources to understand the use of HTTP routes that e
 When the script completes you see output like this:
 
 ```text
-The API gateway external IP address is 172.20.0.8
+The API gateway external IP address is 172.20.0.5
 ```
 
 If you inspect Kubernetes services, notice that the load balancer IP address is assigned to the API gateway's service:
 
 ```bash
-kong       kong-kong-proxy      LoadBalancer   10.96.200.210   172.20.0.8    80:32742/TCP,443:32181/TCP
+kong       kong-kong-proxy      LoadBalancer   10.96.200.210   172.20.0.5    80:32742/TCP,443:32181/TCP
 ```
 
 ## Access External OAuth Endpoints
@@ -66,7 +66,7 @@ If you selected `All options` in the first configuration you can call external O
 To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
 
 ```text
-172.20.0.8 admin.testcluster.example login.testcluster.example
+172.20.0.5 admin.testcluster.example login.testcluster.example
 ```
 
 Reach external URLs at addresses such as these:
@@ -82,14 +82,14 @@ If you selected `Token Handler only` in the first configuration you can call dif
 To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
 
 ```text
-172.20.0.8 admin.testcluster.example api.demoapp.example
+172.20.0.5 admin.testcluster.example api.demoapp.example
 ```
 
 Reach external URLs at addresses such as these:
 
 ```bash
 curl -i http://admin.testcluster.example/admin
-curl -i -X POST http://api.demoapp.example/apps/example/login/start \
+curl -i -X POST http://api.demoapp.example/oauthagent/example/login/start \
     -H 'origin: https://www.demoapp.example' \
     -H 'token-handler-version: 1'
 ```

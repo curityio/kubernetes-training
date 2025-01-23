@@ -63,7 +63,7 @@ curl -i http://localhost:8443/oauth/v2/oauth-anonymous/.well-known/openid-config
 If you selected `Token Handler only` in the first configuration you can call an OAuth Agent endpoint at your configured path:
 
 ```bash
-curl -i -X POST http://localhost:8443/apps/example/login/start \
+curl -i -X POST http://localhost:8443/oauthagent/example/login/start \
     -H 'origin: https://www.demoapp.example' \
     -H 'token-handler-version: 1'
 ```
