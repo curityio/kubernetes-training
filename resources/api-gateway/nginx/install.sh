@@ -38,9 +38,9 @@ if [ $? -ne 0 ]; then
 fi
 
 #
-# Expose HTTP routes for the admin and runtime workloads
+# Create the API gateway's SSL certificate
 #
-kubectl -n curity apply -f ../../resources/idsvr/nginx-gateway-routes.yaml
+kubectl -n nginx apply -f ../external-certs/api-gateway-certificate.yaml
 if [ $? -ne 0 ]; then
   exit 1
 fi

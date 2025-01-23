@@ -20,6 +20,7 @@ helm upgrade --install kong kong/kong \
   --namespace kong \
   --create-namespace \
   --set replicaCount=2 \
+  --set proxy.http.enabled=false \
   --wait
 if [ $? -ne 0 ]; then
   exit 1
@@ -40,9 +41,9 @@ if [ $? -ne 0 ]; then
 fi
 
 #
-# Enable HTTP routes for the admin and runtime workloads
+# Create the API gateway's SSL certificate
 #
-kubectl -n curity apply -f ../../resources/idsvr/kong-gateway-routes.yaml
+kubectl -n nginx apply -f ../external-certs/api-gateway-certificate.yaml
 if [ $? -ne 0 ]; then
   exit 1
 fi

@@ -1,10 +1,11 @@
 #!/bin/bash
 
-################################################################
-# Deploy the Curity Identity Server with encrypted configuration
-################################################################
+####################################################################################
+# The initial deployment of admin and runtime workloads with a config encryption key
+####################################################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
+cd ../resources/idsvr
 
 #
 # Get Helm resources
@@ -22,10 +23,10 @@ kubectl -n curity create serviceaccount curity-idsvr-runtime
 #
 # Create a new config encryption key
 #
-if [ ! -f ../resources/idsvr/encryption.key ]; then
-  openssl rand 32 | xxd -p -c 64 > ../resources/idsvr/encryption.key
+if [ ! -f encryption.key ]; then
+  openssl rand 32 | xxd -p -c 64 > encryption.key
 fi
-CONFIG_ENCRYPTION_KEY=$(cat ../resources/idsvr/encryption.key)
+CONFIG_ENCRYPTION_KEY=$(cat encryption.key)
 
 #
 # Run the Helm chart and generate a new configuration

@@ -1,29 +1,29 @@
-# Initial Deployment and Upgrade
+# Basic Tutorial
 
-Initial Kubernetes deployments of the admin workload, runtime workload and configuration.
+Initial Kubernetes deployments and upgrades of the admin workload, runtime workload and configuration.
 
 ## Prerequisites
 
 Ensure that a Docker engine and [Kubernetes in Docker (KIND)](https://kind.sigs.k8s.io/docs/user/quick-start/) are installed.\
-Also ensure that the Docker engine is installed sufficient resources, including 8GB of RAM.\
+Also ensure that the Docker engine is configured with at least 8GB of RAM.\
 Also download a license file for the Curity Identity Server from the [Curity developer portal](https://developer.curity.io/).
 
-## First Deployment
+## 1. Create the Cluster
 
-Create the cluster:
+Run the following command:
 
 ```bash
 ./1-create-cluster.sh
 ```
 
-Deploy the Curity Identity Server and wait for pods to come up.\
+## 2. Run the Initial Installation
+
+Deploy the Curity product and wait for pods to come up.\
 Study the script to understand the use of a config encryption key and a Helm chart values file:
 
 ```bash
-./2-deploy-idsvr.sh
+./2-install-curity.sh
 ```
-
-## Run the Initial Configuration
 
 Expose the admin pod's HTTP endpoint using port forwarding:
 
@@ -43,10 +43,7 @@ Complete the first configuration to make HTTP endpoints available:
 - [First Configuration for the full Curity Identity Server](https://curity.io/resources/learn/first-config/)
 - [First Configuration for the Curity Token Handler](https://curity.io/resources/learn/token-handler-first-configuration/)
 
-In the Admin UI, use **Changes / Download** to save the configuration to the current folder in a file named `curity-config.xml`.
-
-## Call HTTP Endpoints
-
+In the Admin UI, use **Changes / Download** to save the configuration to the current folder in a file named `curity-config.xml`.\
 Expose the runtime pod's HTTP endpoint using port forwarding:
 
 ```bash
@@ -68,13 +65,13 @@ curl -i -X POST http://localhost:8443/oauthagent/example/login/start \
     -H 'token-handler-version: 1'
 ```
 
-## Run Upgrades with the Latest Configuration
+## 3. Run Upgrades with the Latest Configuration
 
-Run a zero downtime upgrade of the Curity Identity Server with the backed up configuration.\
+Run a zero downtime upgrade of the Curity product with the backed up configuration.\
 Study the script to understand how it supplies existing configuration values with a configmap and secret.
 
 ```bash
-./3-upgrade-idsvr.sh
+./3-upgrade-curity.sh
 ```
 
 During the upgrade, watch how the platform replaces pods in a phased manner:

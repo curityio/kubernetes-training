@@ -1,6 +1,7 @@
 # Enable External OAuth Endpoints
 
-Provides external base URLs for the admin and runtime workloads.
+Provides external base URLs for the admin and runtime workloads.\
+This deployment requires you to complete the [basic tutorial](../1-basic-tutorial/README.md) first.
 
 ## Design External URLs
 
@@ -15,31 +16,39 @@ The token handler base URL matches the domain of a web app such as `http://www.d
 - Admin UI Base URL: `http://admin.testcluster.example`
 - Token Handler Base URL: `http://api.demoapp.example`
 
-## Install the Cloud Provider KIND
+## 1. Create a Cluster
+
+Delete any existing cluster and create a new cluster:
+
+```bash
+./1-create-cluster.sh
+```
+
+## 2. Install the Load Balancer Provider
 
 The [cloud-provider-kind](https://github.com/kubernetes-sigs/cloud-provider-kind) development component watches for Kubernetes services of type LoadBalancer.\
 When one is installed, the provider creates an external IP address and spins up an `envoyproxy` Docker load balancer that uses it.\
 This requires sudo access on macOS - if you use Windows Git bash you should run a local administrator shell:
 
 ```bash
-./4-run-load-balancer.sh
+./2-run-load-balancer.sh
 ```
 
-## Install the API Gateway
+## 3. Prepare SSL Certificates
 
-In another terminal window install either the NGINX API gateway.\
-If required, study the YAML resources and update them to match your deployment.
+First install cert-manager and prepare it for certificate issuance:
 
 ```bash
-export PROVIDER_NAME='nginx'
-./5-deploy-api-gateway.sh
+./3-prepare-external-certificates.sh
 ```
 
-Or the Kong NGINX API gateway:
+## 4. Deploy the API Gateway
+
+In another terminal window install the API gateway and set a `GATEWAY_TYPE` of either `nginx` or `kong`:
 
 ```bash
-export PROVIDER_NAME='kong'
-./5-deploy-api-gateway.sh
+export GATEWAY_TYPE='nginx'
+./4-deploy-api-gateway.sh
 ```
 
 The ingress resources use the future proof versions of NGINX and Kong that use the newer [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/):
@@ -60,7 +69,14 @@ If you inspect Kubernetes services, notice that the load balancer IP address is 
 kong       kong-kong-proxy      LoadBalancer   10.96.200.210   172.20.0.5    80:32742/TCP,443:32181/TCP
 ```
 
-## Access External OAuth Endpoints
+## 5. Deploy the Curity Product
+
+Run the following command and and set a `GATEWAY_TYPE` of either `nginx` or `kong` for the ingress:
+
+```bash
+export GATEWAY_TYPE='nginx'
+./5-deploy-curity.sh
+```
 
 If you selected `All options` in the first configuration you can call external OAuth endpoints.\
 To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
@@ -72,11 +88,9 @@ To use domain based URLs correctly on a development computer, add entries like t
 Reach external URLs at addresses such as these:
 
 ```bash
-curl -i http://admin.testcluster.example/admin
-curl -i http://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration
+curl -i -k https://admin.testcluster.example/admin
+curl -i -k https://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration | jq
 ```
-
-## Access External Token Handler Endpoints
 
 If you selected `Token Handler only` in the first configuration you can call different external endpoints.\
 To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
@@ -88,8 +102,8 @@ To use domain based URLs correctly on a development computer, add entries like t
 Reach external URLs at addresses such as these:
 
 ```bash
-curl -i http://admin.testcluster.example/admin
-curl -i -X POST http://api.demoapp.example/oauthagent/example/login/start \
+curl -i -k https://admin.testcluster.example/admin
+curl -i -k -X POST http://api.demoapp.example/oauthagent/example/login/start \
     -H 'origin: https://www.demoapp.example' \
     -H 'token-handler-version: 1'
 ```

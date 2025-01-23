@@ -5,6 +5,7 @@
 ###################################################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
+cd ../resources/api-gateway/external-certs
 
 #
 # As a basic way to enable retries of failed deployments, delete existing resources
@@ -28,7 +29,7 @@ fi
 #
 # Create a root CA if required
 #
-../resources/external-certs/create-root-ca.sh
+./create-root-ca.sh
 if [ $? -ne 0 ]; then
   exit 1
 fi
@@ -37,8 +38,8 @@ fi
 # Create a Kubernetes secret from the root CA files
 #
 kubectl -n cert-manager create secret tls external-rootca-secret \
-  --cert='../resources/external-certs/testcluster.ca.crt' \
-  --key='../resources/external-certs/testcluster.ca.key'
+  --cert='testcluster.ca.crt' \
+  --key='testcluster.ca.key'
 if [ $? -ne 0 ]; then
   echo '*** Problem encountered creating the external root CA secret'
   exit 1

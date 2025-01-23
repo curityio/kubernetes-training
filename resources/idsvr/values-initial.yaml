@@ -1,3 +1,6 @@
+###########################################################################
+# Helm chart values for the first deployment that generates a configuration
+###########################################################################
 replicaCount: 2
 
 image:
@@ -20,15 +23,6 @@ curity:
 
   config:
     uiEnabled: true
-    skipInstall: true
-    configuration:
-    - configMapRef:
-        name: idsvr-config
-        items:
-        - key: idsvr-config
-          path: curity-config.xml
-    environmentVariableSecrets:
-    - idsvr-secrets
 
 networkpolicy:
   enabled: false

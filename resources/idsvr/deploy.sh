@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#########################################################################################
-# Run a zero downtime upgrade of the Curity Identity Server with the latest configuration
-#########################################################################################
+######################################################################
+# Deploy the admin and runtime workloads with the latest configuration
+######################################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
@@ -16,14 +16,14 @@ kubectl -n curity create serviceaccount curity-idsvr-runtime 2>/dev/null
 #
 # Use the existing config encryption key
 #
-CONFIG_ENCRYPTION_KEY=$(cat ../resources/idsvr/encryption.key)
+CONFIG_ENCRYPTION_KEY=$(cat encryption.key)
 
 #
 # Create a Kubernetes configmap with the configuration
 #
 kubectl -n curity delete configmap idsvr-config 2>/dev/null
 kubectl -n curity create configmap idsvr-config \
-  --from-file='idsvr-config=../resources/idsvr/curity-config.xml'
+  --from-file='idsvr-config=curity-config.xml'
 if [ $? -ne 0 ]; then
   exit 1
 fi
@@ -41,7 +41,7 @@ fi
 #
 # Use the Helm chart to run a phased zero downtime upgrade that keeps existing endpoints available
 #
-helm upgrade --install curity curity/idsvr -f values-redeploy.yaml --namespace curity
+helm upgrade --install curity curity/idsvr -f values.yaml --namespace curity
 if [ $? -ne 0 ]; then
   exit 1
 fi
