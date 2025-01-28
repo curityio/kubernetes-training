@@ -7,9 +7,9 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 #
-# Deploy the Curity product
+# Run the final example deployment for the Curity product
 #
-../resources/curity/basic/deploy.sh
+../resources/curity/idsvr-final/deploy.sh
 if [ $? -ne 0 ]; then
   exit 1
 fi

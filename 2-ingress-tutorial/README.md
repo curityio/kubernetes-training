@@ -4,17 +4,17 @@ Provides external OAuth HTTPS URLs for the admin and runtime workloads.
 
 ## Prerequisites
 
-First ensure that you have completed the [basic tutorial](../1-basic-tutorial/README.md) so that expected resources are available.
+First ensure that you have completed the [basic tutorial](../1-basic-tutorial/README.md) so that expected resources are available on disk.
 
 ## Design External URLs
 
-If you are running the full Curity Identity Server you might design these base URLs for a test system:
+If you are running the full Curity Identity Server you might design the following base URLs for a test system:
 
 - Admin UI Base URL: `http://admin.testcluster.example`
 - OAuth Base URL: `http://login.testcluster.example`
 
-If you are running just the Curity Token Handler, you might instead use these base URLs for a test system.\
-The token handler base URL matches the domain of a web app such as `http://www.demoapp.example`.
+If you are running just the Curity Token Handler, you might instead use the following base URLs for a test system.\
+The token handler base URL has the same parent domain as a web app, which might run at `http://www.demoapp.example`.
 
 - Admin UI Base URL: `http://admin.testcluster.example`
 - Token Handler Base URL: `http://api.demoapp.example`
@@ -39,7 +39,7 @@ This requires sudo access on macOS - if you use Windows Git bash you should run 
 
 ## 3. Prepare SSL Certificates
 
-First install cert-manager and prepare it for certificate issuance:
+In another terminal window install cert-manager and prepare it for certificate issuance:
 
 ```bash
 ./3-prepare-external-certificates.sh
@@ -47,7 +47,7 @@ First install cert-manager and prepare it for certificate issuance:
 
 ## 4. Deploy the API Gateway
 
-In another terminal window install the API gateway and set a `GATEWAY_TYPE` of either `nginx` or `kong`:
+Then install the API gateway and set a `GATEWAY_TYPE` of either `nginx` or `kong`:
 
 ```bash
 export GATEWAY_TYPE='nginx'

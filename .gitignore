@@ -5,3 +5,6 @@ encryption.key
 download
 *.key
 *.crt
+*.csr
+*.sql
+externalstorage

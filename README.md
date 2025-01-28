@@ -30,13 +30,20 @@ Follow the [README instructions](./2-ingress-tutorial/README.md) to learn how to
 - Expose the admin UI and runtime endpoints using domain based URLs.
 - Use cert-manager to issue TLS certificates to enable HTTPS URLs.
 
-### 3 - Final Tutorial
+### 3 - Final Curity Identity Server Tutorial
 
-Follow the [README instructions](./4-final-tutorial/README.md) to learn how to:
+Follow the [README instructions](./3-curity-identity-server/README.md) to learn how to:
 
-- Use persistent volumes for data storage.
-- Parameterize and protect configuration data for a deployment pipeline.
-- Customize the API gateway to include plugins for the phantom token and OAuth proxy.
+- Use a SQL database with persistent storage of identity data like user accounts.
+- Uses configuration best practices for a deployment pipeline.
+
+### 4 - Final Curity Token Handler Tutorial
+
+Follow the [README instructions](./4-curity-token-handler/README.md) to learn how to:
+
+- Uses API gateway plugins to complete the backend endpoints needed to use the token handler pattern.
+- Runs a working Single Page Application against the token handler endpoints.
+- Uses configuration best practices for a deployment pipeline.
 
 ### Free Resources
 

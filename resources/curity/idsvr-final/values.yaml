@@ -1,0 +1,39 @@
+########################################################################
+# Helm chart values for the redeployments with an existing configuration
+########################################################################
+replicaCount: 2
+
+image:
+  repository: curity.azurecr.io/curity/idsvr
+  tag: latest
+
+curity:
+  adminUiHttp: true
+  admin:
+    serviceAccount:
+      name: curity-idsvr-admin
+    logging:
+      level: INFO
+
+  runtime:
+    serviceAccount:
+      name: curity-idsvr-runtime
+    logging:
+      level: INFO
+
+  config:
+    uiEnabled: true
+    skipInstall: true
+    configuration:
+    - configMapRef:
+        name: idsvr-config
+        items:
+        - key: idsvr-config
+          path: curity-config.xml
+    environmentVariableConfigMaps:
+    - idsvr-parameters
+    environmentVariableSecrets:
+    - idsvr-protected-parameters
+
+networkpolicy:
+  enabled: false

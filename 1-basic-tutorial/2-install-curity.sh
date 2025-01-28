@@ -5,7 +5,7 @@
 ####################################################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
-cd ../resources/idsvr
+cd ../resources/curity/basic
 
 #
 # Get Helm resources

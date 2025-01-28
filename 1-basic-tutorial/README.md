@@ -40,7 +40,7 @@ Then log in to the Admin UI with these details:
 
 Complete the first configuration to make HTTP endpoints available:
 
-- [First Configuration for the full Curity Identity Server](https://curity.io/resources/learn/first-config/)
+- [First Configuration for the Curity Identity Server](https://curity.io/resources/learn/first-config/)
 - [First Configuration for the Curity Token Handler](https://curity.io/resources/learn/token-handler-first-configuration/)
 
 In the Admin UI, use **Changes / Download** to save the configuration to the current folder in a file named `curity-config.xml`.\
