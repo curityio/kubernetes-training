@@ -19,6 +19,12 @@ if [ "$LICENSE_KEY" == '' ]; then
   exit 1
 fi
 
+#
+# To retry during development this deletes all resources on every deployment
+#
+kubectl delete namespace curity 2>/dev/null
+kubectl delete pv/pv-idsvr-data
+
 # 
 # Create the namespace and service accounts if required
 #
@@ -29,7 +35,6 @@ kubectl -n curity create serviceaccount curity-idsvr-runtime 2>/dev/null
 #
 # Create a Kubernetes configmap with the configuration
 #
-kubectl -n curity delete configmap idsvr-config 2>/dev/null
 kubectl -n curity create configmap idsvr-config \
   --from-file='idsvr-config=curity-config.xml'
 if [ $? -ne 0 ]; then

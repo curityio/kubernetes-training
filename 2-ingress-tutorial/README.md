@@ -21,7 +21,7 @@ The token handler base URL has the same parent domain as a web app, which might 
 
 ## 1. Create a Cluster
 
-Delete the existing cluster if it exists and then create a new cluster:
+Delete the existing cluster if it exists and then create a new cluster with the scripts from this tutorial's folder:
 
 ```bash
 ./1-create-cluster.sh

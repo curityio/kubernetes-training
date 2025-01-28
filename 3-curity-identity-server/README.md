@@ -4,34 +4,18 @@ The final tutorial demonstrates a couple of behaviors to aim for in real deploym
 
 ## Run Base Scripts
 
-Delete the existing cluster if it exists and then create a new cluster:
+Delete the existing cluster if it exists and then create a new cluster with the scripts from this tutorial's folder:
 
 ```bash
 ./1-create-cluster.sh
-```
-
-Run the development load balancer:
-
-```bash
 ./2-run-load-balancer.sh
-```
-
-In another terminal window install cert-manager and prepare root certificates:
-
-```bash
 ./3-prepare-external-certificates.sh
-```
-
-Install the API gateway and note the external IP address reported:
-
-```bash
-export GATEWAY_TYPE='nginx'
 ./4-deploy-api-gateway.sh
 ```
 
 ## Deploy the Curity Identity Server
 
-Then run a more advanced deployment, that uses parameters to avoid duplication between stages of the deployment pipeline.\
+Then run a more advanced Curity Identity Server deployment:
 
 ```bash
 ./5-deploy-curity.sh
