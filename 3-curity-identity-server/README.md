@@ -93,23 +93,24 @@ spec:
 The database data survives replacement of pods, nodes or even the entire cluster.\
 For real deployments you can use many possible ways to enable high availability database storage for identity data.
 
-### Query Identity Data
+### Identity Data
 
-Get a shell to the database container with the following command:
+To familiarize yourself with the database schema, first get a shell to the database container with the following command:
 
 ```bash
 kubectl -n curity exec -it postgres-0 -- bash
 ```
 
-Then connect to the database:
+Then connect to the PostgreSQL database:
 
 ```bash
 export PGPASSWORD=Password1 && psql -p 5432 -d idsvr -U idsvr
 ```
 
-As you run flows and work with users and tokens you can get to know the database schema:
+As you run flows and use tokens you will see data get created:
 
 ```sql
 select * from accounts;
 select * from tokens;
 ```
+
