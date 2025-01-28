@@ -4,9 +4,9 @@ This deployment provides a working SPA with a Kubernetes token handler.
 
 ## Run Base Scripts
 
-First deploy the cluster from the `Final Curity Identity Server` tutorial, to use as the authorization server.\
-Then redeploy the API gateway with the script from this tutorial's folder.\
-The API gateway deployment then provides API gateway plugins used by the token handler pattern:
+First run the `Final Curity Identity Server` tutorial, to deploy authorization server endpoints.\
+If you prefer, replace the Curity Identity Server with a different authorization server.\
+Then redeploy the API gateway with plugins, using the script from this tutorial's folder:
 
 ```bash
 ./4-deploy-api-gateway.sh
@@ -14,7 +14,7 @@ The API gateway deployment then provides API gateway plugins used by the token h
 
 ## Deploy the Curity Token Handler
 
-Then run a Curity Token Handler deployment that uses parameterized configuration:
+Then run a Curity Token Handler deployment that points to the authorization server's endpoints:
 
 ```bash
 ./5-deploy-curity.sh
@@ -23,7 +23,7 @@ Then run a Curity Token Handler deployment that uses parameterized configuration
 ## Deploy an Example SPA and API
 
 Then deploy an example SPA and API to enable an end-to-end solution.\
-These application level components contain straightforward code and do not require any cookie logic.
+These application level components do not need to implement any cookie logic.
 
 ```bash
 ./6-deploy-spa-and-api.sh
