@@ -4,7 +4,8 @@ The final tutorial demonstrates a couple of behaviors to aim for in real deploym
 
 ## Run Base Scripts
 
-Delete the existing cluster if it exists and then create a new cluster with the scripts from this tutorial's folder:
+Delete the existing cluster if it exists and then create a new cluster with the scripts from this tutorial's folder.\
+The behavior of these scripts is explained in the [Ingress tutorial](../2-ingress-tutorial).
 
 ```bash
 ./1-create-cluster.sh
@@ -15,7 +16,8 @@ Delete the existing cluster if it exists and then create a new cluster with the 
 
 ## Deploy the Curity Identity Server
 
-Then run a more advanced Curity Identity Server deployment:
+Then run a more advanced Curity Identity Server deployment that includes a [JDBC data source](https://curity.io/docs/idsvr/latest/system-admin-guide/data-sources/index.html).\
+This example deployment uses PostgreSQL, though you could adapt the deployment to support a different provider:
 
 ```bash
 ./5-deploy-curity.sh
@@ -90,3 +92,24 @@ spec:
 
 The database data survives replacement of pods, nodes or even the entire cluster.\
 For real deployments you can use many possible ways to enable high availability database storage for identity data.
+
+### Query Identity Data
+
+Get a shell to the database container with the following command:
+
+```bash
+kubectl -n curity exec -it postgres-0 -- bash
+```
+
+Then connect to the database:
+
+```bash
+export PGPASSWORD=Password1 && psql -p 5432 -d idsvr -U idsvr
+```
+
+As you run flows and work with users and tokens you can get to know the database schema:
+
+```sql
+select * from accounts;
+select * from tokens;
+```

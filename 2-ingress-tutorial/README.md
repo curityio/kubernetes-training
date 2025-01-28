@@ -47,7 +47,8 @@ In another terminal window install cert-manager and prepare it for certificate i
 
 ## 4. Deploy the API Gateway
 
-Then install the API gateway and set a `GATEWAY_TYPE` of either `nginx` or `kong`:
+This tutorial supports either the Kong or NGINX API gateways or you could adapt the deployment to support a different gateway.\
+Provide a `GATEWAY_TYPE` of either `nginx` or `kong`:
 
 ```bash
 export GATEWAY_TYPE='nginx'
