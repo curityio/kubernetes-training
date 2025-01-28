@@ -20,6 +20,12 @@ Then run a Curity Token Handler deployment that points to the authorization serv
 ./5-deploy-curity.sh
 ```
 
+### Configuration Best Practices
+
+The deployment uses a configuration file with placeholders like `#{PARAMETER}`, which get subsituted with environment variables.\
+The deployment supplies sensitive values like keys as cryptographically protected environment variables.\
+The [Configuration as Code](https://curity.io/resources/learn/gitops-configuration-management/) tutorial explains the techniques.
+
 ## Deploy an Example SPA and API
 
 Then deploy an example SPA and API to enable an end-to-end solution.\
