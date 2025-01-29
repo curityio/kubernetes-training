@@ -1,8 +1,8 @@
 #!/bin/bash
 
-######################################################################
-# Deploy the admin and runtime workloads with the latest configuration
-######################################################################
+#####################################################################################################
+# Deploy the admin and runtime workloads for the Curity Identity Server with the latest configuration
+#####################################################################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
@@ -20,7 +20,7 @@ if [ "$LICENSE_KEY" == '' ]; then
 fi
 
 #
-# To retry during development this deletes all resources on every deployment
+# To retry during development this deletes all namespace resources on every deployment
 #
 kubectl delete namespace curity 2>/dev/null
 kubectl delete pv/pv-idsvr-data
@@ -28,7 +28,7 @@ kubectl delete pv/pv-idsvr-data
 # 
 # Create the namespace and service accounts if required
 #
-kubectl create namespace curity                              2>/dev/null
+kubectl create namespace curity
 kubectl -n curity create serviceaccount curity-idsvr-admin   2>/dev/null
 kubectl -n curity create serviceaccount curity-idsvr-runtime 2>/dev/null
 
@@ -44,7 +44,7 @@ fi
 #
 # The deployment uses parameterized and protected configuration
 #
-./crypto/create-parameters.sh
+./parameters/create-parameters.sh
 if [ $? -ne 0 ]; then
   exit 1
 fi
@@ -53,6 +53,18 @@ fi
 # Use the Helm chart to run a phased zero downtime upgrade that keeps existing endpoints available
 #
 helm upgrade --install curity curity/idsvr -f values.yaml --namespace curity
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+#
+# Use routes to expose admin and OAuth endpoints
+#
+if [ "$GATEWAY_TYPE" == 'kong' ]; then
+  kubectl -n curity apply -f kong-gateway-routes.yaml
+else
+  kubectl -n curity apply -f nginx-gateway-routes.yaml
+fi
 if [ $? -ne 0 ]; then
   exit 1
 fi

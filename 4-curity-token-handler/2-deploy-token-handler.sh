@@ -1,15 +1,12 @@
 #!/bin/bash
 
 #####################################################
-# Run a redeployment that uses existing configuration
+# Run the final example deployment for the Curity Token Handler
 #####################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-#
-# Run the final example deployment for the Curity Identity Server
-#
-../resources/curity/idsvr-final/deploy.sh
+../resources/curity/tokenhandler-final/deploy.sh
 if [ $? -ne 0 ]; then
   exit 1
 fi

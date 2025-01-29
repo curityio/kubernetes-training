@@ -1,17 +1,17 @@
-# Kubernetes Getting Started
+# Kubernetes Training
 
 [![Quality](https://img.shields.io/badge/quality-demo-red)](https://curity.io/resources/code-examples/status/)
 [![Availability](https://img.shields.io/badge/availability-source-blue)](https://curity.io/resources/code-examples/status/)
 
-Starter resources for developers to run the Curity product in Kubernetes:
+Training resources for developers to run the Curity product in Kubernetes:
 
 - Deployments use similar concepts to real environments on a local computer.
-- Enables local execution of OAuth flows and planning of deployments.
+- Enables local execution of OAuth flows and planning of real deployments.
 
 ## Deployments
 
 The resources work for both the Curity Identity Server and the Curity Token Handler.\
-You can run tutorials in sequence or just jump to the final tutorial for a complete deployment.
+You can run tutorials in sequence or just jump to the final tutorials for a working deployment.
 
 ### 1 - Basic Tutorial
 
@@ -41,9 +41,10 @@ Follow the [README instructions](./3-curity-identity-server/README.md) to learn 
 
 Follow the [README instructions](./4-curity-token-handler/README.md) to learn how to:
 
-- Uses API gateway plugins to complete the backend endpoints needed to use the token handler pattern.
-- Runs a working Single Page Application against the token handler endpoints.
-- Uses configuration best practices for a deployment pipeline.
+- Uses API gateway plugins to run the OAuth Proxy and Phantom Token plugins.
+- Deploys the Curity Token Handler to Kubernetes using configuration best practices for a deployment pipeline.
+- Enables test user creation, registers OAuth clients and configures authenticators.
+- Runs an end-to-end token handler flow that uses an example Single Page Application and REST API.
 
 ### Free Resources
 

@@ -174,8 +174,7 @@ kubectl -n curity create configmap idsvr-parameters \
   --from-literal="RUNTIME_BASE_URL=$RUNTIME_BASE_URL" \
   --from-literal="ADMIN_BASE_URL=$ADMIN_BASE_URL" \
   --from-literal="DB_USER=$DB_USER" \
-  --from-literal="DB_DRIVER=$DB_DRIVER" \
-  --from-literal="LICENSE_KEY=$LICENSE_KEY"
+  --from-literal="DB_DRIVER=$DB_DRIVER"
 if [ $? -ne 0 ]; then
   echo "Problem encountered creating the Kubernetes configmap containing unprotected environment variables"
   exit 1
@@ -190,6 +189,7 @@ kubectl -n curity create secret generic idsvr-protected-parameters \
   --from-literal="DB_CONNECTION=$DB_CONNECTION" \
   --from-literal="SYMMETRIC_KEY=$SYMMETRIC_KEY" \
   --from-literal="SIGNING_KEY=$SIGNING_KEY" \
+  --from-literal="LICENSE_KEY=$LICENSE_KEY" \
   --from-literal="CONFIG_ENCRYPTION_KEY=$CONFIG_ENCRYPTION_KEY"
 if [ $? -ne 0 ]; then
   echo "Problem encountered creating the Kubernetes secret containing protected environment variables"

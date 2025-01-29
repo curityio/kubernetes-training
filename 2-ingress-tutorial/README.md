@@ -45,6 +45,13 @@ In another terminal window install cert-manager and prepare it for certificate i
 ./3-prepare-external-certificates.sh
 ```
 
+To prevent browser SSL trust warnings for the deployed cluster, trust the root certificate for external URLs.\
+For example, add this root certificate file to the system keychain on macOS:
+
+```text
+resources/api-gateway/external-certs/testcluster.ca.crt
+```
+
 ## 4. Deploy the API Gateway
 
 This tutorial supports either the Kong or NGINX API gateways or you could adapt the deployment to support a different gateway.\
@@ -82,6 +89,8 @@ export GATEWAY_TYPE='nginx'
 ./5-deploy-curity.sh
 ```
 
+### Configure DNS for the Curity Identity Server
+
 If you selected `All options` in the first configuration you can call external OAuth endpoints.\
 To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
 
@@ -96,6 +105,8 @@ curl -i -k https://admin.testcluster.example/admin
 curl -k https://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration | jq
 ```
 
+### Configure DNS for the Curity Token Handler
+
 If you selected `Token Handler only` in the first configuration you can call different external endpoints.\
 To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
 
@@ -107,7 +118,7 @@ Reach external URLs at addresses such as these:
 
 ```bash
 curl -i -k https://admin.testcluster.example/admin
-curl -i -k -X POST http://api.demoapp.example/oauthagent/example/login/start \
+curl -i -k -X POST https://api.demoapp.example/oauthagent/example/login/start \
     -H 'origin: https://www.demoapp.example' \
     -H 'token-handler-version: 1'
 ```

@@ -7,5 +7,6 @@ download
 *.crt
 *.p12
 *.csr
+*.pkcs8
 *.sql
 externalstorage

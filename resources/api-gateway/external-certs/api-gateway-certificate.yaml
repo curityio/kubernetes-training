@@ -13,6 +13,7 @@ spec:
   dnsNames:
     - admin.testcluster.example
     - login.testcluster.example
+    - admin.demoapp.example
     - api.demoapp.example
   issuerRef:
     name: api-gateway-issuer

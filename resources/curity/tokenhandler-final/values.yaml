@@ -1,7 +1,8 @@
-######################################################################################################
-# Helm chart values for the redeployments of the Curity Identity Server with an existing configuration
-######################################################################################################
+####################################################################################################
+# Helm chart values for the redeployments of the Curity Token Handler with an existing configuration
+####################################################################################################
 replicaCount: 2
+fullnameOverride: tokenhandler
 
 image:
   repository: curity.azurecr.io/curity/idsvr
@@ -11,13 +12,13 @@ curity:
   adminUiHttp: true
   admin:
     serviceAccount:
-      name: curity-idsvr-admin
+      name: curity-tokenhandler-admin
     logging:
       level: INFO
 
   runtime:
     serviceAccount:
-      name: curity-idsvr-runtime
+      name: curity-tokenhandler-runtime
     logging:
       level: INFO
 

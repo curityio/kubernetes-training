@@ -5,7 +5,7 @@ The final tutorial demonstrates a couple of behaviors to aim for in real deploym
 ## Run Base Scripts
 
 Delete the existing cluster if it exists and then create a new cluster with the scripts from this tutorial's folder.\
-The behavior of these scripts is explained in the [Ingress tutorial](../2-ingress-tutorial).
+The [Ingress tutorial](../2-ingress-tutorial) explains the behavior of these scripts and the URLs you can connect to.
 
 ```bash
 ./1-create-cluster.sh
@@ -31,7 +31,7 @@ Update the local computer's `/etc/hosts` file with the API gateway's external IP
 
 ### Configuration Best Practices
 
-The deployment uses a configuration file with placeholders like `#{PARAMETER}`, which get subsituted with environment variables.\
+The Helm deployment subsitutes environment variables for placeholders like `#{PARAMETER}` in XML configuration files.\
 The deployment supplies sensitive values like keys as cryptographically protected environment variables.\
 The [Configuration as Code](https://curity.io/resources/learn/gitops-configuration-management/) tutorial explains the techniques.
 
