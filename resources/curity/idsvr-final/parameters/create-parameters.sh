@@ -116,7 +116,7 @@ fi
 #
 # Convert the token signing key from a P12 to the Curity protected format
 #
-SIGNING_KEY_BASE64="$(openssl base64 -in signing.p12 | tr -d $LINE_SEPARATOR)"
+SIGNING_KEY_BASE64="$(openssl base64 -in signing.p12 | tr -d '\n')"
 SIGNING_KEY_RAW=$(docker exec -i curity bash -c "convertks --in-password Password1 --in-alias curity.signing --in-entry-password Password1 --in-keystore '$SIGNING_KEY_BASE64'")
 if [ $? -ne 0 ]; then
   echo "*** Problem encountered converting the token signing key: $SIGNING_KEY_RAW"
@@ -135,6 +135,7 @@ fi
 #
 # Create a configmap containing unprotected environment variables
 #
+echo '6'
 kubectl -n curity create configmap idsvr-parameters \
   --from-literal="RUNTIME_BASE_URL=$RUNTIME_BASE_URL" \
   --from-literal="ADMIN_BASE_URL=$ADMIN_BASE_URL" \
