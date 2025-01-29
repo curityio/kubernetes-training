@@ -16,6 +16,11 @@
            </http>
         </admin-service>
         <services>
+          <zones>
+            <default-zone>
+              <allowed-origins-for-cors>https://admin.testcluster.example</allowed-origins-for-cors>
+            </default-zone>
+            </zones>
           <service-role>
             <id>default</id>
             <endpoints>dashboard-management-admin</endpoints>
