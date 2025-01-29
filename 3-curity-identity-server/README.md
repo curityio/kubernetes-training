@@ -29,10 +29,10 @@ Update the local computer's `/etc/hosts` file with the API gateway's external IP
 172.20.0.5 admin.testcluster.example login.testcluster.example
 ```
 
-### Configuration Best Practices
+### Pipeline Ready Deployment
 
 The Helm deployment subsitutes environment variables for placeholders like `#{PARAMETER}` in XML configuration files.\
-The deployment supplies sensitive values like keys as cryptographically protected environment variables.\
+The deployment also supplies sensitive values like keys as cryptographically protected environment variables.\
 The [Configuration as Code](https://curity.io/resources/learn/gitops-configuration-management/) tutorial explains the techniques.
 
 ```xml
