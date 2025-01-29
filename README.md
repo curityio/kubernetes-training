@@ -35,16 +35,17 @@ Follow the [README instructions](./2-ingress-tutorial/README.md) to learn how to
 Follow the [README instructions](./3-curity-identity-server/README.md) to learn how to:
 
 - Use a SQL database with persistent storage of identity data like user accounts.
-- Uses configuration best practices for a deployment pipeline.
+- Use the DevOps Dashboard to create test user accounts for your OAuth applications.
+- Use configuration best practices for a deployment pipeline.
 
 ### 4 - Final Curity Token Handler Tutorial
 
 Follow the [README instructions](./4-curity-token-handler/README.md) to learn how to:
 
-- Uses API gateway plugins to run the OAuth Proxy and Phantom Token plugins.
-- Deploys the Curity Token Handler to Kubernetes using configuration best practices for a deployment pipeline.
-- Enables test user creation, registers OAuth clients and configures authenticators.
-- Runs an end-to-end token handler flow that uses an example Single Page Application and REST API.
+- Update the API gateway deployment to use plugins.
+- Deploy the Curity Token Handler to Kubernetes using configuration best practices for a deployment pipeline.
+- Run an end-to-end token handler flow that uses an example Single Page Application and REST API.
+- Configure API gateway routes to APIs to use the OAuth Proxy and Phantom Token plugins.
 
 ### Free Resources
 

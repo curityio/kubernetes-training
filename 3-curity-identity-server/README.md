@@ -29,13 +29,31 @@ Update the local computer's `/etc/hosts` file with the API gateway's external IP
 172.20.0.5 admin.testcluster.example login.testcluster.example
 ```
 
-## Enable the DevOps Dashboard
+## Create a Test User Account
 
-Navigate to the `resources/curity/idsvr-final` folder and locate the `devops-dashboard.xml` configuration.\
+Next, sign into the Admin UI with these details:
+
+```text
+URL: https://admin.testcluster.example/admin
+User: admin
+Password: Password1
+```
+
+From the menu choose *Changes / Upload* select the file at `resources/curity/idsvr-final` and use the `Merge` option.\
+The configuration enables the [DevOps Dashboard](https://curity.io/resources/learn/devops-dashboard/) with which you can create a test user account.\
+Log in to the DevOps dashboard at the following URL and sign in using the popup window:
+
+```text
+URL: https://admin.testcluster.example/admin/dashboard
+User: admin
+```
+
+Then create a test user account with which you can later run applications.
 
 ## Deployment Details
 
-The example deployment provides a basis for a deployment pipeline and some further details are summarized next.
+You can use the example deployment as a basis for deploying to your real environments, with changed URLs.\
+Some further details about the deployment are summarized in the following sections.
 
 ### Pipeline Ready Deployment
 
@@ -115,10 +133,8 @@ Then connect to the PostgreSQL database:
 export PGPASSWORD=Password1 && psql -p 5432 -d idsvr -U idsvr
 ```
 
-As you run flows and use tokens you will see data get created:
+You can then query the data in the user account created in the DevOps dashboard:
 
 ```sql
 select * from accounts;
-select * from tokens;
 ```
-
