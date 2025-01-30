@@ -42,10 +42,18 @@ The [Configuration as Code](https://curity.io/resources/learn/gitops-configurati
 ## Deploy an Example SPA and API
 
 Then deploy an example React App and Node.js API to enable an end-to-end solution.\
-First, ensure that an up to date version of Node.js is installed.
+First, ensure that an up to date version of Node.js is installed.\
+Run the following command and indicate the type of API gateway to use for ingress routes:
 
 ```bash
+export GATEWAY_TYPE='nginx'
 ./3-deploy-spa-and-api.sh
+```
+
+Next, update DNS for the deployment to map the external IP address of the API gateway to use all of these host names:
+
+```text
+172.20.0.5 admin.testcluster.example login.testcluster.example admin.demoapp.example www.demoapp.example api.demoapp.example
 ```
 
 The application level components use straightforward code that does not require any cookie logic.\

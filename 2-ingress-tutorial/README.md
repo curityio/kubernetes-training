@@ -10,14 +10,14 @@ First ensure that you have completed the [basic tutorial](../1-basic-tutorial/RE
 
 If you are running the full Curity Identity Server you might design the following base URLs for a test system:
 
-- Admin UI Base URL: `http://admin.testcluster.example`
-- OAuth Base URL: `http://login.testcluster.example`
+- Admin UI Base URL: `https://admin.testcluster.example`
+- OAuth Base URL: `https://login.testcluster.example`
 
 If you are running just the Curity Token Handler, you might instead use the following base URLs for a test system.\
-The token handler base URL has the same parent domain as a web app, which might run at `http://www.demoapp.example`.
+The token handler base URL has the same parent domain as a web app, which might run at `https://www.demoapp.example`.
 
-- Admin UI Base URL: `http://admin.testcluster.example`
-- Token Handler Base URL: `http://api.demoapp.example`
+- Admin UI Base URL: `https://admin.testcluster.example`
+- Token Handler Base URL: `https://api.demoapp.example`
 
 ## 1. Create a Cluster
 

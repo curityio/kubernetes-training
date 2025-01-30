@@ -1,0 +1,5 @@
+
+{
+    "port": 8000,
+    "bffBaseUrl": "https://api.demoapp.example"
+}

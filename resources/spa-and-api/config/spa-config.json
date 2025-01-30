@@ -1,0 +1,6 @@
+{
+    "bffBaseUrl": "https://api.demoapp.example",
+    "oauthAgentPath": "/oauthagent/example",
+    "oauthUserinfoPath": "/oauthuserinfo",
+    "apiPath": "/api"
+}

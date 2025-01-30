@@ -27,7 +27,7 @@ Follow the [README instructions](./2-ingress-tutorial/README.md) to learn how to
 
 - Use a development load balancer and get an external IP address.
 - Run the Curity Identity Server behind an API gateway.
-- Expose the admin UI and runtime endpoints using domain based URLs.
+- Expose admin and runtime endpoints using domain based URLs.
 - Use cert-manager to issue TLS certificates to enable HTTPS URLs.
 
 ### 3 - Final Curity Identity Server Tutorial
@@ -35,7 +35,7 @@ Follow the [README instructions](./2-ingress-tutorial/README.md) to learn how to
 Follow the [README instructions](./3-curity-identity-server/README.md) to learn how to:
 
 - Use a SQL database with persistent storage of identity data like user accounts.
-- Use the DevOps Dashboard to create test user accounts for your OAuth applications.
+- Use the DevOps Dashboard to create test user accounts to use with OAuth secured applications.
 - Use configuration best practices for a deployment pipeline.
 
 ### 4 - Final Curity Token Handler Tutorial

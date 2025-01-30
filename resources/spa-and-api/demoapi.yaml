@@ -1,0 +1,50 @@
+
+############################################
+# A demo API that receives JWT access tokens
+############################################
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: demoapi
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: demoapi
+  labels:
+    app: demoapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demoapi
+  template:
+    metadata:
+      labels:
+        app: demoapi
+    spec:
+      serviceAccountName: demoapi
+      containers:
+      - name: demoapi
+        image: example-api:1.0
+        volumeMounts:
+          - name: demoapi-config
+            mountPath: /usr/api/config.json
+            subPath: config.json
+            readOnly: true
+      volumes:
+        - name: demoapi-config
+          configMap:
+            name: demoapi-config
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: demoapi-svc
+spec:
+  selector:
+    app: demoapi
+  ports:
+  - name: http
+    protocol: "TCP"
+    port: 8000

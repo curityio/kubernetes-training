@@ -43,10 +43,11 @@
                 <secret>Password1</secret>
                 <redirect-uris>https://www.demoapp.example/callback</redirect-uris>
                 <audience>spa-client</audience>
-                <audience>api.demoapp.example</audience>
+                <audience>api.example.com</audience>
                 <scope>openid</scope>
                 <scope>profile</scope>
                 <user-authentication>
+                  <allowed-authenticators>Username-Password</allowed-authenticators>
                   <allowed-post-logout-redirect-uris>https://www.demoapp.example/</allowed-post-logout-redirect-uris>
                 </user-authentication>
                 <capabilities>
