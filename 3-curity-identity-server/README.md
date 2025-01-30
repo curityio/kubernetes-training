@@ -29,9 +29,13 @@ Update the local computer's `/etc/hosts` file with the API gateway's external IP
 172.20.0.5 admin.testcluster.example login.testcluster.example
 ```
 
+The Helm deployment subsitutes environment variables for placeholders like `#{PARAMETER}` in XML configuration files.\
+The deployment also supplies sensitive values like keys as cryptographically protected environment variables.\
+The [Configuration as Code](https://curity.io/resources/learn/gitops-configuration-management/) tutorial explains the techniques.
+
 ## Create a Test User Account
 
-Next, sign into the Admin UI with these details:
+You can sign into the Admin UI for a full administration experience that an identity team might use:
 
 ```text
 URL: https://admin.testcluster.example/admin
@@ -39,55 +43,23 @@ User: admin
 Password: Password1
 ```
 
-From the menu choose *Changes / Upload* select the file at `resources/curity/idsvr-final` and use the `Merge` option.\
-The configuration enables the [DevOps Dashboard](https://curity.io/resources/learn/devops-dashboard/) with which you can create a test user account.\
-Log in to the DevOps dashboard at the following URL and sign in using the popup window:
+You can sign into the [DevOps Dashboard](https://curity.io/resources/learn/devops-dashboard/) for an administration experience with limited permissions:
 
 ```text
 URL: https://admin.testcluster.example/admin/dashboard
 User: admin
 ```
 
-Then create a test user account with which you can later run applications.
+Use the DevOps Dashboard to create a test user account with details such as these:
 
-## Deployment Details
-
-You can use the example deployment as a basis for deploying to your real environments, with changed URLs.\
-Some further details about the deployment are summarized in the following sections.
-
-### Pipeline Ready Deployment
-
-The Helm deployment subsitutes environment variables for placeholders like `#{PARAMETER}` in XML configuration files.\
-The deployment also supplies sensitive values like keys as cryptographically protected environment variables.\
-The [Configuration as Code](https://curity.io/resources/learn/gitops-configuration-management/) tutorial explains the techniques.
-
-```xml
-<config xmlns="http://tail-f.com/ns/config/1.0">
-  <environments xmlns="https://curity.se/ns/conf/base">
-    <environment>
-      <base-url>#{RUNTIME_BASE_URL}</base-url>
-      <admin-service>
-        <http>
-          <base-url>#{ADMIN_BASE_URL}</base-url>
-          <web-ui>
-          </web-ui>
-          <restconf>
-          </restconf>
-        </http>
-      </admin-service>
-      <services>
-        <zones>
-          <default-zone>
-            <symmetric-key>#{SYMMETRIC_KEY}</symmetric-key>
-          </default-zone>
-        </zones>
-      </services>
-    </environment>
-  </environments>
-</config>
+```text
+First name: John
+Last name: Doe
+Username: johndoe
+Passowrd: Password1
 ```
 
-### Resilient Database Storage
+## Query SQL Identity Data
 
 In real deployments, identity data is often stored on a volume outside the cluster, such as in a cloud platform.\
 The demo deployment uses a SQL database and simulates external storage on a development computer using the [local-path-provisioner](https://github.com/rancher/local-path-provisioner) storage class.\
@@ -117,10 +89,7 @@ spec:
 ```
 
 The database data survives replacement of pods, nodes or even the entire cluster.\
-For real deployments you can use many possible ways to enable high availability database storage for identity data.
-
-### Identity Data
-
+For real deployments you can use many possible ways to enable high availability database storage for identity data.\
 To familiarize yourself with the database schema, first get a shell to the database container with the following command:
 
 ```bash
@@ -133,7 +102,7 @@ Then connect to the PostgreSQL database:
 export PGPASSWORD=Password1 && psql -p 5432 -d idsvr -U idsvr
 ```
 
-You can then query the data in the user account created in the DevOps dashboard:
+You can then query the data for test user accounts created in the DevOps dashboard:
 
 ```sql
 select * from accounts;

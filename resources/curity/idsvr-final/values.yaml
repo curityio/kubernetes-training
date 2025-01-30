@@ -1,5 +1,7 @@
 ######################################################################################################
 # Helm chart values for the redeployments of the Curity Identity Server with an existing configuration
+# - The base configuration is that for a default installation
+# - The DevOps dashboard configuration contains additional settings to enable that feature
 ######################################################################################################
 replicaCount: 2
 
@@ -28,8 +30,12 @@ curity:
     - configMapRef:
         name: idsvr-config
         items:
-        - key: idsvr-config
-          path: curity-config.xml
+        - key: base-configuration
+          path: base-configuration.xml
+        - key: devops-dashboard
+          path: devops-dashboard.xml
+        - key: oauth-clients
+          path: oauth-clients.xml
     environmentVariableConfigMaps:
     - idsvr-parameters
     environmentVariableSecrets:

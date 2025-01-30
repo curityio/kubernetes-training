@@ -39,6 +39,19 @@ DB_CONNECTION_RAW="jdbc:postgresql://postgres-svc/$DB_NAME"
 SYMMETRIC_KEY_RAW=$(openssl rand 32 | xxd -p -c 64)
 
 #
+# Create application level details that vary per stage of the deployment pipeline
+#
+SPA_BASE_URL='https://www.demoapp.example'
+SPA_CLIENT_SECRET_RAW='Password1'
+INTROSPECTION_CLIENT_SECRET_RAW='Password1'
+
+#
+# Hash the application secrets
+#
+SPA_CLIENT_SECRET=$(openssl passwd -5 $SPA_CLIENT_SECRET_RAW)
+INTROSPECTION_CLIENT_SECRET=$(openssl passwd -5 $INTROSPECTION_CLIENT_SECRET_RAW)
+
+#
 # Create the token signing private key and public key
 #
 openssl genrsa -out signing.key 2048
@@ -139,6 +152,7 @@ echo '6'
 kubectl -n curity create configmap idsvr-parameters \
   --from-literal="RUNTIME_BASE_URL=$RUNTIME_BASE_URL" \
   --from-literal="ADMIN_BASE_URL=$ADMIN_BASE_URL" \
+  --from-literal="SPA_BASE_URL=$SPA_BASE_URL" \
   --from-literal="DB_USER=$DB_USER" \
   --from-literal="DB_DRIVER=$DB_DRIVER"
 if [ $? -ne 0 ]; then
@@ -151,6 +165,8 @@ fi
 #
 kubectl -n curity create secret generic idsvr-protected-parameters \
   --from-literal="ADMIN_PASSWORD=$ADMIN_PASSWORD" \
+  --from-literal="SPA_CLIENT_SECRET=$SPA_CLIENT_SECRET" \
+  --from-literal="INTROSPECTION_CLIENT_SECRET=$INTROSPECTION_CLIENT_SECRET" \
   --from-literal="DB_PASSWORD=$DB_PASSWORD" \
   --from-literal="DB_CONNECTION=$DB_CONNECTION" \
   --from-literal="SYMMETRIC_KEY=$SYMMETRIC_KEY" \

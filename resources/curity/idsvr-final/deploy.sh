@@ -36,7 +36,9 @@ kubectl -n curity create serviceaccount curity-idsvr-runtime 2>/dev/null
 # Create a Kubernetes configmap with the configuration
 #
 kubectl -n curity create configmap idsvr-config \
-  --from-file='idsvr-config=curity-config.xml'
+  --from-file='base-configuration=config/base-configuration.xml' \
+  --from-file='devops-dashboard=config/devops-dashboard.xml' \
+  --from-file='oauth-clients=config/oauth-clients.xml'
 if [ $? -ne 0 ]; then
   exit 1
 fi
