@@ -1,6 +1,7 @@
-#########################################
-# Kong routes for the example SPA and API
-#########################################
+###########################################################################################################
+# Ingress routes for the example SPA and API, some of which use plugins.
+# Requests from the SPA use the CORS plugin, then the OAuth Proxy plugin and then the Phantom Token plugin.
+###########################################################################################################
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -24,6 +25,8 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: demoapi-route
+  annotations:
+    konghq.com/plugins: cors,oauth-proxy,phantom-token
 spec:
   parentRefs:
   - name: kong-gateway

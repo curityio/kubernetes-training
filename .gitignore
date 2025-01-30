@@ -3,6 +3,8 @@ license.json
 curity-config.xml
 encryption.key
 download
+externalstorage
+oauth-proxy-plugin.yaml
 *.key
 *.crt
 *.p12
@@ -10,4 +12,3 @@ download
 *.pkcs8
 *.sql
 *.zip
-externalstorage

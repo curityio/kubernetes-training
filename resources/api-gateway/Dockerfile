@@ -24,3 +24,9 @@ RUN cd /tmp/oauth-proxy && luarocks make oauth-proxy-*.rockspec \
 # Install the Phantom Token plugin and its dependencies
 #
 RUN luarocks install kong-phantom-token 2.0.0
+
+#
+# Add environment variables required to use plugins
+#
+ENV KONG_NGINX_HTTP_LUA_SHARED_DICT='phantom-token 10m'
+ENV KONG_PLUGINS='bundled,cors,oauth-proxy,phantom-token'
