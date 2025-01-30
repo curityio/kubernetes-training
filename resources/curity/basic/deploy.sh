@@ -6,14 +6,6 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-#
-# Validate input
-#
-if [ "$GATEWAY_TYPE" != 'nginx' ] && [ "$GATEWAY_TYPE" != 'kong' ]; then
-  echo '*** Please provide a GATEWAY_TYPE environment variable'
-  exit 1
-fi
-
 # 
 # Create the namespace and service accounts if required
 #
@@ -57,11 +49,7 @@ fi
 #
 # Use routes to expose OAuth endpoints
 #
-if [ "$GATEWAY_TYPE" == 'kong' ]; then
-  kubectl -n curity apply -f kong-gateway-routes.yaml
-else
-  kubectl -n curity apply -f nginx-gateway-routes.yaml
-fi
+kubectl -n curity apply -f gateway-routes.yaml
 if [ $? -ne 0 ]; then
   exit 1
 fi

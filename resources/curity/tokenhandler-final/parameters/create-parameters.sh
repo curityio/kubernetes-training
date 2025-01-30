@@ -98,8 +98,7 @@ fi
 kubectl -n applications create configmap idsvr-parameters \
   --from-literal="ADMIN_BASE_URL=$ADMIN_BASE_URL" \
   --from-literal="AUTHORIZATION_SERVER_BASE_URL=$AUTHORIZATION_SERVER_BASE_URL" \
-  --from-literal="SPA_BASE_URL=$SPA_BASE_URL" \
-  --from-literal="OAUTH_PROXY_TYPE=$GATEWAY_TYPE"
+  --from-literal="SPA_BASE_URL=$SPA_BASE_URL"
 if [ $? -ne 0 ]; then
   echo "Problem encountered creating the Kubernetes configmap containing unprotected environment variables"
   exit 1

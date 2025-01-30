@@ -17,11 +17,9 @@ The [Ingress tutorial](../2-ingress-tutorial) explains the behavior of these scr
 ## Deploy the Curity Identity Server
 
 Then run a more advanced Curity Identity Server deployment that includes a [JDBC data source](https://curity.io/docs/idsvr/latest/system-admin-guide/data-sources/index.html).\
-This example deployment uses PostgreSQL, though you could adapt the deployment to support a different provider.\
-Run the following command and indicate the type of API gateway to use for ingress routes:
+This example deployment uses PostgreSQL, though you could adapt the deployment to support a different provider:
 
 ```bash
-export GATEWAY_TYPE='nginx'
 ./5-deploy-curity.sh
 ```
 

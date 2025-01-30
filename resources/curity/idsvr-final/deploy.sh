@@ -18,10 +18,6 @@ if [ "$LICENSE_KEY" == '' ]; then
   echo '*** An invalid license file was provided for the Curity Identity Server'
   exit 1
 fi
-if [ "$GATEWAY_TYPE" != 'nginx' ] && [ "$GATEWAY_TYPE" != 'kong' ]; then
-  echo '*** Please provide a GATEWAY_TYPE environment variable'
-  exit 1
-fi
 
 #
 # To retry during development this deletes all namespace resources on every deployment
@@ -66,11 +62,7 @@ fi
 #
 # Use routes to expose admin and OAuth endpoints
 #
-if [ "$GATEWAY_TYPE" == 'kong' ]; then
-  kubectl -n curity apply -f kong-gateway-routes.yaml
-else
-  kubectl -n curity apply -f nginx-gateway-routes.yaml
-fi
+kubectl -n curity apply -f gateway-routes.yaml
 if [ $? -ne 0 ]; then
   exit 1
 fi

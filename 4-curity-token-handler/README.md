@@ -12,15 +12,9 @@ The [Ingress tutorial](../2-ingress-tutorial) explains the URLs that you can con
 
 ## Redeploy the API Gateway
 
-First set the type of API gateway you will use, to either `nginx` or `kong`:
-
-```bash
-export GATEWAY_TYPE='nginx'
-```
-
-Then download the token handler zip file for your choice of API gateway from the [Curity Developer Portal](https://developer.curity.io/releases/token-handler).\
-Save the zip file to either `resources/api-gateway/nginx` or `resources/api-gateway/nginx` depending on the API gateway you will deploy.
-Then run a redeployment of the API gateway that includes plugins, so that the plugin process cookies sent from SPAs to APIs:
+Download the token handler zip file for the Kong API gateway from the [Curity Developer Portal](https://developer.curity.io/releases/token-handler).
+Save the zip file to the `resources/api-gateway` folder and then redeploy the API gateway.\
+This runs a more advanced deployment that uses plugins to process cookies sent from an SPA to APIs:
 
 ```bash
 ./1-deploy-api-gateway.sh
@@ -53,11 +47,9 @@ The [Configuration as Code](https://curity.io/resources/learn/gitops-configurati
 ## Deploy an Example SPA and API
 
 Then deploy an example React App and Node.js API to enable an end-to-end solution.\
-First, ensure that an up to date version of Node.js is installed.\
-Run the following command and indicate the type of API gateway to use for ingress routes:
+First, ensure that an up to date version of Node.js is installed, then run the following command:
 
 ```bash
-export GATEWAY_TYPE='nginx'
 ./3-deploy-spa-and-api.sh
 ```
 

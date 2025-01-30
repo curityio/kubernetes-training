@@ -6,6 +6,7 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
+CHART_VERSION='2.47.0'
 if [ "$USE_PLUGINS" != 'true' ]; then
 
   #
@@ -14,17 +15,15 @@ if [ "$USE_PLUGINS" != 'true' ]; then
   helm repo add kong https://charts.konghq.com
   helm repo update
   helm upgrade --install kong kong/kong \
+    --version "$CHART_VERSION" \
     --namespace kong \
     --create-namespace \
     --set replicaCount=2 \
     --set proxy.http.enabled=false \
-    --version 2.47.0 \
     --wait
   if [ $? -ne 0 ]; then
     exit 1
   fi
-
-  docker build --no-cache -t custom-kong:1.0.0 .
 
 else
 
@@ -56,10 +55,10 @@ else
   helm repo add kong https://charts.konghq.com
   helm repo update
   helm upgrade --install kong kong/kong \
+    --version "$CHART_VERSION" \
     --values values.yaml \
     --namespace kong \
     --create-namespace \
-    --version 2.47.0 \
     --wait
   if [ $? -ne 0 ]; then
     exit 1
@@ -75,7 +74,7 @@ echo "The load balancer external IP address is $EXTERNAL_IP"
 #
 # Deploy base gateway resources
 #
-kubectl -n kong apply -f kong-gateway.yaml
+kubectl -n kong apply -f gateway.yaml
 if [ $? -ne 0 ]; then
   exit 1
 fi
@@ -83,7 +82,7 @@ fi
 #
 # Create the API gateway's SSL certificate
 #
-kubectl -n kong apply -f ../external-certs/api-gateway-certificate.yaml
+kubectl -n kong apply -f ./external-certs/api-gateway-certificate.yaml
 if [ $? -ne 0 ]; then
   exit 1
 fi

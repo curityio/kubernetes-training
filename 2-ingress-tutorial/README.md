@@ -54,18 +54,12 @@ resources/api-gateway/external-certs/testcluster.ca.crt
 
 ## 4. Deploy the API Gateway
 
-This tutorial supports either the Kong or NGINX API gateways or you could adapt the deployment to support a different gateway.\
-Provide a `GATEWAY_TYPE` of either `nginx` or `kong`:
+This tutorial uses the Kong API gateway but you may be able to adapt the deployment for other API gateways.\
+The ingress resources use the newer [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/):
 
 ```bash
-export GATEWAY_TYPE='nginx'
 ./4-deploy-api-gateway.sh
 ```
-
-The ingress resources use the future proof versions of NGINX and Kong that use the newer [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/):
-
-- [NGINX Gateway](https://docs.nginx.com/nginx-gateway-fabric/get-started/)
-- [Kong Gateway](https://docs.konghq.com/gateway-operator/latest/get-started/kic/create-gateway/)
 
 Study the scripts and YAML resources to understand the use of HTTP routes that expose OAuth endpoints.\
 When the script completes you see output like this:
@@ -82,10 +76,9 @@ kong       kong-kong-proxy      LoadBalancer   10.96.200.210   172.20.0.5    80:
 
 ## 5. Deploy the Curity Product
 
-Run the following command and and set a `GATEWAY_TYPE` of either `nginx` or `kong` for the ingress:
+Run the following command to deploy the Curity product with ingress routes:
 
 ```bash
-export GATEWAY_TYPE='nginx'
 ./5-deploy-curity.sh
 ```
 

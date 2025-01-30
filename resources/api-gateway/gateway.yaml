@@ -25,7 +25,6 @@ spec:
       mode: Terminate
       certificateRefs:
       - name: testcluster-com-tls
-  listeners:
   - name: demoapp.example
     port: 443
     protocol: HTTPS
