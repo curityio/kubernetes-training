@@ -5,4 +5,4 @@
 ###################################################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
-../resources/api-gateway/external-certs/prepare.sh
+../resources/api-gateway/external-certs/create-issuer.sh

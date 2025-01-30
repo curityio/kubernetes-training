@@ -9,4 +9,5 @@ download
 *.csr
 *.pkcs8
 *.sql
+*.zip
 externalstorage

@@ -6,24 +6,64 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-#
-# As a basic way to enable retries of failed deployments, delete existing resources
-#
-kubectl delete namespace kong 2>/dev/null
+if [ "$USE_PLUGINS" != 'true' ]; then
 
-#
-# Deploy the API gateway
-#
-helm repo add kong https://charts.konghq.com
-helm repo update
-helm upgrade --install kong kong/kong \
-  --namespace kong \
-  --create-namespace \
-  --set replicaCount=2 \
-  --set proxy.http.enabled=false \
-  --wait
-if [ $? -ne 0 ]; then
-  exit 1
+  #
+  # Do a basic deployment of the API gateway
+  #
+  helm repo add kong https://charts.konghq.com
+  helm repo update
+  helm upgrade --install kong kong/kong \
+    --namespace kong \
+    --create-namespace \
+    --set replicaCount=2 \
+    --set proxy.http.enabled=false \
+    --version 2.47.0 \
+    --wait
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
+
+  docker build --no-cache -t custom-kong:1.0.0 .
+
+else
+
+  #
+  # Unzip the token handler zip file 
+  #
+  rm -rf download 2>/dev/null
+  unzip token-handler-proxy-kong*.zip -d download
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
+
+  #
+  # Build a custom Docker image
+  #
+  docker build --no-cache -t custom-kong:1.0.0 .
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
+
+  kind load docker-image custom-kong:1.0.0 --name demo
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
+
+  #
+  # Deploy using a Helm values file
+  #
+  helm repo add kong https://charts.konghq.com
+  helm repo update
+  helm upgrade --install kong kong/kong \
+    --values values.yaml \
+    --namespace kong \
+    --create-namespace \
+    --version 2.47.0 \
+    --wait
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
 fi
 
 #
@@ -43,7 +83,7 @@ fi
 #
 # Create the API gateway's SSL certificate
 #
-kubectl -n nginx apply -f ../external-certs/api-gateway-certificate.yaml
+kubectl -n kong apply -f ../external-certs/api-gateway-certificate.yaml
 if [ $? -ne 0 ]; then
   exit 1
 fi

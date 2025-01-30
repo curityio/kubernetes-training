@@ -8,8 +8,19 @@ This deployment provides a working SPA with a Kubernetes token handler that inte
 ## Run Base Scripts
 
 First run the [Final Curity Identity Server](../3-curity-identity-server) tutorial to deploy an authorization server.\
-The [Ingress tutorial](../2-ingress-tutorial) explains the URLs that you can connect to once deployment completes.\
-Then redeploy the API gateway with plugins, using the script from this tutorial's folder:
+The [Ingress tutorial](../2-ingress-tutorial) explains the URLs that you can connect to once deployment completes.
+
+## Redeploy the API Gateway
+
+First set the type of API gateway you will use, to either `nginx` or `kong`:
+
+```bash
+export GATEWAY_TYPE='nginx'
+```
+
+Then download the token handler zip file for your choice of API gateway from the [Curity Developer Portal](https://developer.curity.io/releases/token-handler).\
+Save the zip file to either `resources/api-gateway/nginx` or `resources/api-gateway/nginx` depending on the API gateway you will deploy.
+Then run a redeployment of the API gateway that includes plugins, so that the plugin process cookies sent from SPAs to APIs:
 
 ```bash
 ./1-deploy-api-gateway.sh

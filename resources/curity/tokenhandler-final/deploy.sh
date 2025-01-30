@@ -7,7 +7,7 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 #
-# First check for a license key
+# Validate input
 #
 if [ "$LICENSE_FILE_PATH" == '' ]; then
   echo '*** Please provide a LICENSE_FILE_PATH environment variable for the Curity Identity Server'
@@ -16,6 +16,10 @@ fi
 export LICENSE_KEY=$(cat $LICENSE_FILE_PATH | jq -r .License)
 if [ "$LICENSE_KEY" == '' ]; then
   echo '*** An invalid license file was provided for the Curity Identity Server'
+  exit 1
+fi
+if [ "$GATEWAY_TYPE" != 'nginx' ] && [ "$GATEWAY_TYPE" != 'kong' ]; then
+  echo '*** Please provide a GATEWAY_TYPE environment variable'
   exit 1
 fi
 
@@ -37,6 +41,14 @@ kubectl -n applications create serviceaccount curity-tokenhandler-runtime 2>/dev
 #
 kubectl -n applications create configmap idsvr-config \
   --from-file='idsvr-config=curity-config.xml'
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+#
+# Create cookie encryption keys used by both the OAuth Agent and OAuth Proxy
+#
+./cookie-keys/create.sh
 if [ $? -ne 0 ]; then
   exit 1
 fi

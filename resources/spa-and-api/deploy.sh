@@ -7,6 +7,14 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 #
+# Validate input
+#
+if [ "$GATEWAY_TYPE" != 'nginx' ] && [ "$GATEWAY_TYPE" != 'kong' ]; then
+  echo '*** Please provide a GATEWAY_TYPE environment variable'
+  exit 1
+fi
+
+#
 # Create configmaps for the SPA and API
 #
 kubectl -n applications create configmap spa-config     --from-file='config.json=config/spa-config.json'

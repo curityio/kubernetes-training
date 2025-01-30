@@ -1,0 +1,16 @@
+##################################################################
+# The Helm chart for advanced deployments that use plugins
+# https://github.com/Kong/charts/blob/main/charts/kong/values.yaml
+##################################################################
+
+image:
+  repository: custom-kong
+  tag: 1.0.0
+
+replicaCount: 2
+proxy:
+  http:
+    enabled: false
+
+env:
+  nginx_http_lua_shared_dict: 'phantom-token 10m'

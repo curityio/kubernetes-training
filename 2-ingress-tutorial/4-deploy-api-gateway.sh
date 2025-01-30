@@ -8,6 +8,14 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 cd ../resources/api-gateway
 
 #
+# Validate input
+#
+if [ "$GATEWAY_TYPE" != 'nginx' ] && [ "$GATEWAY_TYPE" != 'kong' ]; then
+  echo '*** Please provide a GATEWAY_TYPE environment variable'
+  exit 1
+fi
+
+#
 # Apply Kubernetes Gateway API custom resource definitions
 #
 kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.1.0/standard-install.yaml

@@ -43,7 +43,7 @@ Complete the first configuration to make HTTP endpoints available:
 - [First Configuration for the Curity Identity Server](https://curity.io/resources/learn/first-config/)
 - [First Configuration for the Curity Token Handler](https://curity.io/resources/learn/token-handler-first-configuration/)
 
-In the Admin UI, use **Changes / Download** to save the configuration to the current folder in a file named `curity-config.xml`.\
+In the Admin UI, use **Changes / Download** and save the configuration to a file named `curity-config.xml` in the `resources/curity/basic` folder.\
 Expose the runtime pod's HTTP endpoint using port forwarding:
 
 ```bash

@@ -42,7 +42,7 @@ This requires sudo access on macOS - if you use Windows Git bash you should run 
 In another terminal window install cert-manager and prepare it for certificate issuance:
 
 ```bash
-./3-prepare-external-certificates.sh
+./3-create-external-certificate-issuer.sh
 ```
 
 To prevent browser SSL trust warnings for the deployed cluster, trust the root certificate for external URLs.\

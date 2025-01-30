@@ -1,10 +1,18 @@
 #!/bin/bash
 
-######################################################################
-# Deploy the admin and runtime workloads with the latest configuration
-######################################################################
+#########################################################################################
+# Deploy the admin and runtime workloads with ingress routes and the latest configuration
+#########################################################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
+
+#
+# Validate input
+#
+if [ "$GATEWAY_TYPE" != 'nginx' ] && [ "$GATEWAY_TYPE" != 'kong' ]; then
+  echo '*** Please provide a GATEWAY_TYPE environment variable'
+  exit 1
+fi
 
 # 
 # Create the namespace and service accounts if required

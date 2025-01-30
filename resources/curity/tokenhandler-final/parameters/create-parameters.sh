@@ -33,7 +33,7 @@ SPA_CLIENT_SECRET_RAW='Password1'
 # Set cookie encryption and OAuth proxy details
 #
 SYMMETRIC_KEY_RAW=$(openssl rand 32 | xxd -p -c 64)
-TH_COOKIE_CERT_RAW="$(openssl base64 -in ../../../api-gateway/cookie-keys/public.crt | tr -d '\n')"
+TH_COOKIE_CERT_RAW="$(openssl base64 -in ../cookie-keys/public.crt | tr -d '\n')"
 if [ $? -ne 0 ]; then
   echo '*** Unable to load the token handler public key'
   exit 1
@@ -99,7 +99,7 @@ kubectl -n applications create configmap idsvr-parameters \
   --from-literal="ADMIN_BASE_URL=$ADMIN_BASE_URL" \
   --from-literal="AUTHORIZATION_SERVER_BASE_URL=$AUTHORIZATION_SERVER_BASE_URL" \
   --from-literal="SPA_BASE_URL=$SPA_BASE_URL" \
-  --from-literal="GATEWAY_TYPE=$GATEWAY_TYPE"
+  --from-literal="OAUTH_PROXY_TYPE=$GATEWAY_TYPE"
 if [ $? -ne 0 ]; then
   echo "Problem encountered creating the Kubernetes configmap containing unprotected environment variables"
   exit 1

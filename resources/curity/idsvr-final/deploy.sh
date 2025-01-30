@@ -7,7 +7,7 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 #
-# First check for a license key
+# Validate input
 #
 if [ "$LICENSE_FILE_PATH" == '' ]; then
   echo '*** Please provide a LICENSE_FILE_PATH environment variable for the Curity Identity Server'
@@ -16,6 +16,10 @@ fi
 export LICENSE_KEY=$(cat $LICENSE_FILE_PATH | jq -r .License)
 if [ "$LICENSE_KEY" == '' ]; then
   echo '*** An invalid license file was provided for the Curity Identity Server'
+  exit 1
+fi
+if [ "$GATEWAY_TYPE" != 'nginx' ] && [ "$GATEWAY_TYPE" != 'kong' ]; then
+  echo '*** Please provide a GATEWAY_TYPE environment variable'
   exit 1
 fi
 

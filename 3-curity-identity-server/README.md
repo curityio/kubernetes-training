@@ -10,7 +10,7 @@ The [Ingress tutorial](../2-ingress-tutorial) explains the behavior of these scr
 ```bash
 ./1-create-cluster.sh
 ./2-run-load-balancer.sh
-./3-prepare-external-certificates.sh
+./3-create-external-certificate-issuer.sh
 ./4-deploy-api-gateway.sh
 ```
 

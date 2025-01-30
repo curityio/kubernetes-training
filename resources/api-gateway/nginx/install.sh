@@ -6,21 +6,58 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-#
-# As a basic way to enable retries of failed deployments, delete existing resources
-#
-kubectl delete namespace nginx 2>/dev/null
+if [ "$USE_PLUGINS" != 'true' ]; then
 
-#
-# Deploy the API gateway
-#
-helm install nginx oci://ghcr.io/nginxinc/charts/nginx-gateway-fabric \
-  --namespace nginx \
-  --create-namespace \
-  --set nginxGateway.replicaCount=2 \
-  --wait
-if [ $? -ne 0 ]; then
+  #
+  # Do a basic deployment of the API gateway
+  #
+  helm install nginx oci://ghcr.io/nginxinc/charts/nginx-gateway-fabric \
+    --namespace nginx \
+    --create-namespace \
+    --set nginxGateway.replicaCount=2 \
+    --wait
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
+
+else 
+
+  #
+  # Unzip the token handler zip file 
+  #
+  rm -rf download 2>/dev/null
+  unzip token-handler-proxy-nginx*.zip -d download
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
+
+  echo 'look see'
   exit 1
+
+  #
+  # Build a custom Docker image
+  #
+  docker build --no-cache -t custom-nginx:1.0.0 .
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
+
+  kind load docker-image custom-nginx:1.0.0 --name demo
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
+
+  #
+  # Deploy using a Helm values file
+  #
+  helm install nginx oci://ghcr.io/nginxinc/charts/nginx-gateway-fabric \
+    --namespace nginx \
+    --create-namespace \
+    --set nginxGateway.replicaCount=2 \
+    --wait
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
 fi
 
 #
