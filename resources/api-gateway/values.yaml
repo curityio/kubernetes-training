@@ -12,5 +12,14 @@ proxy:
   http:
     enabled: false
 
-#env:
-#  nginx_http_lua_shared_dict: 'phantom-token 10m'
+#
+# Plugins are preinstalled via luarocks to a location such as /usr/local/share/lua/5.1/kong/plugins
+#
+plugins:
+  preInstalled: oauth-proxy,phantom-token
+
+#
+# An NGINX cache for introspection results
+#
+env:
+  nginx_http_lua_shared_dict: 'phantom-token 10m'
