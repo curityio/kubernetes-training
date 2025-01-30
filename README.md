@@ -43,8 +43,8 @@ Follow the [README instructions](./3-curity-identity-server/README.md) to learn 
 Follow the [README instructions](./4-curity-token-handler/README.md) to learn how to:
 
 - Update the API gateway deployment to use plugins.
-- Deploy the Curity Token Handler to Kubernetes using configuration best practices for a deployment pipeline.
-- Run an end-to-end token handler flow that uses an example Single Page Application and REST API.
+- Deploy the Curity Token Handler and use configuration best practices for a deployment pipeline.
+- Run an end-to-end flow that uses an example Single Page Application and REST API.
 - Configure API gateway routes for APIs to use the OAuth Proxy and Phantom Token plugins.
 
 ### Free Resources
