@@ -6,5 +6,5 @@ plugin: phantom-token
 config:
   introspection_endpoint: http://curity-idsvr-runtime-svc.curity:8443/oauth/v2/oauth-introspect
   client_id: api-gateway-client
-  client_secret: Passowrd1
+  client_secret: Password1
   token_cache_seconds: 900
