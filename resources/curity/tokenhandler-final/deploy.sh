@@ -35,8 +35,8 @@ kubectl -n applications create serviceaccount curity-tokenhandler-runtime 2>/dev
 #
 # Create a Kubernetes configmap with the configuration
 #
-kubectl -n applications create configmap idsvr-config \
-  --from-file='idsvr-config=curity-config.xml'
+kubectl -n applications create configmap tokenhandler-config \
+  --from-file='tokenhandler-config=tokenhandler-config.xml'
 if [ $? -ne 0 ]; then
   exit 1
 fi

@@ -27,10 +27,10 @@ curity:
     skipInstall: true
     configuration:
     - configMapRef:
-        name: idsvr-config
+        name: tokenhandler-config
         items:
-        - key: idsvr-config
-          path: curity-config.xml
+        - key: tokenhandler-config
+          path: tokenhandler-config.xml
     environmentVariableConfigMaps:
     - idsvr-parameters
     environmentVariableSecrets:
