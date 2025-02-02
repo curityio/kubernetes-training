@@ -41,14 +41,14 @@
                 <client-name>spa-client</client-name>
                 <description>SPA using the Curity Token Handler</description>
                 <secret>Password1</secret>
-                <redirect-uris>https://www.demoapp.example/callback</redirect-uris>
-                <audience>spa-client</audience>
+                <redirect-uris>#{SPA_BASE_URL}/callback</redirect-uris>
+                <audience>#{SPA_CLIENT_SECRET}</audience>
                 <audience>api.example.com</audience>
                 <scope>openid</scope>
                 <scope>profile</scope>
                 <user-authentication>
                   <allowed-authenticators>Username-Password</allowed-authenticators>
-                  <allowed-post-logout-redirect-uris>https://www.demoapp.example/</allowed-post-logout-redirect-uris>
+                  <allowed-post-logout-redirect-uris>#{SPA_BASE_URL}/</allowed-post-logout-redirect-uris>
                 </user-authentication>
                 <capabilities>
                   <code />
@@ -61,7 +61,7 @@
               <client>
                 <id>api-gateway-client</id>
                 <client-name>api-gateway-client</client-name>
-                <secret>Password1</secret>
+                <secret>#{INTROSPECTION_CLIENT_SECRET}</secret>
                 <capabilities>
                   <introspection />
                 </capabilities>

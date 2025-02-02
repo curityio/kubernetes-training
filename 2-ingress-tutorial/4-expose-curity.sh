@@ -5,11 +5,12 @@
 #####################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
+cd ../resources/curity/basic
 
 #
-# Deploy the Curity product
+# Use routes to expose OAuth endpoints
 #
-../resources/curity/basic/deploy.sh
+kubectl -n curity apply -f gateway-routes.yaml
 if [ $? -ne 0 ]; then
   exit 1
 fi

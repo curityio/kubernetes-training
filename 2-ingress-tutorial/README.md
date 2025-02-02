@@ -4,45 +4,38 @@ Provides external OAuth HTTPS URLs for the admin and runtime workloads.
 
 ## Prerequisites
 
-First ensure that you have completed the [basic tutorial](../1-basic-tutorial/README.md) so that expected resources are available on disk.
+First ensure that you have completed the [basic tutorial](../1-basic-tutorial/README.md).\
+Then switch to the `2-ingress-tutorial` folder and use the following instructions.
 
 ## Design External URLs
 
-If you are running the full Curity Identity Server you might design the following base URLs for a test system:
+The example deployment uses the following base URLs for the Curity Identity Server:
 
 - Admin UI Base URL: `https://admin.testcluster.example`
 - OAuth Base URL: `https://login.testcluster.example`
 
-If you are running just the Curity Token Handler, you might instead use the following base URLs for a test system.\
+If you are running just the Curity Token Handler, the example uses the following base URLs.\
 The token handler base URL has the same parent domain as a web app, which might run at `https://www.demoapp.example`.
 
 - Admin UI Base URL: `https://admin.testcluster.example`
 - Token Handler Base URL: `https://api.demoapp.example`
 
-## 1. Create a Cluster
-
-Delete the existing cluster if it exists and then create a new cluster with the scripts from this tutorial's folder:
-
-```bash
-./1-create-cluster.sh
-```
-
-## 2. Install the Load Balancer Provider
+## 1. Install the Load Balancer Provider
 
 The [cloud-provider-kind](https://github.com/kubernetes-sigs/cloud-provider-kind) development component watches for Kubernetes services of type LoadBalancer.\
-When one is installed, the provider creates an external IP address and spins up an `envoyproxy` Docker load balancer that uses it.\
-This requires sudo access on macOS - if you use Windows Git bash you should run a local administrator shell:
+Upon creation of such a service, the provider creates an external IP address and spins up an `envoyproxy` Docker load balancer that uses it.\
+This requires sudo access on macOS, or if you use Windows Git bash you should run a local administrator shell:
 
 ```bash
-./2-run-load-balancer.sh
+./1-run-load-balancer.sh
 ```
 
-## 3. Prepare SSL Certificates
+## 2. Prepare API Gateway Certificate Issuance
 
-In another terminal window install cert-manager and prepare it for certificate issuance:
+In another terminal window install cert-manager and create a certifificate issuer:
 
 ```bash
-./3-create-external-certificate-issuer.sh
+./2-create-external-certificate-issuer.sh
 ```
 
 To prevent browser SSL trust warnings for the deployed cluster, trust the root certificate for external URLs.\
@@ -52,13 +45,13 @@ For example, add this root certificate file to the system keychain on macOS:
 resources/api-gateway/external-certs/testcluster.ca.crt
 ```
 
-## 4. Deploy the API Gateway
+## 3. Deploy the API Gateway
 
 This tutorial uses the Kong API gateway but you may be able to adapt the deployment for other API gateways.\
 The ingress resources use the newer [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/):
 
 ```bash
-./4-deploy-api-gateway.sh
+./3-deploy-api-gateway.sh
 ```
 
 Study the scripts and YAML resources to understand the use of HTTP routes that expose OAuth endpoints.\
@@ -74,12 +67,12 @@ If you inspect Kubernetes services, notice that the load balancer IP address is 
 kong       kong-kong-proxy      LoadBalancer   10.96.200.210   172.20.0.5    80:32742/TCP,443:32181/TCP
 ```
 
-## 5. Deploy the Curity Product
+## 4. Expose Curity API Gateway Routes
 
 Run the following command to deploy the Curity product with ingress routes:
 
 ```bash
-./5-deploy-curity.sh
+./4-expose-curity.sh
 ```
 
 ### Configure DNS for the Curity Identity Server
@@ -95,7 +88,7 @@ Reach external URLs at addresses such as these:
 
 ```bash
 curl -i -k https://admin.testcluster.example/admin
-curl -k https://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration | jq
+curl -k https://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration
 ```
 
 ### Configure DNS for the Curity Token Handler

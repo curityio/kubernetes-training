@@ -10,7 +10,7 @@ Also download a license file for the Curity Identity Server from the [Curity dev
 
 ## 1. Create the Cluster
 
-Run the following command:
+Navigate to the  `1-basic-tutorial` folder and run the following command:
 
 ```bash
 ./1-create-cluster.sh
@@ -77,7 +77,7 @@ Study the script to understand how it supplies existing configuration values wit
 During the upgrade, watch how the platform replaces pods in a phased manner:
 
 ```bash
-kubectl -n curity get pod -A --watch
+kubectl -n curity get pod -n curity --watch
 ```
 
 Old pods are not removed until new pods are ready, so that OAuth endpoints remain available.

@@ -5,7 +5,7 @@
 
 Training resources for developers to run the Curity product in Kubernetes:
 
-- Deployments use similar concepts to real environments on a local computer.
+- Deployments run on a local computer and use URLs similar to real environments.
 - Enables local execution of OAuth flows and planning of real deployments.
 
 ## Deployments
