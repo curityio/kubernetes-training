@@ -21,9 +21,6 @@ fi
 #
 kubectl -n applications apply -f webhost.yaml
 kubectl -n applications apply -f demoapi.yaml
-if [ $? -ne 0 ]; then
-  exit 1
-fi
 
 #
 # Get the password protected cookie encryption key details
@@ -49,22 +46,16 @@ config:
 EOF
 
 #
-# Apply plugins and then routes for the applications namespace
+# Apply plugins and then routes for API requests
 #
 kubectl -n applications apply -f routes/phantom-token-plugin.yaml
 kubectl -n applications apply -f routes/cors-plugin.yaml
 kubectl -n applications apply -f routes/oauth-proxy-plugin.yaml
 kubectl -n applications apply -f routes/application-routes.yaml
-if [ $? -ne 0 ]; then
-  exit 1
-fi
 
 #
-# Add routes to expose endpoints from the cluster and to apply plugins
+# Apply plugins and then routes for user info requests
 #
 kubectl -n curity apply -f routes/cors-plugin.yaml
 kubectl -n curity apply -f routes/oauth-proxy-plugin.yaml
 kubectl -n curity apply -f routes/userinfo-route.yaml
-if [ $? -ne 0 ]; then
-  exit 1
-fi

@@ -40,9 +40,9 @@
                 <id>spa-client</id>
                 <client-name>spa-client</client-name>
                 <description>SPA using the Curity Token Handler</description>
-                <secret>Password1</secret>
+                <secret>#{SPA_CLIENT_SECRET}</secret>
                 <redirect-uris>#{SPA_BASE_URL}/callback</redirect-uris>
-                <audience>#{SPA_CLIENT_SECRET}</audience>
+                <audience>spa-client</audience>
                 <audience>api.example.com</audience>
                 <scope>openid</scope>
                 <scope>profile</scope>

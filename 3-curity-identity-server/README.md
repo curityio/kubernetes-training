@@ -43,54 +43,36 @@ User: admin
 Password: Password1
 ```
 
-You can sign into the [DevOps Dashboard](https://curity.io/resources/learn/devops-dashboard/) for an administration experience with limited permissions:
+You can sign into the [DevOps Dashboard](https://curity.io/resources/learn/devops-dashboard/) for more limited administration privileges:
 
 ```text
 URL: https://admin.testcluster.example/admin/dashboard
 User: admin
 ```
 
-Use the DevOps Dashboard to create a test user account with details such as those below.\
+Use the DevOps Dashboard to operate as a developer, tester or DevOps person and create a test user account.\
 Also make sure you toggle on the active setting for the new user.
 
 ```text
 First name: John
 Last name: Doe
 Username: johndoe
-Passowrd: Password1
+Password: Password1
+Email: john.doe@testcluster.example
 ```
 
-## Query SQL Identity Data
+## Use SQL Identity Data
 
-In real deployments, identity data is often stored on a volume outside the cluster, such as in a cloud platform.\
-The demo deployment uses a SQL database and simulates external storage on a development computer using the [local-path-provisioner](https://github.com/rancher/local-path-provisioner) storage class.\
-The database data is then stored on the local computer at `./resources/cluster/externalstorage`.
+The demo deployment uses a PostgreSQL database and simulates durable storage on a development computer.\
+In Kubernetes, the [local-path-provisioner](https://github.com/rancher/local-path-provisioner) storage class and a persistent volume enable this.\
+Run the following command to see the related Kubernetes resources:
 
-```yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-idsvr-data
-spec:
-  accessModes:
-  - ReadWriteOnce
-  capacity:
-    storage: 1Gi
-  claimRef:
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    name: idsvr-pv-claim
-    namespace: curity
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: standard
-  volumeMode: Filesystem
-  hostPath:
-    path: /var/local-path-provisioner/host/idsvr
-    type: DirectoryOrCreate
+```bash
+kubectl get storageclass,pv,pvc -A
 ```
 
-The database data survives replacement of pods, nodes or even the entire cluster.\
-For real deployments you can use many possible ways to enable high availability database storage for identity data.\
+Locate the database data files at `resources/cluster/externalstorage/idsvr`.\
+Since the database data is external to the cluster it survives replacement of pods, nodes or even the entire cluster.\
 To familiarize yourself with the database schema, first get a shell to the database container with the following command:
 
 ```bash

@@ -12,7 +12,7 @@ The [Ingress tutorial](../2-ingress-tutorial) explains the URLs that you can con
 
 ## Redeploy the API Gateway
 
-Download the token handler zip file for the Kong API gateway from the [Curity Developer Portal](https://developer.curity.io/releases/token-handler).
+Download the token handler zip file for the Kong API gateway from the [Curity Developer Portal](https://developer.curity.io/releases/token-handler).\
 Save the zip file to the `resources/api-gateway` folder and then redeploy the API gateway.\
 This runs a more advanced deployment that uses plugins to process cookies sent from an SPA to APIs:
 
@@ -46,7 +46,7 @@ The [Configuration as Code](https://curity.io/resources/learn/gitops-configurati
 
 ## Deploy an Example SPA and API
 
-Then deploy an example React App and Node.js API to enable an end-to-end solution.\
+Then deploy an example React App and Node.js API to complete an end-to-end solution.\
 First, ensure that an up to date version of Node.js is installed, then run the following command:
 
 ```bash
@@ -60,7 +60,7 @@ Next, update DNS for the deployment to map the external IP address of the API ga
 ```
 
 The application level components use straightforward code that does not require any cookie logic.\
-Navigate to `https://www.demoapp.example` and enter the test account credentials to sign in, such as these:
+Navigate to `https://www.demoapp.example` and enter the test account credentials to sign in:
 
 ```text
 Username: johndoe
