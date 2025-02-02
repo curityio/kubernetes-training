@@ -23,8 +23,8 @@ The token handler base URL has the same parent domain as a web app, which might 
 ## 1. Install the Load Balancer Provider
 
 The [cloud-provider-kind](https://github.com/kubernetes-sigs/cloud-provider-kind) development component watches for Kubernetes services of type LoadBalancer.\
-Upon creation of such a service, the provider creates an external IP address and spins up an `envoyproxy` Docker load balancer that uses it.\
-This requires sudo access on macOS, or if you use Windows Git bash you should run a local administrator shell:
+Upon creation of such a service, the provider creates an external IP address and spins up an `envoyproxy` Docker load balancer.\
+This requires sudo access on macOS. If you use Windows Git bash, run the script from a local administrator shell:
 
 ```bash
 ./1-run-load-balancer.sh
