@@ -75,7 +75,7 @@ Run the following command to deploy the Curity product with ingress routes:
 ./4-expose-curity.sh
 ```
 
-### Configure DNS for the Curity Identity Server
+### Use External URLs for the Curity Identity Server
 
 If you selected `All options` in the first configuration you can call external OAuth endpoints.\
 To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
@@ -91,7 +91,7 @@ curl -i -k https://admin.testcluster.example/admin
 curl -k https://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration
 ```
 
-### Configure DNS for the Curity Token Handler
+### Use External URLs for the Curity Token Handler
 
 If you selected `Token Handler only` in the first configuration you can call different external endpoints.\
 To use domain based URLs correctly on a development computer, add entries like these to your `/etc/hosts` file:
