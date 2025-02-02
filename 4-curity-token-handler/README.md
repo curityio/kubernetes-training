@@ -59,7 +59,6 @@ Next, update DNS for the deployment to map the external IP address of the API ga
 172.20.0.5 admin.testcluster.example login.testcluster.example admin.demoapp.example www.demoapp.example api.demoapp.example
 ```
 
-The application level components use straightforward code that does not require any cookie logic.\
 Navigate to `https://www.demoapp.example` and enter the test account credentials to sign in:
 
 ```text
@@ -67,7 +66,7 @@ Username: johndoe
 Password: Password1
 ```
 
-Once integrated you can gradually refine and improve the application security behaviors:
+Once integrated you can further refine the application security behaviors:
 
 - Take full control over access token data supplied to your APIs.
 - Use advanced authentication workflows for user logins to the SPA.
