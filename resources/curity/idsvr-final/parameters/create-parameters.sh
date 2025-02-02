@@ -148,7 +148,6 @@ fi
 #
 # Create a configmap containing unprotected environment variables
 #
-echo '6'
 kubectl -n curity create configmap idsvr-parameters \
   --from-literal="RUNTIME_BASE_URL=$RUNTIME_BASE_URL" \
   --from-literal="ADMIN_BASE_URL=$ADMIN_BASE_URL" \
