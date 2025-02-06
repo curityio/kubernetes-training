@@ -9,8 +9,13 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 #
 # Create configmaps for the SPA and API
 #
+kubectl -n applications delete configmap spa-config 2>/dev/null
 kubectl -n applications create configmap spa-config     --from-file='config.json=config/spa-config.json'
+
+kubectl -n applications delete configmap webhost-config 2>/dev/null
 kubectl -n applications create configmap webhost-config --from-file='config.json=config/webhost-config.json'
+
+kubectl -n applications delete configmap demoapi-config 2>/dev/null
 kubectl -n applications create configmap demoapi-config --from-file='config.json=config/demoapi-config.json'
 if [ $? -ne 0 ]; then
   exit 1

@@ -148,6 +148,7 @@ fi
 #
 # Create a configmap containing unprotected environment variables
 #
+kubectl -n curity delete configmap idsvr-parameters 2>/dev/null
 kubectl -n curity create configmap idsvr-parameters \
   --from-literal="RUNTIME_BASE_URL=$RUNTIME_BASE_URL" \
   --from-literal="ADMIN_BASE_URL=$ADMIN_BASE_URL" \
@@ -162,6 +163,7 @@ fi
 #
 # Create a secret containing protected environment variables
 #
+kubectl -n curity delete secret idsvr-protected-parameters 2>/dev/null
 kubectl -n curity create secret generic idsvr-protected-parameters \
   --from-literal="ADMIN_PASSWORD=$ADMIN_PASSWORD" \
   --from-literal="SPA_CLIENT_SECRET=$SPA_CLIENT_SECRET" \

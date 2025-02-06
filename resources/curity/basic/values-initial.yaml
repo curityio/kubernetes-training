@@ -23,6 +23,3 @@ curity:
 
   config:
     uiEnabled: true
-
-networkpolicy:
-  enabled: false

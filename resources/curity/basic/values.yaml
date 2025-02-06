@@ -32,6 +32,3 @@ curity:
           path: curity-config.xml
     environmentVariableSecrets:
     - idsvr-secrets
-
-networkpolicy:
-  enabled: false

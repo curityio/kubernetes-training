@@ -6,6 +6,11 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
+#
+# First apply Kubernetes Gateway API custom resource definitions
+#
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.1.0/standard-install.yaml
+
 CHART_VERSION='2.47.0'
 if [ "$USE_PLUGINS" != 'true' ]; then
 

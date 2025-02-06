@@ -5,4 +5,8 @@
 ###################################################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
+
 ../resources/api-gateway/external-certs/create-issuer.sh
+if [ $? -ne 0 ]; then
+  exit 1
+fi

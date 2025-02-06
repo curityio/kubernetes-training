@@ -19,22 +19,17 @@ if [ "$LICENSE_KEY" == '' ]; then
   exit 1
 fi
 
-#
-# To retry during development this deletes all namespace resources on every deployment
-#
-kubectl delete namespace applications 2>/dev/null
-kubectl create namespace applications
-
 # 
 # Create the namespace and service accounts if required
 #
-
+kubectl create namespace applications                                     2>/dev/null
 kubectl -n applications create serviceaccount curity-tokenhandler-admin   2>/dev/null
 kubectl -n applications create serviceaccount curity-tokenhandler-runtime 2>/dev/null
 
 #
 # Create a Kubernetes configmap with the configuration
 #
+kubectl -n applications delete configmap tokenhandler-config 2>/dev/null
 kubectl -n applications create configmap tokenhandler-config \
   --from-file='tokenhandler-config=tokenhandler-config.xml'
 if [ $? -ne 0 ]; then
@@ -50,7 +45,7 @@ if [ $? -ne 0 ]; then
 fi
 
 #
-# The deployment uses parameterized and protected configuration
+# Protect parameters and do other preprocessing
 #
 ./parameters/create-parameters.sh
 if [ $? -ne 0 ]; then
@@ -58,7 +53,7 @@ if [ $? -ne 0 ]; then
 fi
 
 #
-# Use the Helm chart to run a phased zero downtime upgrade that keeps existing endpoints available
+# Use the Helm chart to run an install or upgrade
 #
 helm upgrade --install curity curity/idsvr -f values.yaml --namespace applications
 if [ $? -ne 0 ]; then

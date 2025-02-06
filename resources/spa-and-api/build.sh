@@ -45,12 +45,12 @@ if [ $? -ne 0 ]; then
 fi
 
 cd ..
-docker build -f webhost/Dockerfile -t example-spa:1.0 .
+docker build --no-cache -f webhost/Dockerfile -t example-spa:1.0.0 .
 if [ $? -ne 0 ]; then
   exit 1
 fi
 
-kind load docker-image example-spa:1.0 --name demo
+kind load docker-image example-spa:1.0.0 --name demo
 if [ $? -ne 0 ]; then
   exit 1
 fi
@@ -70,12 +70,12 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-docker build -f Dockerfile -t example-api:1.0 .
+docker build --no-cache -t example-api:1.0.0 .
 if [ $? -ne 0 ]; then
   exit 1
 fi
 
-kind load docker-image example-api:1.0 --name demo
+kind load docker-image example-api:1.0.0 --name demo
 if [ $? -ne 0 ]; then
   exit 1
 fi

@@ -1,0 +1,24 @@
+#
+# When using network policies this allows the API gateway to access the Admin UI
+#
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: adminui-allow
+spec:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: kong
+      podSelector:
+        matchLabels:
+          app: kong-kong
+    ports:
+    - port: 6749
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      role: curity-idsvr-admin
+  policyTypes:
+  - Ingress

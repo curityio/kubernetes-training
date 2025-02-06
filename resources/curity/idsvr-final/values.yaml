@@ -1,13 +1,11 @@
-######################################################################################################
-# Helm chart values for the redeployments of the Curity Identity Server with an existing configuration
-# - The base configuration is that for a default installation
-# - The DevOps dashboard configuration contains additional settings to enable that feature
-######################################################################################################
+##############################################################################################
+# A simplified Helm chart for the final Curity Identity Server that uses a custom docker image
+##############################################################################################
 replicaCount: 2
 
 image:
-  repository: curity.azurecr.io/curity/idsvr
-  tag: latest
+  repository: custom_idsvr
+  tag: '1.0.0'
 
 curity:
   adminUiHttp: true
@@ -26,20 +24,7 @@ curity:
   config:
     uiEnabled: true
     skipInstall: true
-    configuration:
-    - configMapRef:
-        name: idsvr-config
-        items:
-        - key: base-configuration
-          path: base-configuration.xml
-        - key: devops-dashboard
-          path: devops-dashboard.xml
-        - key: oauth-clients
-          path: oauth-clients.xml
     environmentVariableConfigMaps:
     - idsvr-parameters
     environmentVariableSecrets:
     - idsvr-protected-parameters
-
-networkpolicy:
-  enabled: false

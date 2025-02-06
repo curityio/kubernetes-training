@@ -20,31 +20,27 @@ if [ "$LICENSE_KEY" == '' ]; then
 fi
 
 #
-# To retry during development this deletes all namespace resources on every deployment
+# Create a custom Dockerfile with shared resources for all stages of the deployment pipeline
 #
-kubectl delete namespace curity 2>/dev/null
-kubectl delete pv/pv-idsvr-data
-
-# 
-# Create the namespace and service accounts if required
-#
-kubectl create namespace curity
-kubectl -n curity create serviceaccount curity-idsvr-admin   2>/dev/null
-kubectl -n curity create serviceaccount curity-idsvr-runtime 2>/dev/null
-
-#
-# Create a Kubernetes configmap with the configuration
-#
-kubectl -n curity create configmap idsvr-config \
-  --from-file='base-configuration=config/base-configuration.xml' \
-  --from-file='devops-dashboard=config/devops-dashboard.xml' \
-  --from-file='oauth-clients=config/oauth-clients.xml'
+docker build --no-cache -t custom_idsvr:1.0.0 .
 if [ $? -ne 0 ]; then
   exit 1
 fi
 
+kind load docker-image custom_idsvr:1.0.0 --name demo
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+# 
+# Create the namespace and service accounts if required
 #
-# The deployment uses parameterized and protected configuration
+kubectl create namespace curity                              2>/dev/null
+kubectl -n curity create serviceaccount curity-idsvr-admin   2>/dev/null
+kubectl -n curity create serviceaccount curity-idsvr-runtime 2>/dev/null
+
+#
+# Protect parameters and do other preprocessing
 #
 ./parameters/create-parameters.sh
 if [ $? -ne 0 ]; then
@@ -52,7 +48,24 @@ if [ $? -ne 0 ]; then
 fi
 
 #
-# Use the Helm chart to run a phased zero downtime upgrade that keeps existing endpoints available
+# Create a database script configmap
+#
+kubectl -n curity delete configmap sql-init-script 2>/dev/null
+kubectl -n curity create configmap sql-init-script --from-file='database/dbinit.sql'
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+#
+# Deploy the SQL database and use external storage for a development computer
+#
+kubectl -n curity apply -f database/postgres.yaml
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+#
+# Use the Helm chart to run an install or upgrade
 #
 helm upgrade --install curity curity/idsvr -f values.yaml --namespace curity
 if [ $? -ne 0 ]; then
@@ -67,18 +80,3 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-#
-# Create a database configmap
-#
-kubectl -n curity create configmap sql-init-script --from-file='database/dbinit.sql'
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-
-#
-# Deploy the SQL database and use external storage for a development computer
-#
-kubectl -n curity apply -f database/postgres.yaml
-if [ $? -ne 0 ]; then
-  exit 1
-fi
