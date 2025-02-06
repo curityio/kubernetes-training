@@ -24,7 +24,6 @@ curity:
 
   config:
     uiEnabled: true
-    skipInstall: true
     configuration:
     - configMapRef:
         name: tokenhandler-config

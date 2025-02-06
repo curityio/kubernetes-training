@@ -23,7 +23,6 @@ curity:
 
   config:
     uiEnabled: true
-    skipInstall: true
     environmentVariableConfigMaps:
     - idsvr-parameters
     environmentVariableSecrets:

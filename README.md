@@ -13,7 +13,7 @@ Training resources for developers to run the Curity product in Kubernetes:
 The resources work for both the Curity Identity Server and the Curity Token Handler.\
 You can run tutorials in sequence or just jump to the final tutorials for a working deployment.
 
-### 1 - Basic Tutorial
+### 1 - Basic Example
 
 Follow the [README instructions](./1-basic-tutorial/README.md) to learn how to:
 
@@ -21,7 +21,7 @@ Follow the [README instructions](./1-basic-tutorial/README.md) to learn how to:
 - Access the admin UI and download the initial generated configuration.
 - Run zero downtime upgrades and include the latest configuration.
 
-### 2 - API Gateways, Ingress and External URLs
+### 2 - API Gateway Example
 
 Follow the [README instructions](./2-ingress-tutorial/README.md) to learn how to:
 
@@ -30,7 +30,7 @@ Follow the [README instructions](./2-ingress-tutorial/README.md) to learn how to
 - Expose admin and runtime endpoints using domain based URLs.
 - Use cert-manager to issue TLS certificates to enable HTTPS URLs.
 
-### 3 - Final Curity Identity Server Tutorial
+### 3 - Curity Identity Server Example
 
 Follow the [README instructions](./3-curity-identity-server/README.md) to learn how to:
 
@@ -38,7 +38,7 @@ Follow the [README instructions](./3-curity-identity-server/README.md) to learn 
 - Use the DevOps Dashboard to create test user accounts to use with OAuth secured applications.
 - Use configuration best practices for a deployment pipeline.
 
-### 4 - Final Curity Token Handler Tutorial
+### 4 - Curity Token Handler Example
 
 Follow the [README instructions](./4-curity-token-handler/README.md) to learn how to:
 
