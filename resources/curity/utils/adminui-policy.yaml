@@ -10,7 +10,7 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          name: kong
+          name: apigateway
       podSelector:
         matchLabels:
           app: kong-kong

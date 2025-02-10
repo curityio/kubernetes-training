@@ -11,7 +11,7 @@ metadata:
 spec:
   parentRefs:
   - name: kong-gateway
-    namespace: kong
+    namespace: apigateway
   hostnames:
   - api.demoapp.example
   rules:
