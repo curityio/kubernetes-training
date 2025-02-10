@@ -1,11 +1,16 @@
 # Final Curity Identity Server
 
 The final tutorial demonstrates a couple of behaviors to aim for in real deployments for the the Curity Identity Server.
+It makes use of some advances behaviors. Make sure your license supports the following feature:
+
+* DevOps Dashboard
+
+You can find out about your options in the [license plans of the Curity products](https://curity.io/product/plans/).
 
 ## Run Base Scripts
 
 Delete the existing cluster if it exists and then create a new cluster with the scripts from this tutorial's folder.\
-The [Ingress tutorial](../2-ingress-tutorial) explains the behavior of these scripts and the URLs you can connect to.
+The [Ingress tutorial](/2-ingress-tutorial/README.md) explains the behavior of these scripts and the URLs you can connect to.
 
 ```bash
 ./1-create-cluster.sh
@@ -23,13 +28,13 @@ This example deployment uses PostgreSQL, though you could adapt the deployment t
 ./5-deploy-curity.sh
 ```
 
-Update the local computer's `/etc/hosts` file with the API gateway's external IP address and the Curity Identity Server domain names:
+Make sure your local computer's `/etc/hosts` file with the API gateway's external IP address and the Curity Identity Server domain names:
 
 ```text
 172.20.0.5 admin.testcluster.example login.testcluster.example
 ```
 
-The Helm deployment subsitutes environment variables for placeholders like `#{PARAMETER}` in XML configuration files.\
+The Helm deployment substitutes environment variables for placeholders like `#{PARAMETER}` in XML configuration files.\
 The deployment also supplies sensitive values like keys as cryptographically protected environment variables.\
 The [Configuration as Code](https://curity.io/resources/learn/gitops-configuration-management/) tutorial explains the techniques.
 

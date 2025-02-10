@@ -5,7 +5,7 @@ Provides external OAuth HTTPS URLs for the admin and runtime workloads.
 ## Prerequisites
 
 First ensure that you have completed the [basic tutorial](../1-basic-tutorial/README.md).\
-Then switch to the `2-ingress-tutorial` folder and use the following instructions.
+Then continue with the following instructions.
 
 ## Design External URLs
 
@@ -32,7 +32,7 @@ This requires sudo access on macOS. If you use Windows Git bash, run the script 
 
 ## 2. Prepare API Gateway Certificate Issuance
 
-In another terminal window install cert-manager and create a certifificate issuer:
+In another terminal window install cert-manager and create a certificate issuer:
 
 ```bash
 ./2-create-external-certificate-issuer.sh
@@ -61,7 +61,13 @@ When the script completes you see output like this:
 The API gateway external IP address is 172.20.0.5
 ```
 
-If you inspect Kubernetes services, notice that the load balancer IP address is assigned to the API gateway's service:
+If you inspect Kubernetes services.
+
+```bash
+kubectl -n kong get service
+```
+
+Notice that the load balancer IP address is assigned to the API gateway's service.
 
 ```bash
 kong       kong-kong-proxy      LoadBalancer   10.96.200.210   172.20.0.5    80:32742/TCP,443:32181/TCP
@@ -91,6 +97,14 @@ curl -i -k https://admin.testcluster.example/admin
 curl -k https://login.testcluster.example/oauth/v2/oauth-anonymous/.well-known/openid-configuration
 ```
 
+> [!TIP]
+> Run `curl` with `--cacert` and point to the ca certificate from before at `resources/api-gateway/external-certs/testcluster.ca.crt`. In this way, you can validate the certificate chain and confirm that the API gateway indeed uses the custom certificate.
+>
+> ```bash
+> curl -i --cacert ../resources/api-gateway/external-certs/testcluster.ca.crt https://admin.testcluster.example/admin
+> ```
+>
+
 ### Use External URLs for the Curity Token Handler
 
 If you selected `Token Handler only` in the first configuration you can call different external endpoints.\
@@ -108,3 +122,7 @@ curl -i -k -X POST https://api.demoapp.example/oauthagent/example/login/start \
     -H 'origin: https://www.demoapp.example' \
     -H 'token-handler-version: 1'
 ```
+
+## Next Steps
+
+Congratulations, you're now able to access the endpoints of the services via external URLs. The tutorial in `3-curity-identity-server` demonstrates a final setup of the Curity Identity Server that includes a load balancer, API gateway, external certificates and database.
