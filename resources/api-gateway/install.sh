@@ -24,7 +24,6 @@ if [ "$USE_PLUGINS" != 'true' ]; then
     --namespace apigateway \
     --create-namespace \
     --set replicaCount=2 \
-    --set proxy.http.enabled=false \
     --wait
   if [ $? -ne 0 ]; then
     exit 1
