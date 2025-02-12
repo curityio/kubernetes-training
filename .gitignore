@@ -12,3 +12,5 @@ oauth-proxy-plugin.yaml
 *.pkcs8
 *.sql
 *.zip
+*.pem
+*.srl
