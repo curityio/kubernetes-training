@@ -1,6 +1,6 @@
-# Basic Tutorial
+# Basic Example
 
-Initial Kubernetes deployments and upgrades of the admin workload, runtime workload and configuration.
+This example provides a basic deployment to showcase initial Kubernetes deployments and upgrades of the admin workload, runtime workload and configuration.
 
 ## Prerequisites
 
