@@ -35,7 +35,7 @@ function encrypt_plaintext() {
     <param name="encryptionKey" select="initialValue"/>
     <param name="decryptionKeys"/>
 
-    <template match="b:facilities/b:data-sources/b:data-source/jdbc:jdbc/jdbc:connection-string">
+    <template match="valueToEncrypt">
       <variable name="data">
         <value-of select="." />
       </variable>
@@ -46,17 +46,9 @@ function encrypt_plaintext() {
 EOF
 
 	cat <<EOF > $XML_FILE
-<config xmlns="http://tail-f.com/ns/config/1.0">
-	<facilities xmlns="https://curity.se/ns/conf/base">
-	  <data-sources>
-		  <data-source>
-		    <jdbc xmlns="https://curity.se/ns/ext-conf/jdbc">
-			    <connection-string>$PLAINTEXT</connection-string>
-		    </jdbc>
-		  </data-source>
-	  </data-sources>
-	</facilities>
-</config>
+<values>
+  <valueToEncrypt>$PLAINTEXT</valueToEncrypt>
+</values>
 EOF
 
     java -cp "$CLASSPATH" org.apache.xalan.xslt.Process \
@@ -85,7 +77,7 @@ function encrypt_base64keystore() {
     <param name="encryptionKey" select="initialValue"/>
     <param name="decryptionKeys"/>
 
-    <template match="b:facilities/b:crypto/b:ssl/b:server-keystore/b:keystore">
+    <template match="valueToEncrypt">
       <variable name="data">
         <value-of select="." />
       </variable>
@@ -96,18 +88,9 @@ function encrypt_base64keystore() {
 EOF
 
 	cat <<EOF > $XML_FILE
-<config xmlns="http://tail-f.com/ns/config/1.0">
-	<facilities xmlns="https://curity.se/ns/conf/base">
-	  <crypto>
-      <ssl>
-        <server-keystore>
-          <id>default-admin-ssl-key</id>
-          <keystore>$PLAINTEXT</keystore>
-        </server-keystore>
-      </ssl>
-    </crypto>
-	</facilities>
-</config>
+<values>
+  <valueToEncrypt>$PLAINTEXT</valueToEncrypt>
+</values>
 EOF
 
     java -cp "$CLASSPATH" org.apache.xalan.xslt.Process \

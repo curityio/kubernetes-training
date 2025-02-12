@@ -3,7 +3,14 @@
 This deployment provides a working SPA with a Kubernetes token handler that integrates with an authorization server:
 
 - When you first run the deployment, follow the instructions and use the Curity Identity Server as the authorization server.
-- Once you understand the deployment steps you can use a different authorization server if required.
+- Once you understand the deployment steps, you can use a different authorization server if required.
+
+You need a license from Curity to run the Token Handler. Therefore, make sure your Curity license includes the following feature(s):
+
+- DevOps Dashboard (if you follow the instructions in this example)
+- Token Handler
+  
+You can find out about your options in the [license plans of the Curity products](https://curity.io/product/plans/) and download your license from [Curity's developer portal](https://developer.curity.io/).
 
 ## Run Base Scripts
 
@@ -22,7 +29,7 @@ This runs a more advanced deployment that uses plugins to process cookies sent f
 
 ## Deploy the Curity Token Handler
 
-Next, run a Curity Token Handler deployment that points to the authorization server's endpoints:
+Next, run a Curity Token Handler deployment that points to the authorization server's endpoints. Make sure the environment variable `LICENSE_FILE_PATH` points to your Curity license file.
 
 ```bash
 ./2-deploy-token-handler.sh
@@ -31,6 +38,7 @@ Next, run a Curity Token Handler deployment that points to the authorization ser
 At this point both the Curity Identity Server and Curity Token Handler are running:
 
 ```text
+NAMESPACE            NAME                                          READY   STATUS    RESTARTS         AGE
 applications         tokenhandler-admin-867f687558-5mk2n           1/1     Running   0                2m7s
 applications         tokenhandler-runtime-7f4cd6dfbd-m9427         1/1     Running   0                2m7s
 applications         tokenhandler-runtime-7f4cd6dfbd-vbx5r         1/1     Running   0                2m7s
@@ -40,13 +48,13 @@ curity               curity-idsvr-runtime-569b47875b-pn9tf         1/1     Runni
 curity               postgres-0                                    1/1     Running   0                21m
 ```
 
-The Helm deployment subsitutes environment variables for placeholders like `#{PARAMETER}` in XML configuration files.\
-The deployment also supplies sensitive values like keys as cryptographically protected environment variables.\
+The Curity Identity Server substitutes environment variables for placeholders like `#{PARAMETER}` in XML configuration files. The Helm chart can create those variables from `ConfigMaps` or `Secrets`. \
+The deployment supplies sensitive values like keys as cryptographically protected environment variables.\
 The [Configuration as Code](https://curity.io/resources/learn/gitops-configuration-management/) tutorial explains the techniques.
 
 ## Deploy an Example SPA and API
 
-Then deploy an example React App and Node.js API to complete an end-to-end solution.\
+Finally, deploy an example React App and Node.js API to complete an end-to-end solution.\
 First, ensure that an up to date version of Node.js is installed, then run the following command:
 
 ```bash

@@ -1,6 +1,6 @@
-# Basic Tutorial
+# Basic Example
 
-Initial Kubernetes deployments and upgrades of the admin workload, runtime workload and configuration.
+This example provides a basic deployment to showcase initial Kubernetes deployments and upgrades of the admin workload, runtime workload and configuration.
 
 ## Prerequisites
 
@@ -90,3 +90,7 @@ curity               curity-idsvr-runtime-675cbbc4c-qm76z         1/1     Runnin
 curity               curity-idsvr-runtime-675cbbc4c-zsks5         1/1     Running   0          18m
 curity               curity-idsvr-runtime-77b5dbd5c7-c57xs        0/1     Running   0          11s
 ```
+
+## Next Steps
+
+Congratulations, you've deployed and updated your first cluster of the Curity Identity Server or Curity Token Handler with the Helm chart. In the [2-ingress-tutorial](/2-ingress-tutorial/README.md) you can learn how to enable external URLs for the cluster instead of relying on port forwarding to access the endpoints of the services.

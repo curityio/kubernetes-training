@@ -3,7 +3,7 @@
 [![Quality](https://img.shields.io/badge/quality-demo-red)](https://curity.io/resources/code-examples/status/)
 [![Availability](https://img.shields.io/badge/availability-source-blue)](https://curity.io/resources/code-examples/status/)
 
-Training resources for developers to run the Curity product in Kubernetes:
+This repository contains training resources for developers to run the Curity products in Kubernetes:
 
 - Deployments run on a local computer and use URLs similar to real environments.
 - Enables local execution of OAuth flows and planning of real deployments.
@@ -15,7 +15,7 @@ You can run tutorials in sequence or just jump to the final tutorials for a work
 
 ### 1 - Basic Example
 
-Follow the [README instructions](./1-basic-tutorial/README.md) to learn how to:
+Follow the [README instructions](./1-basic-tutorial/README.md) to:
 
 - Run the Helm chart with a values file to control the deployment.
 - Access the admin UI and download the initial generated configuration.
@@ -23,7 +23,7 @@ Follow the [README instructions](./1-basic-tutorial/README.md) to learn how to:
 
 ### 2 - API Gateway Example
 
-Follow the [README instructions](./2-ingress-tutorial/README.md) to learn how to:
+Follow the [README instructions](./2-ingress-tutorial/README.md) to:
 
 - Use a development load balancer and get an external IP address.
 - Run the Curity Identity Server behind an API gateway.
@@ -32,7 +32,7 @@ Follow the [README instructions](./2-ingress-tutorial/README.md) to learn how to
 
 ### 3 - Curity Identity Server Example
 
-Follow the [README instructions](./3-curity-identity-server/README.md) to learn how to:
+Follow the [README instructions](./3-curity-identity-server/README.md) to:
 
 - Use a SQL database with persistent storage of identity data like user accounts.
 - Use the DevOps Dashboard to create test user accounts to use with OAuth secured applications.
@@ -40,7 +40,7 @@ Follow the [README instructions](./3-curity-identity-server/README.md) to learn 
 
 ### 4 - Curity Token Handler Example
 
-Follow the [README instructions](./4-curity-token-handler/README.md) to learn how to:
+Follow the [README instructions](./4-curity-token-handler/README.md) to:
 
 - Update the API gateway deployment to use plugins.
 - Deploy the Curity Token Handler and use configuration best practices for a deployment pipeline.
