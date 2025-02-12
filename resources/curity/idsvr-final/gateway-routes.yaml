@@ -8,7 +8,7 @@ metadata:
 spec:
   parentRefs:
   - name: kong-gateway
-    namespace: kong
+    namespace: apigateway
   hostnames:
   - admin.testcluster.example
   rules:
@@ -27,7 +27,7 @@ metadata:
 spec:
   parentRefs:
   - name: kong-gateway
-    namespace: kong
+    namespace: apigateway
   hostnames:
   - login.testcluster.example
   rules:
@@ -51,7 +51,7 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          name: kong
+          name: apigateway
       podSelector:
         matchLabels:
           app: kong-kong

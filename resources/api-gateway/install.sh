@@ -21,10 +21,9 @@ if [ "$USE_PLUGINS" != 'true' ]; then
   helm repo update
   helm upgrade --install kong kong/kong \
     --version "$CHART_VERSION" \
-    --namespace kong \
+    --namespace apigateway \
     --create-namespace \
     --set replicaCount=2 \
-    --set proxy.http.enabled=false \
     --wait
   if [ $? -ne 0 ]; then
     exit 1
@@ -62,7 +61,7 @@ else
   helm upgrade --install kong kong/kong \
     --version "$CHART_VERSION" \
     --values values.yaml \
-    --namespace kong \
+    --namespace apigateway \
     --create-namespace \
     --wait
   if [ $? -ne 0 ]; then
@@ -73,13 +72,13 @@ fi
 #
 # Get the service's external IP address from the cloud provider
 #
-EXTERNAL_IP=$(kubectl -n kong get svc kong-kong-proxy -o jsonpath="{.status.loadBalancer.ingress[0].ip}")
+EXTERNAL_IP=$(kubectl -n apigateway get svc kong-kong-proxy -o jsonpath="{.status.loadBalancer.ingress[0].ip}")
 echo "The load balancer external IP address is $EXTERNAL_IP"
 
 #
 # Deploy base gateway resources
 #
-kubectl -n kong apply -f gateway.yaml
+kubectl -n apigateway apply -f gateway.yaml
 if [ $? -ne 0 ]; then
   exit 1
 fi
@@ -87,7 +86,7 @@ fi
 #
 # Create the API gateway's SSL certificate
 #
-kubectl -n kong apply -f ./external-certs/api-gateway-certificate.yaml
+kubectl -n apigateway apply -f ./external-certs/api-gateway-certificate.yaml
 if [ $? -ne 0 ]; then
   exit 1
 fi

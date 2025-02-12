@@ -70,7 +70,7 @@ kubectl -n kong get service
 Notice that the load balancer IP address is assigned to the API gateway's service.
 
 ```bash
-kong       kong-kong-proxy      LoadBalancer   10.96.200.210   172.20.0.5    80:32742/TCP,443:32181/TCP
+apigateway     kong-kong-proxy      LoadBalancer   10.96.200.210   172.20.0.5    80:32742/TCP,443:32181/TCP
 ```
 
 ## 4. Expose Curity API Gateway Routes
