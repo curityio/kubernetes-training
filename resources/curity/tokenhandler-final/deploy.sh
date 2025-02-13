@@ -55,7 +55,9 @@ fi
 #
 # Use the Helm chart to run an install or upgrade
 #
-helm upgrade --install curity curity/idsvr -f values.yaml --namespace applications
+# TODO: update once Helm chart updated
+#helm upgrade --install curity curity/idsvr -f values.yaml --namespace applications
+helm upgrade --install curity ../../../../idsvr-helm/idsvr -f values.yaml --namespace applications
 if [ $? -ne 0 ]; then
   exit 1
 fi

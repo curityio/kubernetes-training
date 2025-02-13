@@ -1,0 +1,37 @@
+###############################################################################################
+# Helm chart values with ingress enabled and a networkpolicy that allows access to the Admin UI
+###############################################################################################
+replicaCount: 2
+
+image:
+  repository: curity.azurecr.io/curity/idsvr
+  tag: latest
+
+curity:
+  adminUiHttp: true
+  admin:
+    serviceAccount:
+      name: curity-idsvr-admin
+    logging:
+      level: INFO
+
+  runtime:
+    serviceAccount:
+      name: curity-idsvr-runtime
+    logging:
+      level: INFO
+
+  config:
+    uiEnabled: true
+    configuration:
+    - configMapRef:
+        name: idsvr-config
+        items:
+        - key: idsvr-config
+          path: curity-config.xml
+    environmentVariableSecrets:
+    - idsvr-secrets
+
+networkpolicy:
+  enabled: true
+  apigatewayNamespace: 'apigateway'
