@@ -1,16 +1,11 @@
 #!/bin/bash
 
-#####################################################
-# Run a redeployment that uses existing configuration
-#####################################################
+###################################################
+# Run a redeployment that applies ingress behaviors
+###################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
-cd ../resources/curity/basic
-
-#
-# Use routes to expose OAuth endpoints
-#
-kubectl -n curity apply -f gateway-routes.yaml
+../resources/curity/ingress/deploy.sh
 if [ $? -ne 0 ]; then
   exit 1
 fi

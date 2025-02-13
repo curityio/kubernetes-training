@@ -1,6 +1,3 @@
-#############################################
-# Routes to expose the Curity Identity Server
-#############################################
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -38,28 +35,3 @@ spec:
     - name: curity-idsvr-runtime-svc
       kind: Service
       port: 8443
----
-###################################
-# Allows the Admin UI to be exposed
-###################################
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: adminui-allow
-spec:
-  ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          name: apigateway
-      podSelector:
-        matchLabels:
-          app: kong-kong
-    ports:
-    - port: 6749
-      protocol: TCP
-  podSelector:
-    matchLabels:
-      role: curity-idsvr-admin
-  policyTypes:
-  - Ingress

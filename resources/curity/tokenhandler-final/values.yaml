@@ -34,3 +34,7 @@ curity:
     - idsvr-parameters
     environmentVariableSecrets:
     - idsvr-protected-parameters
+
+networkpolicy:
+  enabled: true
+  apigatewayNamespace: 'apigateway'
