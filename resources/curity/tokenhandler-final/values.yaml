@@ -1,0 +1,40 @@
+####################################################################################################
+# Helm chart values for the redeployments of the Curity Token Handler with an existing configuration
+####################################################################################################
+replicaCount: 2
+fullnameOverride: tokenhandler
+
+image:
+  repository: curity.azurecr.io/curity/idsvr
+  tag: latest
+
+curity:
+  adminUiHttp: true
+  admin:
+    serviceAccount:
+      name: curity-tokenhandler-admin
+    logging:
+      level: INFO
+
+  runtime:
+    serviceAccount:
+      name: curity-tokenhandler-runtime
+    logging:
+      level: INFO
+
+  config:
+    uiEnabled: true
+    configuration:
+    - configMapRef:
+        name: tokenhandler-config
+        items:
+        - key: tokenhandler-config
+          path: tokenhandler-config.xml
+    environmentVariableConfigMaps:
+    - idsvr-parameters
+    environmentVariableSecrets:
+    - idsvr-protected-parameters
+
+networkpolicy:
+  enabled: true
+  apigatewayNamespace: 'apigateway'

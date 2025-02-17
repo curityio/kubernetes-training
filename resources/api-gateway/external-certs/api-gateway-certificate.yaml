@@ -1,0 +1,22 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: api-gateway
+spec:
+  secretName: testcluster-example-tls
+  isCA: false
+  duration: 2160h
+  renewBefore: 1440h
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  dnsNames:
+    - admin.testcluster.example
+    - login.testcluster.example
+    - admin.demoapp.example
+    - www.demoapp.example
+    - api.demoapp.example
+  issuerRef:
+    name: api-gateway-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io

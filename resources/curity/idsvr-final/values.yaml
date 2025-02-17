@@ -1,0 +1,33 @@
+##############################################################################################
+# A simplified Helm chart for the final Curity Identity Server that uses a custom docker image
+##############################################################################################
+replicaCount: 2
+
+image:
+  repository: custom_idsvr
+  tag: '1.0.0'
+
+curity:
+  adminUiHttp: true
+  admin:
+    serviceAccount:
+      name: curity-idsvr-admin
+    logging:
+      level: INFO
+
+  runtime:
+    serviceAccount:
+      name: curity-idsvr-runtime
+    logging:
+      level: INFO
+
+  config:
+    uiEnabled: true
+    environmentVariableConfigMaps:
+    - idsvr-parameters
+    environmentVariableSecrets:
+    - idsvr-protected-parameters
+
+networkpolicy:
+  enabled: true
+  apigatewayNamespace: 'apigateway'

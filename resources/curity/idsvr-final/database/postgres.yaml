@@ -1,0 +1,96 @@
+###################################################
+# A basic Kubernetes deployment file for PostgreSQL
+###################################################
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: postgres
+  ports:
+    - protocol: "TCP"
+      port: 5432
+      targetPort: 5432
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:17.2
+          volumeMounts:
+          - name: init-script
+            mountPath: /docker-entrypoint-initdb.d
+            readOnly: true
+          - name: postgres-persistent-storage
+            mountPath: /var/lib/postgresql/data
+          env:
+            - name: POSTGRES_DB
+              value: idsvr
+            - name: POSTGRES_USER
+              value: idsvr
+            - name: POSTGRES_PASSWORD
+              value: Password1
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - containerPort: 5432
+              name: postgres
+      volumes:
+        - name: postgres-persistent-storage
+          persistentVolumeClaim:
+            claimName: idsvr-pv-claim
+        - name: init-script
+          configMap:
+            name: sql-init-script
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: idsvr-pv-claim
+  labels:
+    app: postgres
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-idsvr-data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: idsvr-pv-claim
+    namespace: curity
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  volumeMode: Filesystem
+  hostPath:
+    path: /var/local-path-provisioner/host/idsvr
+    type: DirectoryOrCreate

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2020 Curity AB. All rights reserved.
+  ~
+  ~ The contents of this file are the property of Curity AB.
+  ~ You may not copy or use this file, in either source code
+  ~ or executable form, except in compliance with terms
+  ~ set by Curity AB.
+  ~
+  ~ For further information, please contact Curity AB.
+  -->
+<config xmlns="http://tail-f.com/ns/config/1.0">
+  <profiles xmlns="https://curity.se/ns/conf/base">
+    <profile>
+      <id>authentication-service</id>
+      <type xmlns:auth="https://curity.se/ns/conf/profile/authentication">auth:authentication-service</type>
+      <settings>
+        <authentication-service xmlns="https://curity.se/ns/conf/profile/authentication">
+          <authenticators>
+            <authenticator>
+              <id>Username-Password</id>
+              <html-form xmlns="https://curity.se/ns/conf/authenticators/html-form">
+                <account-manager>default-account-manager</account-manager>
+                <credential-manager>default-credential-manager</credential-manager>
+              </html-form>
+            </authenticator>
+          </authenticators>
+        </authentication-service>
+      </settings>
+    </profile>
+    <profile>
+      <id>token-service</id>
+      <type xmlns:as="https://curity.se/ns/conf/profile/oauth">as:oauth-service</type>
+      <expose-detailed-error-messages />
+      <settings>
+        <authorization-server xmlns="https://curity.se/ns/conf/profile/oauth">
+          <client-store>
+            <config-backed>
+              <client>
+                <id>spa-client</id>
+                <client-name>spa-client</client-name>
+                <description>SPA using the Curity Token Handler</description>
+                <secret>#{SPA_CLIENT_SECRET}</secret>
+                <redirect-uris>#{SPA_BASE_URL}/callback</redirect-uris>
+                <audience>spa-client</audience>
+                <audience>api.example.com</audience>
+                <scope>openid</scope>
+                <scope>profile</scope>
+                <user-authentication>
+                  <allowed-authenticators>Username-Password</allowed-authenticators>
+                  <allowed-post-logout-redirect-uris>#{SPA_BASE_URL}/</allowed-post-logout-redirect-uris>
+                </user-authentication>
+                <capabilities>
+                  <code />
+                </capabilities>
+                <use-pairwise-subject-identifiers>
+                  <sector-identifier>spa-client</sector-identifier>
+                </use-pairwise-subject-identifiers>
+                <validate-port-on-loopback-interfaces>true</validate-port-on-loopback-interfaces>
+              </client>
+              <client>
+                <id>api-gateway-client</id>
+                <client-name>api-gateway-client</client-name>
+                <secret>#{INTROSPECTION_CLIENT_SECRET}</secret>
+                <capabilities>
+                  <introspection />
+                </capabilities>
+                <use-pairwise-subject-identifiers>
+                  <sector-identifier>api-gateway-client</sector-identifier>
+                </use-pairwise-subject-identifiers>
+              </client>
+            </config-backed>
+          </client-store>
+        </authorization-server>
+      </settings>
+    </profile>
+  </profiles>
+</config>
