@@ -57,4 +57,5 @@ You can remove the test cluster and free resources when you have finished testin
 
 ## More Information
 
-Please visit [curity.io](https://curity.io/) for more information about the Curity Identity Server.
+- Please visit [curity.io](https://curity.io/) for more information about the Curity Identity Server.
+- See the [Kubernetes Tutorials](https://curity.io/resources/kubernetes/) for documentation that accompanies the GitHub resources.
