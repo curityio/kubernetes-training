@@ -19,6 +19,19 @@ if [ "$LICENSE_KEY" == '' ]; then
   exit 1
 fi
 
+#
+# Create a custom Dockerfile with shared resources for all stages of the deployment pipeline
+#
+docker build --no-cache -t custom_tokenhandler:1.0.0 .
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+kind load docker-image custom_tokenhandler:1.0.0 --name demo
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
 # 
 # Create the namespace and service accounts if required
 #
