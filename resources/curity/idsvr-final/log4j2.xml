@@ -78,15 +78,15 @@
          -->
         <RollingFile name="audit-log" fileName="${env:IDSVR_HOME}/var/log/audit.log"
                      filePattern="${env:IDSVR_HOME}/var/log/audit.log.%i.gz">
+            <Rfc5424Layout appName="Curity" facility="AUDIT" newLine="true" includeMDC="false" />
+            <!--JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
+                <KeyValuePair key="hostname" value="${env:HOSTNAME}" />
+                <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd'T'HH:mm:ss.SSSZ}" />
+            </JSONLayout-->
+            
             <Policies>
                 <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>
-            <!--
-                An audit message is formatted as a Syslog (RFC 5424) compliant structured data message.
-            -->
-
-            <Rfc5424Layout appName="Curity" facility="AUDIT" newLine="true" includeMDC="false" />
-            <!--JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true"-->
         </RollingFile>
 
         <JDBC name="audit-db" tableName="audit" bufferSize="8">
@@ -191,7 +191,7 @@
             <AppenderRef ref="alarms-log"/>
         </Logger>
 
-        <AsyncRoot level="WARN">
+        <AsyncRoot level="INFO">
             <AppenderRef ref="rewritten-stdout"/>
             <AppenderRef ref="request-log"/>
             <AppenderRef ref="metrics"/>

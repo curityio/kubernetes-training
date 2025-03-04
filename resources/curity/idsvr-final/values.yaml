@@ -20,6 +20,11 @@ curity:
       name: curity-idsvr-runtime
     logging:
       level: INFO
+      ##image: 'busybox:latest'
+      #stdout: true
+      #logs:
+      #- request
+      #- audit
 
   config:
     uiEnabled: true
