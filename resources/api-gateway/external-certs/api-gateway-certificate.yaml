@@ -14,8 +14,6 @@ spec:
     - admin.testcluster.example
     - login.testcluster.example
     - logs.testcluster.example
-    - traces.testcluster.example
-    - metrics.testcluster.example
     - admin.demoapp.example
     - www.demoapp.example
     - api.demoapp.example
