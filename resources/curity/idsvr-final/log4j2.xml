@@ -25,11 +25,11 @@
         </RollingFile>
 
         <Console name="stdout" target="SYSTEM_OUT">
-            <!--PatternLayout noConsoleNoAnsi="true" pattern="%date{yyyy-MM-dd'T'HH:mm:ss:SSSZ} %highlight{%-5level}{FATAL=blink bright red, ERROR=bright red, WARN=yellow, INFO=green, DEBUG=cyan, TRACE=white} %X{RequestId} %X{SessionId} %highlight{{%thread}}{FATAL=white, ERROR=white, WARN=white, INFO=white, DEBUG=white, TRACE=white} %highlight{%logger - %msg%n}{FATAL=blink bright red, ERROR=bright red, WARN=yellow, INFO=green, DEBUG=cyan, TRACE=white}"/-->
-            <JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
+            <PatternLayout noConsoleNoAnsi="true" pattern="%date{yyyy-MM-dd'T'HH:mm:ss:SSSZ} %highlight{%-5level}{FATAL=blink bright red, ERROR=bright red, WARN=yellow, INFO=green, DEBUG=cyan, TRACE=white} %X{RequestId} %X{SessionId} %highlight{{%thread}}{FATAL=white, ERROR=white, WARN=white, INFO=white, DEBUG=white, TRACE=white} %highlight{%logger - %msg%n}{FATAL=blink bright red, ERROR=bright red, WARN=yellow, INFO=green, DEBUG=cyan, TRACE=white}"/>
+            <!--JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
                 <KeyValuePair key="hostname" value="${env:HOSTNAME}" />
                 <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd'T'HH:mm:ss.SSSZ}" />
-            </JSONLayout>
+            </JSONLayout-->
 
             <filters>
                 <MarkerFilter marker="REQUEST" onMatch="DENY" onMismatch="NEUTRAL"/>
@@ -54,13 +54,13 @@
 
         <RollingFile name="request-log" fileName="${env:IDSVR_HOME}/var/log/request.log"
                      filePattern="${env:IDSVR_HOME}/var/log/request.log.%i.gz">
-            <!--PatternLayout header="#date|request-id|client|method|uri|params|protocol|lang|accept|status|size|content-type|secure|request-headers|response-headers|duration|location|session-id%n">
+            <PatternLayout header="#date|request-id|client|method|uri|params|protocol|lang|accept|status|size|content-type|secure|request-headers|response-headers|duration|location|session-id%n">
                 <Pattern>%d{yyyy-MM-dd'T'HH:mm:ss:SSSZ}|%X{RequestId}|%K{client}|%K{method}|%K{uri}|%K{params}|%K{protocol}|%K{lang}|%K{accept}|%K{status}|%K{size}|%K{content-type}|%K{secure}|%K{request-headers}|%K{response-headers}|%K{duration}|%K{location}|%X{SessionId}%n</Pattern>
-            </PatternLayout-->
-            <JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
+            </PatternLayout>
+            <!--JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
                 <KeyValuePair key="hostname" value="${env:HOSTNAME}" />
                 <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd'T'HH:mm:ss.SSSZ}" />
-            </JSONLayout>
+            </JSONLayout-->
 
             <Policies>
                 <SizeBasedTriggeringPolicy size="10MB"/>
@@ -78,11 +78,11 @@
          -->
         <RollingFile name="audit-log" fileName="${env:IDSVR_HOME}/var/log/audit.log"
                      filePattern="${env:IDSVR_HOME}/var/log/audit.log.%i.gz">
-            <!--Rfc5424Layout appName="Curity" facility="AUDIT" newLine="true" includeMDC="false" /-->
-            <JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
+            <Rfc5424Layout appName="Curity" facility="AUDIT" newLine="true" includeMDC="false" />
+            <!--JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true">
                 <KeyValuePair key="hostname" value="${env:HOSTNAME}" />
                 <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd'T'HH:mm:ss.SSSZ}" />
-            </JSONLayout>
+            </JSONLayout-->
             
             <Policies>
                 <SizeBasedTriggeringPolicy size="10MB"/>
