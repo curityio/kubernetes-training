@@ -62,11 +62,18 @@ else
     --version "$CHART_VERSION" \
     --values values.yaml \
     --namespace apigateway \
-    --create-namespace
+    --create-namespace \
+    --wait
   if [ $? -ne 0 ]; then
     exit 1
   fi
 fi
+
+#
+# Get the service's external IP address from the cloud provider
+#
+EXTERNAL_IP=$(kubectl -n apigateway get svc kong-kong-proxy -o jsonpath="{.status.loadBalancer.ingress[0].ip}")
+echo "The load balancer external IP address is $EXTERNAL_IP"
 
 #
 # Deploy base gateway resources
