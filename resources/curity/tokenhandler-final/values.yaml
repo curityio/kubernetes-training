@@ -5,8 +5,8 @@ replicaCount: 2
 fullnameOverride: tokenhandler
 
 image:
-  repository: curity.azurecr.io/curity/idsvr
-  tag: latest
+  repository: custom_tokenhandler
+  tag: '1.0.0'
 
 curity:
   adminUiHttp: true
@@ -21,15 +21,14 @@ curity:
       name: curity-tokenhandler-runtime
     logging:
       level: INFO
+      #image: 'busybox:latest'
+      #stdout: true
+      #logs:
+      #- request
+      #- audit
 
   config:
     uiEnabled: true
-    configuration:
-    - configMapRef:
-        name: tokenhandler-config
-        items:
-        - key: tokenhandler-config
-          path: tokenhandler-config.xml
     environmentVariableConfigMaps:
     - idsvr-parameters
     environmentVariableSecrets:
