@@ -12,7 +12,7 @@ if [ "$EXISTING_PROCESS" != '' ]; then
   exit 0
 fi
 
-VERSION='0.4.0'
+VERSION='0.6.0'
 if [ "$(uname -m)" == 'arm64' ]; then
   ARCH='arm64'
 else
@@ -53,8 +53,26 @@ if [ $? -ne 0 ]; then
 fi
 
 if [ "$PLATFORM" == 'darwin' ]; then
-  echo 'Grant permissions to cloud-provider-kind to add update the KIND docker network interface ...'
+  
+  #
+  # On some macOS computers, adding an ad-hoc signature to the EXE may be required
+  #
+  echo 'Grant cloud-provider-kind macOS permissions to update the local loopback network ...'
+  codesign -s - ./cloud-provider-kind
   sudo ./cloud-provider-kind
+
+elif [ "$PLATFORM" == 'windows' ]; then
+  
+  #
+  # On Windows, make sure you run from an administrator shell
+  #
+  echo 'Running a Windows administrator shell so that cloud-provider-kind can update the local loopback network ...'
+  ./cloud-provider-kind
 else
+  
+  #
+  # On Linux, run the tool as a normal user
+  #
+  echo 'Running cloud-provider-kind on a Linux-based system ...'
   ./cloud-provider-kind
 fi
