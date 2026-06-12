@@ -38,6 +38,7 @@ fi
 kubectl create namespace curity                              2>/dev/null
 kubectl -n curity create serviceaccount curity-idsvr-admin   2>/dev/null
 kubectl -n curity create serviceaccount curity-idsvr-runtime 2>/dev/null
+kubectl -n curity create serviceaccount curity-idsvr-dbinit  2>/dev/null
 
 #
 # Protect parameters and do other preprocessing
@@ -48,16 +49,8 @@ if [ $? -ne 0 ]; then
 fi
 
 #
-# Create a database script configmap
-#
-kubectl -n curity delete configmap sql-init-script 2>/dev/null
-kubectl -n curity create configmap sql-init-script --from-file='database/dbinit.sql'
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-
-#
-# Deploy the SQL database and use external storage for a development computer
+# Deploy the Curity Identity Server's SQL database and use external storage for a development computer
+# The schema for the database is created by a job container that the Helm chart creates
 #
 kubectl -n curity apply -f database/postgres.yaml
 if [ $? -ne 0 ]; then
@@ -67,7 +60,8 @@ fi
 #
 # Use the Helm chart to run an install or upgrade
 #
-helm upgrade --install curity curity/idsvr -f values.yaml --namespace curity
+helm upgrade --install curity ../../../../idsvr-helm/idsvr -f values.yaml --namespace curity
+#helm upgrade --install curity curity/idsvr -f values.yaml --namespace curity
 if [ $? -ne 0 ]; then
   exit 1
 fi
@@ -79,4 +73,3 @@ kubectl -n curity apply -f gateway-routes.yaml
 if [ $? -ne 0 ]; then
   exit 1
 fi
-

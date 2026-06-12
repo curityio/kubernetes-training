@@ -84,15 +84,6 @@ while [ "$(curl -k -s -o /dev/null -w ''%{http_code}'' "https://localhost:6749/a
 done
 
 #
-# Get the SQL init script from the running container, which the database deployment uses
-#
-docker cp curity:/opt/idsvr/etc/postgres-create_database.sql ../database/dbinit.sql
-if [ $? -ne 0 ]; then
-  echo "*** Problem encountered copying the database script"
-  exit 1
-fi
-
-#
 # Copy the encryption script to the container
 #
 echo 'Protecting secure environment variables ...'
@@ -153,7 +144,6 @@ kubectl -n curity create configmap idsvr-parameters \
   --from-literal="RUNTIME_BASE_URL=$RUNTIME_BASE_URL" \
   --from-literal="ADMIN_BASE_URL=$ADMIN_BASE_URL" \
   --from-literal="SPA_BASE_URL=$SPA_BASE_URL" \
-  --from-literal="DB_USER=$DB_USER" \
   --from-literal="DB_DRIVER=$DB_DRIVER"
 if [ $? -ne 0 ]; then
   echo "Problem encountered creating the Kubernetes configmap containing unprotected environment variables"
@@ -168,6 +158,7 @@ kubectl -n curity create secret generic idsvr-protected-parameters \
   --from-literal="ADMIN_PASSWORD=$ADMIN_PASSWORD" \
   --from-literal="SPA_CLIENT_SECRET=$SPA_CLIENT_SECRET" \
   --from-literal="INTROSPECTION_CLIENT_SECRET=$INTROSPECTION_CLIENT_SECRET" \
+  --from-literal="DB_USER=$DB_USER" \
   --from-literal="DB_PASSWORD=$DB_PASSWORD" \
   --from-literal="DB_CONNECTION=$DB_CONNECTION" \
   --from-literal="SYMMETRIC_KEY=$SYMMETRIC_KEY" \
@@ -176,5 +167,18 @@ kubectl -n curity create secret generic idsvr-protected-parameters \
   --from-literal="CONFIG_ENCRYPTION_KEY=$CONFIG_ENCRYPTION_KEY"
 if [ $? -ne 0 ]; then
   echo "Problem encountered creating the Kubernetes secret containing protected environment variables"
+  exit 1
+fi
+
+#
+# Create parameters for the job container that initializes or upgrades the database schema
+#
+kubectl -n curity delete secret idsvr-dbinit-protected-parameters 2>/dev/null
+kubectl -n curity create secret generic idsvr-dbinit-protected-parameters \
+  --from-literal="JDBC_USERNAME=$DB_USER" \
+  --from-literal="JDBC_PASSWORD=$DB_PASSWORD_RAW" \
+  --from-literal="JDBC_URL=$DB_CONNECTION_RAW"
+if [ $? -ne 0 ]; then
+  echo "Problem encountered creating the Kubernetes secret for the job init container"
   exit 1
 fi

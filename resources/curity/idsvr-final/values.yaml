@@ -33,6 +33,15 @@ curity:
     environmentVariableSecrets:
     - idsvr-protected-parameters
 
+  dbSchemaManagementJob:
+    enabled: true
+    repository: curity.azurecr.io/curity/idsvr
+    tag: latest
+    environmentVariableSecrets:
+    - idsvr-dbinit-protected-parameters
+    serviceAccount:
+      name: curity-idsvr-dbinit
+
 networkpolicy:
   enabled: true
   apigatewayNamespace: 'apigateway'
