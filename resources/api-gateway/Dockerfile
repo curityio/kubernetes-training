@@ -1,11 +1,10 @@
 ###################################################################################################
 # A custom Docker image for advanced deployments that use the OAuth Proxy and Phantom Token plugins
 ###################################################################################################
-FROM kong/kong:3.9
+FROM kong/kong:3.9-ubuntu
 
 USER root
-RUN apt-get update
-RUN apt-get install -y git unzip
+RUN apt-get update && apt-get install -y git unzip wget
 
 #
 # Install luarocks, and set git options if required
