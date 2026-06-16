@@ -35,8 +35,6 @@ curity:
 
   dbSchemaManagementJob:
     enabled: true
-    repository: curity.azurecr.io/curity/idsvr
-    tag: latest
     environmentVariableSecrets:
     - idsvr-dbinit-protected-parameters
     serviceAccount:
