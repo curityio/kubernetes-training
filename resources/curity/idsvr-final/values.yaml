@@ -36,7 +36,7 @@ curity:
   dbSchemaManagementJob:
     enabled: true
     environmentVariableSecrets:
-    - idsvr-dbinit-protected-parameters
+    - idsvr-dbinit-parameters
     serviceAccount:
       name: curity-idsvr-dbinit
 

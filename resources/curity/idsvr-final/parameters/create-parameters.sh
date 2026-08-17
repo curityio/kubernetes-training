@@ -173,8 +173,8 @@ fi
 #
 # Create parameters for the job container that initializes or upgrades the database schema
 #
-kubectl -n curity delete secret idsvr-dbinit-protected-parameters 2>/dev/null
-kubectl -n curity create secret generic idsvr-dbinit-protected-parameters \
+kubectl -n curity delete secret idsvr-dbinit-parameters 2>/dev/null
+kubectl -n curity create secret generic idsvr-dbinit-parameters \
   --from-literal="JDBC_USERNAME=$DB_USER" \
   --from-literal="JDBC_PASSWORD=$DB_PASSWORD_RAW" \
   --from-literal="JDBC_URL=$DB_CONNECTION_RAW"
