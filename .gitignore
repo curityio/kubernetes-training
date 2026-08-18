@@ -10,7 +10,6 @@ oauth-proxy-plugin.yaml
 *.p12
 *.csr
 *.pkcs8
-*.sql
 *.zip
 *.pem
 *.srl
